@@ -39,18 +39,10 @@
 </select>
 <update id="studentUpdate" parameterType="studentDTO">
 update student
-<<<<<<< HEAD
 set  STUDENT_NAME = #{studentName}
-=======
-set  
-	STUDENT_NAME = #{studentName}
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
     ,STUDENT_ID = #{studentId}
-<<<<<<< HEAD
     ,STUDENT_EMAIL = #{studentEmail}
     ,STUDENT_BIRTH = #{studentBirth}
-=======
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
     ,STUDENT_ADDR = #{studentAddr}
     ,STUDENT_ADDR_DETAIL = #{studentAddrDetail}
     ,STUDENT_POST = #{studentPost}

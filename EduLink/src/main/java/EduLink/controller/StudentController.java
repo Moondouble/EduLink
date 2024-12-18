@@ -63,15 +63,12 @@ public class StudentController {
 	@PostMapping("studentModify")
 	public String studentModify(StudentCommand studentCommand) {
 		studentUpdateService.execute(studentCommand);
-		return "redirect:studentDetail/"+studentCommand.getStudentNum();
-<<<<<<< HEAD
+		return "redirect:studentDetail?studentNum="+studentCommand.getStudentNum();
 	}
 	@GetMapping("studentDelete")
 	public String studentDelete(@RequestParam("studentNum") String studentNum) {
 		studentDeleteService.execute(studentNum);
 		return "redirect:/";
-=======
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 	}
 	
 	
