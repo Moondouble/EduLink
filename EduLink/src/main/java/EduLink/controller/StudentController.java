@@ -47,13 +47,13 @@ public class StudentController {
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}
-	@GetMapping("studentDetail/{studentNum}")
-	public String studentDetail(@PathVariable("studentNum") String studentNum, Model model) {
+	@RequestMapping("studentDetail")
+	public String studentDetail(@RequestParam("studentNum") String studentNum, Model model) {
 		studentDetailService.execute(studentNum, model);
 		return "thymeleaf/student/studentInfo";
 	}
-	@GetMapping("studentUpdate/{studentNum}")
-	public String studentUpdate(@PathVariable("studentNum") String studentNum, Model model) {
+	@RequestMapping("studentUpdate")
+	public String studentUpdate(@RequestParam("studentNum") String studentNum, Model model) {
 		studentDetailService.execute(studentNum, model);
 		return "thymeleaf/student/studentModify";
 	}

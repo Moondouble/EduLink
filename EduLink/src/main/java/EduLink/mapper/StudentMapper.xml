@@ -39,16 +39,16 @@
 </select>
 <update id="studentUpdate" parameterType="studentDTO">
 update student
-set STUDENT_NAME = #{studentName}
+set  
+	STUDENT_NAME = #{studentName}
     ,STUDENT_ID = #{studentId}
-    ,STUDENT_PW = #{studentPw}
-    ,STUDENT_EMAIL = #{studentEmail}
-    ,STUDENT_BIRTH = #{studentBirth}
     ,STUDENT_ADDR = #{studentAddr}
     ,STUDENT_ADDR_DETAIL = #{studentAddrDetail}
     ,STUDENT_POST = #{studentPost}
     ,STUDENT_PHONE1 = #{studentPhone1}
     ,STUDENT_PHONE2 = #{studentPhone2} 
+    ,STUDENT_BIRTH = #{studentBirth}
+    ,STUDENT_EMAIL = #{studentEmail}
     ,STUDENT_IMAGE = null 
 where student_num = #{studentNum}
 </update>
