@@ -1,5 +1,7 @@
 package EduLink.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import EduLink.domain.StudentDTO;
@@ -7,4 +9,5 @@ import EduLink.domain.StudentDTO;
 @Mapper
 public interface StudentMapper {
 	public void studentInsert(StudentDTO dto);
+	public List<StudentDTO> studentSelectAll();
 }

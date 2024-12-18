@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import EduLink.command.StudentCommand;
 import EduLink.service.AutoNumService;
+import EduLink.service.student.StudentListService;
 import EduLink.service.student.StudentWriteService;
 
 @Controller
@@ -18,6 +19,8 @@ public class StudentController {
 	StudentWriteService studentWriteService;
 	@Autowired
 	AutoNumService autoNumService;
+	@Autowired
+	StudentListService studentListService;
 	@GetMapping("studentList")
 	public String studentList() {
 		return "thymeleaf/student/studentList";
@@ -25,7 +28,7 @@ public class StudentController {
 	@GetMapping("studentWrite")
 	public String studentWrite(Model model) {
 		String autoNum = autoNumService.execute("student_", "student_num", 9, "student");
-		StudentCommand studentCommand = new StudentCommand();
+		StudentCommand  studentCommand = new StudentCommand();
 		studentCommand.setStudentNum(autoNum);
 		model.addAttribute("studentCommand", studentCommand);
 		return "thymeleaf/student/studentForm";
@@ -35,5 +38,6 @@ public class StudentController {
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}
+	
 	
 }
