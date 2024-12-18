@@ -6,8 +6,8 @@
 </head>
 <body>
 학생등록 페이지입니다.<br />
-<form action="studentRegist" method="post">
-학생번호 :        	<input type="text" name="studentNum"/>자동부여<br />
+<form action="studentRegist" method="post" th:object="${studentCommand}">
+학생번호 :        	<input type="text" name="studentNum" th:value="${studentCommand.studentNum}"/>자동부여<br />
 학생아이디 :      	<input type="text" name="studentId" id="studentId"/><br />                     
 학생비밀번호 :    	<input type="password" name="studentPw" /><br />  
 학생비밀번호확인 : 	<input type="password" name="studentPwCon" /><br />
