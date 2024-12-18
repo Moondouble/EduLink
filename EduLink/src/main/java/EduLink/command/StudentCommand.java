@@ -2,6 +2,8 @@ package EduLink.command;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,14 +16,14 @@ public class StudentCommand {
 	String studentPw;
 	String studentEmail;
 	String studentEmailConf;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date studentRegist;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date studentBirth;
 	String studentJumin;
-	String memberPost;
 	String studentAddr;
 	String studentAddrDetail;
 	String studentPost;
-	String memberPhone1;
 	String studentPhone1;
 	String studentPhone2;
 	String studentImage;
