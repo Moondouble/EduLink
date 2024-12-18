@@ -9,9 +9,9 @@
 <table border=1>
 <tr><td>번호</td><td>아이디</td><td>이름</td></tr>
 <tr th:each="dto : ${list}">
-<td><a th:href="|studentDetail/${dto.studentNum}|">[[${dto.studentNum}]]</a></td>
-<td><a th:href="|studentDetail/${dto.studentNum}|">[[${dto.studentId}]]</a></td>
-<td><a href="#">[[${dto.studentName}]]</a></td></tr>
+<td><a th:href="|studentDetail?studentNum=${dto.studentNum}|">[[${dto.studentNum}]]</a></td>
+<td><a th:href="|studentDetail?studentNum=${dto.studentNum}|">[[${dto.studentId}]]</a></td>
+<td><a th:href="|studentDetail?studentNum=${dto.studentNum}|">[[${dto.studentName}]]</a></td></tr>
 </table>
 
 <a href="studentWrite">회원가입</a>
