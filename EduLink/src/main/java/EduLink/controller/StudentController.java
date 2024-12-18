@@ -24,10 +24,12 @@ public class StudentController {
 	}
 	@GetMapping("studentWrite")
 	public String studentWrite(Model model) {
+		/*
 		String autoNum = autoNumService.execute("student_", "student_num", 9, "student");
 		StudentCommand  studentCommand = new StudentCommand();
 		studentCommand.setStudentNum(autoNum);
 		model.addAttribute("studentCommand", studentCommand);
+		*/
 		return "thymeleaf/student/studentForm";
 	}
 	@PostMapping("studentRegist")

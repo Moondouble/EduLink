@@ -14,7 +14,7 @@
 <insert id="studentInsert" parameterType="studentDTO">    
 insert into student ( <include refid="studentColumnsBase" /> )
 values(#{studentNum}, #{studentName}, #{studentId}, #{studentPw}
-	      ,#{studentEmail}, 0 ,sysdate
+	      ,#{studentEmail}, null ,sysdate
 	      ,#{studentBirth}, #{studentJumin}, #{studentAddr}
 	      ,#{studentAddrDetail},#{studentPost},#{studentPhone1}
 	      ,#{studentPhone2}, null)
