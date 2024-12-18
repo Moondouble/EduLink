@@ -29,7 +29,8 @@ public class StudentController {
 	@Autowired
 	StudentUpdateService studentUpdateService;
 	@GetMapping("studentList")
-	public String studentList() {
+	public String studentList(Model model) {
+		studentListService.execute(model);
 		return "thymeleaf/student/studentList";
 	}
 	@GetMapping("studentWrite")
