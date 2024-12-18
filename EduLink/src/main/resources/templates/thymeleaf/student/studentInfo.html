@@ -17,7 +17,7 @@
 등록일 : [[${#dates.format(studentCommand.studentRegist ,'yyyy-MM-dd')}]]<br />
 생년월일 :[[${#dates.format(studentCommand.studentBirth,  'yyyy-MM-dd')}]]<br />
 이메일 : [[${studentCommand.studentEmail }]]<br />
-<a th:href="|studentUpdate?studentNum=${studentCommand.studentNum}|">회원 수정</a> | 
+<a th:href="|../studentUpdate?studentNum=${studentCommand.studentNum}|">회원 수정</a> | 
 <a href="#">회원 강제 탈퇴</a> |
 <a href="studentList">회원목록</a>
 </body>
