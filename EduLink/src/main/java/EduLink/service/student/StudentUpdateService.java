@@ -13,9 +13,9 @@ public class StudentUpdateService {
 	StudentMapper studentMapper;
 	public void execute(StudentCommand studentCommand) {
 		StudentDTO dto = new StudentDTO();
+		dto.setStudentNum(studentCommand.getStudentNum());
 		dto.setStudentName(studentCommand.getStudentName());
 		dto.setStudentId(studentCommand.getStudentId());
-		dto.setStudentPw(studentCommand.getStudentPw());
 		dto.setStudentEmail(studentCommand.getStudentEmail());
 		dto.setStudentBirth(studentCommand.getStudentBirth());
 		dto.setStudentAddr(studentCommand.getStudentAddr());

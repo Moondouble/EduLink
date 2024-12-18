@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.StudentCommand;
 import EduLink.service.AutoNumService;
+import EduLink.service.student.StudentDeleteService;
 import EduLink.service.student.StudentDetailService;
 import EduLink.service.student.StudentListService;
 import EduLink.service.student.StudentUpdateService;
@@ -29,6 +30,8 @@ public class StudentController {
 	StudentDetailService studentDetailService;
 	@Autowired
 	StudentUpdateService studentUpdateService;
+	@Autowired
+	StudentDeleteService studentDeleteService;
 	@GetMapping("studentList")
 	public String studentList(Model model) {
 		studentListService.execute(model);
@@ -60,7 +63,12 @@ public class StudentController {
 	@PostMapping("studentModify")
 	public String studentModify(StudentCommand studentCommand) {
 		studentUpdateService.execute(studentCommand);
-		return "redirect:studentDetail?studentNum="+studentCommand.getStudentNum();
+		return "redirect:studentDetail/"+studentCommand.getStudentNum();
+	}
+	@GetMapping("studentDelete")
+	public String studentDelete(@RequestParam("studentNum") String studentNum) {
+		studentDeleteService.execute(studentNum);
+		return "redirect:/";
 	}
 	
 	

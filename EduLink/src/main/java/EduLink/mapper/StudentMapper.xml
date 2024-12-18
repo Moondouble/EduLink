@@ -39,9 +39,8 @@
 </select>
 <update id="studentUpdate" parameterType="studentDTO">
 update student
-set STUDENT_NAME = #{studentName}
+set  STUDENT_NAME = #{studentName}
     ,STUDENT_ID = #{studentId}
-    ,STUDENT_PW = #{studentPw}
     ,STUDENT_EMAIL = #{studentEmail}
     ,STUDENT_BIRTH = #{studentBirth}
     ,STUDENT_ADDR = #{studentAddr}
@@ -52,4 +51,7 @@ set STUDENT_NAME = #{studentName}
     ,STUDENT_IMAGE = null 
 where student_num = #{studentNum}
 </update>
+<delete id="studentDelete" parameterType="string">
+delete from student where student_num = #{studentNum}
+</delete>
 </mapper>
