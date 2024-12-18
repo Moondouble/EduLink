@@ -10,4 +10,5 @@ import EduLink.domain.StudentDTO;
 public interface StudentMapper {
 	public void studentInsert(StudentDTO dto);
 	public List<StudentDTO> studentSelectAll();
+	public StudentDTO studentSelectOne(String studentNum);
 }
