@@ -6,7 +6,7 @@
 </head>
 <body>
 회원수정 페이지입니다.<br />
-<form action="studentModify" method="post" th:object="${studentCommand}"><!-- dto -->
+<form action="../studentModify" method="post" th:object="${studentCommand}"><!-- dto -->
 <input type="hidden" name="studentPw" value="!111Qqqq" />
 <input type="hidden" name="studentPwCon" value="!111Qqqq" />
 학생번호 : <input type="text" th:field="*{studentNum}" name="studentNum"><br />
