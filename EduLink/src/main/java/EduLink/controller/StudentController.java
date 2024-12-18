@@ -27,7 +27,8 @@ public class StudentController {
 	StudentDetailService studentDetailService;
 	
 	@GetMapping("studentList")
-	public String studentList() {
+	public String studentList(Model model) {
+		studentListService.execute(model);
 		return "thymeleaf/student/studentList";
 	}
 	@GetMapping("studentWrite")
