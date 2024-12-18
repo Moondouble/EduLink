@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,13 +47,13 @@ public class StudentController {
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}
-	@GetMapping("studentDetail")
-	public String studentDetail(@RequestParam("studentNum") String studentNum, Model model) {
+	@GetMapping("studentDetail/{studentNum}")
+	public String studentDetail(@PathVariable("studentNum") String studentNum, Model model) {
 		studentDetailService.execute(studentNum, model);
 		return "thymeleaf/student/studentInfo";
 	}
-	@GetMapping("studentUpdate")
-	public String studentUpdate(@RequestParam("studentNum") String studentNum, Model model) {
+	@GetMapping("studentUpdate/{studentNum}")
+	public String studentUpdate(@PathVariable("studentNum") String studentNum, Model model) {
 		studentDetailService.execute(studentNum, model);
 		return "thymeleaf/student/studentModify";
 	}

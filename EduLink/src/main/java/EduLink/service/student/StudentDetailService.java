@@ -14,7 +14,6 @@ public class StudentDetailService {
 	public void execute(String studentNum, Model model) {
 		StudentDTO dto = studentMapper.studentSelectOne(studentNum);
 		model.addAttribute("studentCommand", dto);
-		
 	}
 	
 }
