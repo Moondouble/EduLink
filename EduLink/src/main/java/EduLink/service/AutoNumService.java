@@ -11,6 +11,7 @@ public class AutoNumService {
 	AutoNumMapper autoNumMapper;
 	public String execute(String sep, String columnName, Integer len
 			,String tableName ) {
+		System.out.println(sep+"/"+columnName+"/"+len+"/"+tableName);
 		String autoNum = autoNumMapper.AutoNumSelect(sep, columnName, len,tableName);
 		return autoNum;
 	}

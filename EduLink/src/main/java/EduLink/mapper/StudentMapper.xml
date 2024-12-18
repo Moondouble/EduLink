@@ -4,25 +4,32 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="EduLink.mapper.StudentMapper">
 <sql id="studentColumnsBase">
-	 STUDENT_NUM, STUDENT_NAME, STUDENT_ID, STUDENT_PW
-	                   , STUDENT_EMAIL, STUDENT_EMAIL_CONF, STUDENT_REGIST
-	                   , STUDENT_BIRTH, STUDENT_JUMIN, STUDENT_ADDR
-	                   , STUDENT_ADDR_DETAIL
-	                   , STUDENT_POST, STUDENT_PHONE1, STUDENT_PHONE2
-	                   , STUDENT_IMAGE
-</sql>	    
-<insert id="studentInsert" parameterType="studentDTO">    
-insert into student ( <include refid="studentColumnsBase" /> )
-values(#{studentNum}, #{studentName}, #{studentId}, #{studentPw}
-	      ,#{studentEmail}, null ,sysdate
-	      ,#{studentBirth}, #{studentJumin}, #{studentAddr}
-	      ,#{studentAddrDetail},#{studentPost},#{studentPhone1}
-	      ,#{studentPhone2}, null)
+    STUDENT_NUM as studentNum, STUDENT_NAME as studentName, STUDENT_ID as studentId, STUDENT_PW as studentPw,
+    STUDENT_EMAIL as studentEmail, STUDENT_EMAIL_CONF as studentEmailConf, STUDENT_REGIST as studentRegist,
+    STUDENT_BIRTH as studentBirth, STUDENT_JUMIN as studentJumin, STUDENT_ADDR as studentAddr,
+    STUDENT_ADDR_DETAIL as studentAddrDetail, STUDENT_POST as studentPost, STUDENT_PHONE1 as studentPhone1,
+    STUDENT_PHONE2 as studentPhone2, STUDENT_IMAGE as studentImage
+</sql>
+
+<insert id="studentInsert" parameterType="studentDTO">
+    insert into student (
+        STUDENT_NUM, STUDENT_NAME, STUDENT_ID, STUDENT_PW,
+        STUDENT_EMAIL, STUDENT_EMAIL_CONF, STUDENT_REGIST,
+        STUDENT_BIRTH, STUDENT_JUMIN, STUDENT_ADDR,
+        STUDENT_ADDR_DETAIL, STUDENT_POST, STUDENT_PHONE1,
+        STUDENT_PHONE2, STUDENT_IMAGE
+    )
+    values (
+        #{studentNum}, #{studentName}, #{studentId}, #{studentPw},
+        #{studentEmail}, null, sysdate,
+        #{studentBirth}, #{studentJumin}, #{studentAddr},
+        #{studentAddrDetail}, #{studentPost}, #{studentPhone1},
+        #{studentPhone2}, null
+    )
 </insert>
-<select id="stduen">
 
-
-
-
+<select id="studentSelectAll" resultType="studentDTO">
+    select <include refid="studentColumnsBase" />
+    from student
 </select>
 </mapper>
