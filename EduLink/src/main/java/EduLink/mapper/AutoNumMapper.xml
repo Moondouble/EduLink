@@ -6,5 +6,5 @@
 <select id="AutoNumSelect" resultType="string">
         select concat(#{sep}, nvl(max(substr(${columnName}, ${len})), 100000) + 1)
         from ${tableName}
-    </select>
+</select>
 </mapper>
