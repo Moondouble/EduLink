@@ -51,9 +51,10 @@ set STUDENT_NAME = #{studentName}
     ,STUDENT_PHONE2 = #{studentPhone2} 
     ,STUDENT_IMAGE = null 
 where student_num = #{studentNum}
-
-
-
-
 </update>
+<select id="studentSelectOne" parameterType="string" resultType="studentDTO">
+	select <include refid="studentColumnsBase" />
+	from student
+	where student_num = #{studentNum}
+</select>
 </mapper>
