@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+회원상세페이지입니다.<br />
+회원번호 : [[${studentCommand.studentNum }]]<br />
+이름 : [[${studentCommand.studentName }]]<br />
+아이디 : [[${studentCommand.studentId }]]<br />
+주소 : [[${studentCommand.studentAddr }]]<br />
+상세주소 : [[${studentCommand.studentAddrDetail }]]<br />
+우편번호 : [[${studentCommand.studentPost }]]<br />
+연락처1 : [[${studentCommand.studentPhone1 }]]<br />
+연락처2 : [[${studentCommand.studentPhone2 }]]<br />
+등록일 : [[${#dates.format(studentCommand.studentRegist ,'yyyy-MM-dd')}]]<br />
+생년월일 :[[${#dates.format(studentCommand.studentBirth,  'yyyy-MM-dd')}]]<br />
+이메일 : [[${studentCommand.studentEmail }]]<br />
+<a href="#">회원 수정</a> | 
+<a href="#">회원 강제 탈퇴</a> |
+<a href="studentList">회원목록</a>
+</body>
+</html>
+
+
+
+
+
+
