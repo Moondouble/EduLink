@@ -19,4 +19,10 @@ values(#{studentNum}, #{studentName}, #{studentId}, #{studentPw}
 	      ,#{studentAddrDetail},#{studentPost},#{studentPhone1}
 	      ,#{studentPhone2}, null)
 </insert>
+<select id="stduen">
+
+
+
+
+</select>
 </mapper>
