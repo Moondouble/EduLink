@@ -48,8 +48,6 @@ set  STUDENT_NAME = #{studentName}
     ,STUDENT_POST = #{studentPost}
     ,STUDENT_PHONE1 = #{studentPhone1}
     ,STUDENT_PHONE2 = #{studentPhone2} 
-    ,STUDENT_BIRTH = #{studentBirth}
-    ,STUDENT_EMAIL = #{studentEmail}
     ,STUDENT_IMAGE = null 
 where student_num = #{studentNum}
 </update>
