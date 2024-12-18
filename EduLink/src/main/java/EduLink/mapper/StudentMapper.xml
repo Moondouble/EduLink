@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.StudentMapper">
+<sql id="studentColumnsBase">
+	 STUDENT_NUM, STUDENT_NAME, STUDENT_ID, STUDENT_PW
+	                   , STUDENT_EMAIL, STUDENT_EMAIL_CONF, STUDENT_REGIST
+	                   , STUDENT_BIRTH, STUDENT_JUMIN, STUDENT_ADDR
+	                   , STUDENT_ADDR_DETAIL
+	                   , STUDENT_POST, STUDENT_PHONE1, STUDENT_PHONE2
+	                   , STUDENT_IMAGE
+</sql>	    
+<insert id="studentInsert" parameterType="studentDTO">    
+insert into student ( <include refid="studentColumnsBase" /> )
+values(#{studentNum}, #{studentName}, #{studentId}, #{studentPw}
+	      ,#{studentEmail}, 0 ,sysdate
+	      ,#{studentBirth}, #{studentJumin}, #{studentAddr}
+	      ,#{studentAddrDetail},#{studentPost},#{studentPhone1}
+	      ,#{studentPhone2}, null)
+</insert>
+</mapper>
