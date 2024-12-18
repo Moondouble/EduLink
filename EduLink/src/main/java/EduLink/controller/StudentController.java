@@ -60,7 +60,7 @@ public class StudentController {
 	@PostMapping("studentModify")
 	public String studentModify(StudentCommand studentCommand) {
 		studentUpdateService.execute(studentCommand);
-		return "redirect:studentDetail?studentNum="+studentCommand.getStudentNum();
+		return "redirect:studentDetail/"+studentCommand.getStudentNum();
 	}
 	
 	

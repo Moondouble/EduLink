@@ -12,7 +12,9 @@ public class StudentUpdateService {
 	@Autowired
 	StudentMapper studentMapper;
 	public void execute(StudentCommand studentCommand) {
+		
 		StudentDTO dto = new StudentDTO();
+		dto.setStudentNum(studentCommand.getStudentNum());
 		dto.setStudentName(studentCommand.getStudentName());
 		dto.setStudentId(studentCommand.getStudentId());
 		dto.setStudentPw(studentCommand.getStudentPw());
