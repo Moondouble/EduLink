@@ -45,8 +45,7 @@ public class StudentController {
 		return "redirect:/";
 	}
 	@GetMapping("studentDetail/{studentNum}")
-	public String studentDetail(@PathVariable("studentNum") String studentNum
-			,Model model) {
+	public String studentDetail(@PathVariable("studentNum") String studentNum, Model model) {
 		studentDetailService.execute(model, studentNum);
 		return "thymeleaf/student/studentInfo";
 	}

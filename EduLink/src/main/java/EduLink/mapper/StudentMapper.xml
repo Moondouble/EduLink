@@ -36,6 +36,6 @@
 <select id="studentSelectOne" parameterType="string" resultType="studentDTO">
 	select <include refid="studentColumnsBase" />
 	from student
-	where studentNum = #{studentNum}
+	where student_num = #{studentNum}
 </select>
 </mapper>
