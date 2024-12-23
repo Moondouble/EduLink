@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.ClassroomMapper">
+<sql id="classroomColumnBase">
+CLASS_NUM as classNum
+,TEACHER_NUM as teacherNum
+,CLASS_NAME as className
+,CLASS_CONTENTS as classContents
+,CLASS_START_DATE as classStartDate
+,CLASS_END_DATE as classEndDate           
+,CLASS_WEEK as classWeek
+</sql>
+
+<select id="classSelectAll">
+select <include refid="classroomColumnBase"></include> from classroom
+</select>
+<select id="classSelectOne">
+select <include refid="classroomColumnBase"></include> from classroom
+where class_Num = #{classNum}
+</select>
+
+<insert id="classroomInsert" parameterType="classroomDTO">
+Insert into classroom 
+(CLASS_NUM ,TEACHER_NUM ,CLASS_NAME,CLASS_CONTENTS ,CLASS_START_DATE, CLASS_END_DATE)
+values (#{classNum},#{teacherNum},#{className},#{classContents},#{classStartDate},#{classEndDate})
+</insert>
+
+<update id="classUpdate" parameterType="classroomDTO">
+update classroom
+set TEACHER_NUM = #{teacherNum}
+	,CLASS_NAME = #{className}
+	,CLASS_CONTENTS = #{classContents}
+	,CLASS_START_DATE = #{classStartDate}
+	,CLASS_END_DATE = #{classEndDate}
+	,CLASS_WEEK = #{classWeek}
+where class_num = #{classNum}
+</update>
+
+<delete id="classDelete" parameterType="string">
+delete from classroom where class_num = #{classNum}
+</delete>
+</mapper>

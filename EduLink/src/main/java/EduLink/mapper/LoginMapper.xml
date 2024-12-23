@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.LoginMapper">
+
+    <select id="idCheckSelectOne" parameterType="string" resultType="integer"> 
+        select 1 from student where student_id = #{userId}
+        union
+        select 1 from teacher where teacher_id = #{userId}
+    </select>
+
+    <select id="emailCheckSelectOne" parameterType="string" resultType="integer">
+        select 1 from student where student_email = #{userEmail}
+        union
+        select 1 from teacher where teacher_email = #{userEmail}
+    </select>
+
+    <resultMap type="auth" id="authResultMap">
+        <result column="student_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="student_pw" property="userPw" jdbcType="VARCHAR"/>
+        <result column="student_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="student_email" property="userEmail" jdbcType="VARCHAR"/>
+        <result column="grade" property="grade" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="loginSelectOne" parameterType="string" resultMap="authResultMap">
+        select student_id, student_pw, student_name, student_email, 'student' as grade
+        from student
+        where student_id = #{userId}
+        union
+        select teacher_id, teacher_pw, teacher_name, teacher_email, 'teacher' as grade
+        from teacher
+        where teacher_id = #{userId}
+    </select>
+
+</mapper>

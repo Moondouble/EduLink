@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>loginPage.html</title>
+</head>
+<body>
+ <form action="login" method="post" class="login-form" th:object="${loginCommand}">
+                <table border="1" align="center">
+                    <tr><td>아이디</td><td><input type="text" name="userId" th:value="${loginCommand.userId}" /></td></tr>
+                    <tr><td>비밀번호</td><td><input type="password" name="userPw" th:value="${loginCommand.userPw}"/></td></tr>
+                    <tr><td colspan="2"><input type="submit" value="로그인"></td></tr>
+                    <tr><td><a href="../login/registSelect">회원가입</a></td><td><a href="find">아이디/비밀번호 찾기</a></td></tr>
+                </table>
+            </form>
+</body>
+</html>

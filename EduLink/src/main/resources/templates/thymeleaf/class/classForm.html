@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>classForm.html</title>
+</head>
+<body>
+강의개설 페이지입니다.<br />
+<form action="classRegist" method="post" th:object="${classroomCommand}">
+강의번호 :        	<input type="text" name="classNum" th:value="${classroomCommand.classNum}" readonly="readonly"/>자동부여<br />
+강사번호 :      	<input type="text" name="teacherNum" id="teacherNum" th:value="${classroomCommand.teacherNum}"/><br />                     
+강의명 :         	<input type="text" name="className" th:value="${classroomCommand.className}"/><br />            
+강의내용 : 		<input type="text" name="classContents" th:value="${classroomCommand.classContents}"/><br />            
+강의시작일 : 		<input type="date" name="classStartDate"  th:value="${classroomCommand.classStartDate}"/><br />
+강의종료일 : 		<input type="date" name="classEndDate"  th:value="${classroomCommand.classEndDate}"/><br />               
+<input type="submit" value="강의개설" />
+</form>
+</body>
+</html>
