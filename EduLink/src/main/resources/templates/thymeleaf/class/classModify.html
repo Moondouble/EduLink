@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+강의 정보 수정 페이지입니다.<br />
+<form action="classModify" method="post" th:object="${classroomCommand}"><!-- dto -->
+학생번호 : <input type="text" th:field="*{classNum}" name="classNum"><br />
+강사번호 : <input type="text" name="teacherNum" th:field="*{teacherNum}"/><br />
+강의명 : <input type="text" name="className" th:field="*{className}"/><br />
+강의내용 : <input type="text" name="classContents" th:field="*{classContents}"/><br />
+강의시작일 : <input type="date" name="classStartDate" 
+		th:value="${#dates.format(classroomCommand.classStartDate,'yyyy-MM-dd')}" /><br />
+강의종료일 : <input type="date" name="classEndDate" 
+		th:value="${#dates.format(classroomCommand.classEndDate,'yyyy-MM-dd')}" /><br />
+강의회차 : <input type="text" name="classWeek" id="classWeek" th:field="*{classWeek}"/>
+<input type="submit" value="수정 완료" /> 
+</body>
+</html>
