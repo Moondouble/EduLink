@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>teacherList.html</title>
+</head>
+<body>
+교육자 목록<br>
+<table border=1>
+<tr><td>번호</td><td>아이디</td><td>이름</td></tr>
+<tr th:each="dto : ${list}">
+<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherNum}]]</a></td>
+<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherId}]]</a></td>
+<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherName}]]</a></td></tr>
+</table>
+
+<a href="teacherWrite">회원가입</a>
+</body>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>teacherModify.html</title>
+</head>
+<body>
+교육자수정 페이지입니다.<br />
+<form action="teacherModify" method="post" th:object="${teacherCommand}"><!-- dto -->
+<input type="hidden" name="teacherPw" value="!111Qqqq" />
+<input type="hidden" name="teacherPwCon" value="!111Qqqq" />
+학생번호 : <input type="text" th:field="*{teacherNum}" name="teacherNum"><br />
+이름 : <input type="text" name="teacherName" th:field="*{teacherName}"/><br />
+아이디 : <input type="text" name="teacherId" th:field="*{teacherId}"/><br />
+주소 : <input type="text" name="teacherAddr" th:field="*{teacherAddr}" /><br />
+상세주소 : <input type="text" name="teacherAddrDetail" th:field="*{teacherAddrDetail}"/><br />
+우편번호 : <input type="text" name="teacherPost" th:field="*{teacherPost}"/><br />
+휴대폰 : <input type="tel" name="teacherPhone1" th:field="*{teacherPhone1}"/><br />
+일반전화 : <input type="tel" name="teacherPhone2" th:field="*{teacherPhone2}"/><br />
+등록일 : <input type="date" name="teacherRegist" 
+		th:value="${#dates.format(teacherCommand.teacherRegist,'yyyy-MM-dd')}" /><br />
+이메일 : <input type="email" name="teacherEmail" id="userEamil" th:field="*{teacherEmail}"/>
+<input type="submit" value="회원수정 완료" /> 
+<input type="button" value="회원목록">
+</body>
+</html>

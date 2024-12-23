@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>teacherInfo.html</title>
+</head>
+<body>
+교육자상세페이지입니다.<br />
+교육자번호 : [[${teacherCommand.teacherNum }]]<br />
+이름 : [[${teacherCommand.teacherName }]]<br />
+아이디 : [[${teacherCommand.teacherId }]]<br />
+주소 : [[${teacherCommand.teacherAddr }]]<br />
+상세주소 : [[${teacherCommand.teacherAddrDetail }]]<br />
+우편번호 : [[${teacherCommand.teacherPost }]]<br />
+휴대폰 : [[${teacherCommand.teacherPhone1 }]]<br />
+일반전화 : [[${teacherCommand.teacherPhone2 }]]<br />
+등록일 : [[${#dates.format(teacherCommand.teacherRegist ,'yyyy-MM-dd')}]]<br />
+이메일 : [[${teacherCommand.teacherEmail }]]<br />
+<a th:href="|teacherUpdate?teacherNum=${teacherCommand.teacherNum}|">교육자 수정</a> | 
+<a th:href="|teacherDelete?teacherNum=${teacherCommand.teacherNum}|">교육자 강제 탈퇴</a> |
+<a href="teacherList">교육자 목록</a>
+</body>
+</html>
+
+
+
+
+
+

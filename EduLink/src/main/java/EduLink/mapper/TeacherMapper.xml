@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.TeacherMapper">
+<sql id="teacherColumnsBase">
+    TEACHER_NUM as teacherNum, TEACHER_ID as teacherId, TEACHER_NAME as teacherName, TEACHER_EMAIL as teacherEmail
+    , TEACHER_EMAIL_CONF as teacherEmailConf, TEACHER_REGIST as teacherRegist, TEACHER_PW as teacherPw
+    ,TEACHER_ADDR as teacherAddr, TEACHER_ADDR_DETAIL as teacherAddrDetail, TEACHER_JUMIN as teacherJumin
+    ,TEACHER_POST as teacherPost, TEACHER_PHONE1 as teacherPhone1, TEACHER_PHONE2 as teacherPhone2
+    ,TEACHER_IMAGE as teacherImage
+</sql>
+<insert id="teacherInsert" parameterType="teacherDTO">
+    insert into teacher (
+        TEACHER_NUM, TEACHER_ID, TEACHER_NAME, TEACHER_EMAIL
+        ,TEACHER_EMAIL_CONF, TEACHER_REGIST, TEACHER_PW
+        ,TEACHER_ADDR, TEACHER_ADDR_DETAIL, TEACHER_JUMIN
+        ,TEACHER_POST, TEACHER_PHONE1, TEACHER_PHONE2
+        ,TEACHER_IMAGE
+    )
+    values (
+        #{teacherNum}, #{teacherId}, #{teacherName}, #{teacherEmail}
+        ,null, sysdate, #{teacherPw}
+        ,#{teacherAddr}, #{teacherAddrDetail}, #{teacherJumin}
+        ,#{teacherPost}, #{teacherPhone1}, #{teacherPhone2}
+        ,null
+    )
+</insert>
+<select id="teacherSelectAll" resultType="teacherDTO">
+    select <include refid="teacherColumnsBase" />
+    from teacher
+</select>
+<select id="teacherSelectOne" parameterType="string" resultType="teacherDTO">
+     select <include refid="teacherColumnsBase" />
+     from teacher
+     where teacher_num = #{teacherNum}
+</select>
+<update id="teacherUpdate" parameterType="teacherDTO">
+update teacher
+set  TEACHER_NAME = #{teacherName}
+    ,TEACHER_ID = #{teacherId}
+    ,TEACHER_EMAIL = #{teacherEmail}
+    ,TEACHER_ADDR = #{teacherAddr}
+    ,TEACHER_ADDR_DETAIL = #{teacherAddrDetail}
+    ,TEACHER_POST = #{teacherPost}
+    ,TEACHER_PHONE1 = #{teacherPhone1}
+    ,TEACHER_PHONE2 = #{teacherPhone2} 
+    ,TEACHER_IMAGE = null 
+where TEACHER_NUM = #{teacherNum}
+</update>
+<delete id="teacherDelete" parameterType="string">
+delete from teacher where teacher_num = #{teacherNum}
+</delete>
+</mapper>

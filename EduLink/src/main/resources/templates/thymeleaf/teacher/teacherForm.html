@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>teacherForm.html</title>
+</head>
+<body>
+<form action="teacherRegist" method="post" th:object="${teacherCommand}">
+교육자번호 :        	<input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}"/>자동부여<br />
+교육자아이디 :      	<input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}"/><br />                     
+교육자비밀번호 :    	<input type="password" name="teacherPw" th:value="${teacherCommand.teacherPw}"/><br />  
+교육자비밀번호확인 : 	<input type="password" name="teacherPwCon"/><br />
+교육자명 :         	<input type="text" name="teacherName" th:value="${teacherCommand.teacherName}"/><br />            
+교육자주소 : 		<input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherPost}"/>
+                <button type="button" onclick="execDaumPostcode();">우편번호검색</button><br />
+상세주소 : 		<input type="text" name="teacherAddrDetail" th:value="${teacherCommand.teacherAddrDetail}"/><br />
+우편번호 : 		<input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" /><br />
+휴대폰 : 		    <input type="tel" name="teacherPhone1" th:value="${teacherCommand.teacherPhone1}"/><br />            
+일반전화 : 		<input type="tel" name="teacherPhone2" th:value="${teacherCommand.teacherPhone2}"/><br />
+주민등록번호 :      <input type="text" name="teacherJumin" th:value="${teacherCommand.teacherJumin}"/><br />
+교육자이메일 : 		<input type="email" name="teacherEmail" th:value="${teacherCommand.teacherEmail}"/><br />               
+<input type="submit" value="학생등록" />
+</form>
+</body>
+</html>
