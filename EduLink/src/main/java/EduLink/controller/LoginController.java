@@ -18,39 +18,39 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("login")
 public class LoginController {
-	@Autowired
-	IdcheckService idcheckService;
-	@Autowired
-	UserLoginService userLoginService;
-	// spring 방식
-	@PostMapping("userIdCheck")
-	public @ResponseBody Integer userIdCheck(String userId) {
-		// html, jsp파일경로(x)
-		return idcheckService.execute(userId);
-		
-	}
-	@GetMapping("loginPage")
-	public String loginPage(Model model) {
-		 model.addAttribute("loginCommand", new LoginCommand());
-		return "thymeleaf/login/loginPage";
-	}
-	@PostMapping("login")
-	public String login(@Validated LoginCommand loginCommand
-			,BindingResult result
-			,HttpSession session) {
-		userLoginService.execute(loginCommand, session, result);
-		if(result.hasErrors()) {
-			return "redirect:/";
-		}
-		System.out.println("User ID: " + loginCommand.getUserId());
+   @Autowired
+   IdcheckService idcheckService;
+   @Autowired
+   UserLoginService userLoginService;
+   // spring 방식
+   @PostMapping("userIdCheck")
+   public @ResponseBody Integer userIdCheck(String userId) {
+      // html, jsp파일경로(x)
+      return idcheckService.execute(userId);
+      
+   }
+   @GetMapping("loginPage")
+   public String loginPage(Model model) {
+       model.addAttribute("loginCommand", new LoginCommand());
+      return "thymeleaf/login/loginPage";
+   }
+   @PostMapping("login")
+   public String login(@Validated LoginCommand loginCommand
+         ,BindingResult result
+         ,HttpSession session) {
+      userLoginService.execute(loginCommand, session, result);
+      if(result.hasErrors()) {
+         return "thymeleaf/login/loginPage";
+      }
+      System.out.println("User ID: " + loginCommand.getUserId());
         System.out.println("Password: " + loginCommand.getUserPw());
-		return "redirect:/";
-	}
-	@GetMapping("logout")
-	public String logout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
-	}
+      return "redirect:/";
+   }
+   @GetMapping("logout")
+   public String logout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/";
+   }
 }
 
 
