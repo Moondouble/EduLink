@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+게시판상세페이지입니다.<br />
+게시판번호 : [[${boardCommand.boardNum }]]<br />
+강의번호 : [[${boardCommand.classNum }]]<br />
+학생번호 : [[${boardCommand.studentNum }]]<br />
+교육자번호 : [[${boardCommand.teacherNum }]]<br />
+글번호 : [[${boardCommand.writeNum }]]<br />
+제목 : [[${boardCommand.boardName }]]<br />
+내용 : [[${boardCommand.boardContents }]]<br />
+등록일 : [[${#dates.format(boardCommand.boardDate ,'yyyy-MM-dd')}]]<br />
+<a th:href="|boardUpdate?writeNum=${boardCommand.writeNum}|">수정</a> | 
+<a th:href="|boardDelete?writeNum=${boardCommand.writeNum}|">삭제</a> |
+<a href="boardList">회원목록</a>
+</body>
+</html>

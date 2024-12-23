@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+게시글 목록<br>
+<table border=1>
+<tr><td>번호</td><td>제목</td><td>작성자</td><td>내용</td></tr>
+<tr th:each="dto : ${list}">
+<td><a th:href="|boardDetail?writeNum=${dto.writeNum}|">[[${dto.writeNum}]]</a></td>
+<td><a th:href="|boardDetail?writeNum=${dto.writeNum}|">[[${dto.boardName}]]</a></td>
+<td>[[${dto.studentNum}]]</a></td>
+<td>[[${dto.boardContents}]]</a></td>
+</table>
+
+<a href="boardWrite">글작성</a>
+</body>
+</html>

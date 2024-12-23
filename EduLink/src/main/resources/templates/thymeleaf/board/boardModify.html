@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+글수정 페이지입니다.<br />
+<form action="boardModify" method="post" th:object="${boardCommand}"><!-- dto -->
+글번호 : <input type="text" name="writeNum" th:field="*{writeNum}" readonly="readonly" /><br />
+제목 : <input type="text" name="boardName" th:field="*{boardName}"/><br />
+내용 : <input type="text" name="boardContents" th:field="*{boardContents}"/><br />
+<input type="submit" value="글수정 완료" />
+<input type="button" value="게시글목록">
+</body>
+</html>

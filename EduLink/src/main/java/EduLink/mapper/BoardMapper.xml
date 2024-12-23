@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.BoardMapper">
+<sql id="boardColumnsBase">
+BOARD_NUM as boardNum, CLASS_NUM as classNum, STUDENT_NUM as studentNum, TEACHER_NUM as teacherNum
+, WRITE_NUM as writeNum, BOARD_NAME as boardName, BOARD_CONTENTS as boardContents, BOARD_DATE as boardDate
+</sql>
+
+<insert id="boardInsert" parameterType="boardDTO">
+insert into board(BOARD_NUM, CLASS_NUM, STUDENT_NUM, TEACHER_NUM, WRITE_NUM, BOARD_NAME, BOARD_CONTENTS, BOARD_DATE)
+values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{writeNum}, #{boardName}, #{boardContents}, sysdate)
+</insert>
+
+<select id="boardSelectAll" resultType="boardDTO">
+select <include refid="boardColumnsBase" />
+from board
+</select>
+
+<select id="boardSelectOne" parameterType="string" resultType="boardDTO">
+     select <include refid="boardColumnsBase" />
+     from board
+     where write_num = #{writeNum}
+</select>
+
+<update id="boardUpdate" parameterType="boardDTO">
+update board
+set	BOARD_NAME = #{boardName}
+	,BOARD_CONTENTS = #{boardContents}
+where WRITE_NUM = #{writeNum}
+</update>
+
+<delete id="boardDelete" parameterType="string">
+delete from board where WRITE_NUM = #{writeNum}
+</delete>
+
+</mapper>
