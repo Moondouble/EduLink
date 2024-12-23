@@ -35,6 +35,19 @@
 <a href="/student/studentList">학생 목록</a>
 <a href="/teacher/teacherList">교육자 목록</a>
 <a href="/board/boardList">게시글 목록</a>
+
+<th:block>
+	<div th:if="${session.auth == null || session.auth.userId == null}">
+		<a href="login/loginPage">
+			<i class="fa fa-user" aria-hidden="true"></i>
+			<span class="padding_10">로그인</span></a>
+	</div>
+		<div th:if="${session.auth != null || session.auth.userId != null}">
+		<a href="myPage/profile">
+			<i class="fa fa-user" aria-hidden="true"></i>
+			<span class="padding_10">마이페이지</span></a>
+	</div>
+</th:block>
   <!-- Project Section -->
   <div class="w3-container w3-padding-32" id="projects">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
