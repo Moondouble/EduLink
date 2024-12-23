@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+function removeCheck() {
+	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
+	     return true;
+	 }else{   //취소
+	     return false;
+	 }
+}
+</script>
+</head>
+<body>
+관리자목록<br>
+<table border=1>
+<tr><td>번호</td><td>아이디</td><td>이름</td><td>삭제하기</td></tr>
+<tr th:each="dto : ${list}">
+<td>[[${dto.empNum}]]</td>
+<td>[[${dto.empId}]]</td>
+<td>[[${dto.empName}]]</td>
+<td>
+	<form action="empDelete" method="get" onsubmit="return removeCheck();">
+    	<!-- Hidden field to send empNum -->
+        <input type="hidden" name="empNum" th:value="${dto.empNum}" />
+        <button type="submit">삭제하기</button>
+     </form>
+</td></tr>
+</table>
+<a href="empWrite">관리자아이디생성</a>
+</body>
+</html>

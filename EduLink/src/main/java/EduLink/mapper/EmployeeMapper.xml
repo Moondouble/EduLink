@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.EmployeeMapper">
+<sql id="empColumnsBase">
+    emp_NUM as empNum, emp_NAME as empName, emp_ID as empId, emp_PW as empPw, emp_REGIST as empRegist
+</sql>
+
+<insert id="employeeInsert" parameterType="employeeDTO">
+    insert into employee (emp_NUM, emp_NAME, emp_ID, emp_PW, emp_REGIST)
+    values (#{empNum}, #{empName}, #{empId}, #{empPw}, sysdate)
+</insert>
+
+<select id="empSelectAll" resultType="employeeDTO">
+    select <include refid="empColumnsBase" />
+    from employee
+</select>
+
+<delete id="empDelete" parameterType="string">
+delete from employee where emp_num = #{empNum}
+</delete>
+</mapper>
