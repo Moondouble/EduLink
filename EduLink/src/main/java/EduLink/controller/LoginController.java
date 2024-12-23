@@ -40,7 +40,7 @@ public class LoginController {
 			,HttpSession session) {
 		userLoginService.execute(loginCommand, session, result);
 		if(result.hasErrors()) {
-			return "redirect:/";
+			return "thymeleaf/login/loginPage";
 		}
 		System.out.println("User ID: " + loginCommand.getUserId());
         System.out.println("Password: " + loginCommand.getUserPw());
