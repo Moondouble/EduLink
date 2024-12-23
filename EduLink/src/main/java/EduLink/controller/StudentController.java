@@ -3,6 +3,8 @@ package EduLink.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.StudentCommand;
+import EduLink.command.TeacherCommand;
 import EduLink.service.AutoNumService;
 import EduLink.service.student.StudentDeleteService;
 import EduLink.service.student.StudentDetailService;
@@ -46,7 +49,16 @@ public class StudentController {
 		return "thymeleaf/student/studentForm";
 	}
 	@PostMapping("studentRegist")
-	public String studentRegist(StudentCommand studentCommand) {
+	public String studentRegist(@Validated StudentCommand studentCommand
+			, BindingResult result) {
+		if(result.hasErrors()) {
+			return "thymeleaf/student/studentForm";
+		}
+		if(!studentCommand.isStudentPwEqualStudentPwCon()) {
+			result.rejectValue("studentPwCon", "studentCommand.studentPwCon"
+					, "비밀번호가 일치하지 않습니다.");
+			return "thymeleaf/student/studentForm";
+		}
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}
