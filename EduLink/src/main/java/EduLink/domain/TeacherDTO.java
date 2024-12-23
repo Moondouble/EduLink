@@ -18,6 +18,7 @@ public class TeacherDTO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date teacherRegist;
 	String teacherPw;
+	String teacherPwCon;
 	String teacherAddr;
 	String teacherAddrDetail;
 	String teacherJumin;

@@ -6,19 +6,28 @@
 </head>
 <body>
 <form action="teacherRegist" method="post" th:object="${teacherCommand}">
-교육자번호 :        	<input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}"/>자동부여<br />
-교육자아이디 :      	<input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}"/><br />                     
-교육자비밀번호 :    	<input type="password" name="teacherPw" th:value="${teacherCommand.teacherPw}"/><br />  
-교육자비밀번호확인 : 	<input type="password" name="teacherPwCon"/><br />
-교육자명 :         	<input type="text" name="teacherName" th:value="${teacherCommand.teacherName}"/><br />            
+교육자번호 :       <input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}"/>
+                <span style="color:red">자동 부여</span><br />
+교육자아이디 :      <input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}"/>     
+                <span id='idCheck'></span><br />
+교육자비밀번호 :    	<input type="password" name="teacherPw" th:value="${teacherCommand.teacherPw}"/>  
+                <span style="color:red" th:if="${#fields.hasErrors('teacherPw')}" th:errors="*{teacherPw}"></span><br />
+교육자비밀번호확인 : 	<input type="password" name="teacherPwCon"/>
+                <span style="color:red" th:if="${#fields.hasErrors('teacherPwCon')}" th:errors="*{teacherPwCon}"></span><br />
+교육자명 :         <input type="text" name="teacherName" th:value="${teacherCommand.teacherName}"/>         
+                <span style="color:red" th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}"></span><br />
 교육자주소 : 		<input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherPost}"/>
-                <button type="button" onclick="execDaumPostcode();">우편번호검색</button><br />
+                <button type="button" onclick="execDaumPostcode();">우편번호검색</button>
+                <span style="color:red" th:if="${#fields.hasErrors('teacherAddr')}" th:errors="*{teacherAddr}"></span><br />
 상세주소 : 		<input type="text" name="teacherAddrDetail" th:value="${teacherCommand.teacherAddrDetail}"/><br />
 우편번호 : 		<input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" /><br />
-휴대폰 : 		    <input type="tel" name="teacherPhone1" th:value="${teacherCommand.teacherPhone1}"/><br />            
+휴대폰 : 		    <input type="tel" name="teacherPhone1" th:value="${teacherCommand.teacherPhone1}"/>        
+                 <span style="color:red" th:if="${#fields.hasErrors('teacherPhone1')}" th:errors="*{teacherPhone1}"></span><br />
 일반전화 : 		<input type="tel" name="teacherPhone2" th:value="${teacherCommand.teacherPhone2}"/><br />
 주민등록번호 :      <input type="text" name="teacherJumin" th:value="${teacherCommand.teacherJumin}"/><br />
-교육자이메일 : 		<input type="email" name="teacherEmail" th:value="${teacherCommand.teacherEmail}"/><br />               
+교육자이메일 : 		<input type="email" name="teacherEmail" id="teacherEmail" th:value="${teacherCommand.teacherEmail}"/>            
+                <span id="emailCheck"></span>
+				<span style="color:red" th:if="${#fields.hasErrors('teacherEmail')}" th:errors="*{teacherEmail}"></span><br />
 <input type="submit" value="학생등록" />
 </form>
 </body>

@@ -3,6 +3,8 @@ package EduLink.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,7 +43,16 @@ public class TeacherController {
 		return "thymeleaf/teacher/teacherForm";
 	}
 	@PostMapping("teacherRegist")
-	public String teacherRegist(TeacherCommand teacherCommand) {
+	public String teacherRegist(@Validated TeacherCommand teacherCommand
+			, BindingResult result) {
+		if(result.hasErrors()) {
+			return "thymeleaf/teacher/teacherForm";
+		}
+		if(!teacherCommand.isTeacherPwEqualTeacherPwCon()) {
+			result.rejectValue("teacherPwCon", "teacherCommand.teacherPwCon"
+					, "비밀번호가 일치하지 않습니다.");
+			return "thymeleaf/teacher/teacherForm";
+		}
 		teacherWriteService.execute(teacherCommand);
 		return "redirect:/";
 	}
