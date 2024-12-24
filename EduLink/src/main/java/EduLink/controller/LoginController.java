@@ -53,4 +53,8 @@ public class LoginController {
     	session.invalidate(); // 로그아웃시 모든 session 삭제
     	return "redirect:/"; // 그리고 첫 페이지로 이동
     }
+    @GetMapping("registSelect")
+    public String registSelect() {
+    	return "thymeleaf/login/registSelect";
+    }
 }
