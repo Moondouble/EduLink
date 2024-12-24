@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.BoardCommand;
+import EduLink.domain.AuthInfoDTO;
 import EduLink.domain.ClassroomDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.board.BoardDeleteService;
@@ -17,6 +18,7 @@ import EduLink.service.board.BoardListService;
 import EduLink.service.board.BoardUpdateService;
 import EduLink.service.board.BoardWriteService;
 import EduLink.service.classroom.ClassroomDetailService;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("board")
@@ -43,13 +45,17 @@ public class BoardController {
 		return "thymeleaf/board/boardList";
 	}
 	@GetMapping("boardWrite")
-	public String boardWrite(@RequestParam("classNum") String classNum, Model model) {
+	public String boardWrite(@RequestParam("classNum") String classNum, Model model, HttpSession session) {
 		String autoNum = autoNumService.execute("write_", "write_num", 7, "board");
 		String autoNum2 = autoNumService.execute("board_", "board_num", 7, "board");
 		BoardCommand boardCommand = new BoardCommand();
 		boardCommand.setWriteNum(autoNum);
 		boardCommand.setBoardNum(autoNum2);
 		model.addAttribute("boardCommand", boardCommand);
+		
+		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
+		String memberName = auth.getUserName();
+		boardCommand.setWriter(memberName);
 		
 		classroomDetailService.execute(classNum, model);
 		return "thymeleaf/board/boardForm";

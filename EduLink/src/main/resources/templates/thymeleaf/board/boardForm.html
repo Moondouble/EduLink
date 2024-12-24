@@ -9,8 +9,7 @@
 <form action="boardWrite" method="post" th:object="${boardCommand}">
 글번호 : 	<input type="text" name="boardNum" th:value="${boardCommand.boardNum}"/>자동부여<br />
 강의번호 : 	<input type="text" name="classNum" th:value="${classroomCommand.classNum}" /><br />
-학생번호 :		<input type="text" name="studentNum" th:value="${boardCommand.studentNum}"/><br />
-교사번호 :		<input type="text" name="teacherNum" th:value="${boardCommand.teacherNum}"/><br />
+작성자 :		<input type="text" name="studentNum" th:value="${boardCommand.writer}"/><br />
 제목 : 		<input type="text" name="boardName" th:value="${boardCommand.boardName}"/><br />
 내용 :		<textarea rows="5" cols="60" name="boardContents"></textarea><br />
 <input type="submit" value="게시글등록" />
