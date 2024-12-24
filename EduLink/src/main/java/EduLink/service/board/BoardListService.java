@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import EduLink.domain.BoardDTO;
+import EduLink.domain.ClassroomDTO;
 import EduLink.mapper.BoardMapper;
+import EduLink.mapper.ClassroomMapper;
 
 @Service
 public class BoardListService {
 	@Autowired
 	BoardMapper boardMapper;
-	public void execute(Model model) {
-		List<BoardDTO> list = boardMapper.boardSelectAll();
+	
+	public void execute(String classNum, Model model) {
+		List<BoardDTO> list = boardMapper.boardSelectAll(classNum);
 		model.addAttribute("list", list);
 		
 	}

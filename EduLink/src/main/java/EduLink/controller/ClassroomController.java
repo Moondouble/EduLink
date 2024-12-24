@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import EduLink.command.BoardCommand;
 import EduLink.command.ClassroomCommand;
 import EduLink.service.AutoNumService;
 import EduLink.service.classroom.ClassroomDeleteService;
@@ -40,9 +41,13 @@ public class ClassroomController
 	}
 	@GetMapping("classWrite")
 	public String Write(Model model) {
-		String autoNum = autoNumService.execute("class_", "class_num", 9, "classroom");
+		String autoNum = autoNumService.execute("class_", "class_num", 7, "classroom");
 		ClassroomCommand classroomCommand = new ClassroomCommand();
 		classroomCommand.setClassNum(autoNum);
+		
+		BoardCommand boardCommand = new BoardCommand();
+		boardCommand.setClassNum(autoNum);
+		
 		System.out.println(classroomCommand.getClassNum());
 
 		model.addAttribute("classroomCommand", classroomCommand);

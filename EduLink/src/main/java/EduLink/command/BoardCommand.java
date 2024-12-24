@@ -17,4 +17,6 @@ public class BoardCommand {
 	String boardContents;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date boardDate;
+	
+	String writer;
 }

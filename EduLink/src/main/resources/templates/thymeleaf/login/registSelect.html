@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>registSelect.html</title>
+<style>
+.table_container
+{
+text-align: center;
+}
+</style>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+$(function(){
+    $("#student_btn").click(function() {
+        location.href = "/student/studentWrite";
+    });
+
+    $("#teacher_btn").click(function() {
+        location.href = "/teacher/teacherWrite";
+    });
+});
+
+</script>
+</head>
+<body>
+<table class="table_container">
+<tr><td>학생이시라면</td><td>교육자시라면</td></tr>
+<tr><td><input type="button" id="student_btn" value="학생으로 가입하기"></td>
+<td><input type="button" id="teacher_btn" value="교육자로 가입하기"></td></tr>
+</table>
+</body>
+</html>

@@ -6,15 +6,16 @@
 </head>
 <body>
 게시글 목록<br>
+강의번호 : [[${classroomCommand.classNum }]]<br />
 <table border=1>
 <tr><td>번호</td><td>제목</td><td>작성자</td><td>내용</td></tr>
 <tr th:each="dto : ${list}">
-<td><a th:href="|boardDetail?writeNum=${dto.writeNum}|">[[${dto.writeNum}]]</a></td>
-<td><a th:href="|boardDetail?writeNum=${dto.writeNum}|">[[${dto.boardName}]]</a></td>
+<td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a></td>
+<td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardName}]]</a></td>
 <td>[[${dto.studentNum}]]</a></td>
 <td>[[${dto.boardContents}]]</a></td>
 </table>
 
-<a href="boardWrite">글작성</a>
+<a th:href="|boardWrite?classNum=${classroomCommand.classNum}|">글작성</a>
 </body>
 </html>
