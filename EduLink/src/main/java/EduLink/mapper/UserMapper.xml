@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.UserMapper">
+<insert id="studentInsert" parameterType="studentDTO">
+    insert into student (
+        STUDENT_NUM, STUDENT_NAME, STUDENT_ID, STUDENT_PW,
+        STUDENT_EMAIL, STUDENT_EMAIL_CONF, STUDENT_REGIST,
+        STUDENT_BIRTH, STUDENT_JUMIN, STUDENT_ADDR,
+        STUDENT_ADDR_DETAIL, STUDENT_POST, STUDENT_PHONE1,
+        STUDENT_PHONE2, STUDENT_IMAGE
+    )
+    values (
+        #{studentNum}, #{studentName}, #{studentId}, #{studentPw},
+        #{studentEmail}, null, sysdate,
+        #{studentBirth}, #{studentJumin}, #{studentAddr},
+        #{studentAddrDetail}, #{studentPost}, #{studentPhone1},
+        #{studentPhone2}, null
+    )
+</insert>
+<select id="loginSelect" parameterType="string" resultType="authInfoDTO">
+<!-- 직원과 회원 중 아이디를 가지고 있는 사람을 찾기 위해 union 사용 -->
+select STUDENT_ID userId, STUDENT_PW userPw, STUDENT_NAME userName
+        , 'student' grade, STUDENT_EMAIL userEmail
+from student
+where STUDENT_ID = #{userId}
+union
+select TEACHER_ID, TEACHER_PW, TEACHER_NAME, 'teacher', TEACHER_EMAIL
+from teacher
+where teacher_id = #{userId}
+</select>
+</mapper>

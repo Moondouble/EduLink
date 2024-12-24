@@ -3,6 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#studentEmail").on("change keyup", function(){
+		$.ajax({
+			type: 'post',
+			url: "/checkRest/userEmailCheck",
+			data:{"userEmail":$("#studentEmail").val()},
+			dataType: 'text',
+			success: function(result){
+				$("#emailCheck").text(result);
+				if(result.trim() == "사용가능한 이메일입니다."){
+					$("#emailCheck").css("color", "green");
+				}else{
+					$("#emailCheck").css("color", "red");
+				}
+			},
+			error:function(){}
+		});
+	});
+	$("#studentId").on("change keyup", function(){
+		$.ajax({
+			type: 'post',
+			url: "/login/userIdCheck",
+			data:{"userId":$("#studentId").val()},
+			dataType: 'text',
+			success: function(result){
+				// userIdCheck주소에서 넘어온 값을 result가 받아온다.
+				// 받아온 값을 span에 전달한다.
+				$("#idCheck").text(result);
+				if(result.trim() == "사용가능한 아이디입니다."){
+					$("#idCheck").css("color", "green");
+				}else{
+					$("#idCheck").css("color", "red");
+				}
+			},
+			error:function(){}
+		});
+	});	
+});
+</script>
 </head>
 <body>
 학생등록 페이지입니다.<br />
@@ -28,7 +69,7 @@
 회원생년월일 : 		<input type="date" name="studentBirth"  th:value="${#dates.format(studentCommand.studentBirth, 'yyyy-MM-dd')}" />
                 <span style="color:red" th:if="${#fields.hasErrors('studentBirth')}"  th:errors="*{studentBirth}"></span><br />
 주민등록번호 :      <input type="text" name="studentJumin" th:value="${studentCommand.studentJumin}"/><br />
-학생이메일 : 		<input type="email" name="studentEmail" th:value="${studentCommand.studentEmail}"/><br />               
+학생이메일 : 		<input type="email" name="studentEmail" id="studentEmail" th:value="${studentCommand.studentEmail}"/>           
                 <span id="emailCheck"></span>
 				<span style="color:red" th:if="${#fields.hasErrors('studentEmail')}" th:errors="*{studentEmail}"></span><br />
 <input type="submit" value="학생등록" />

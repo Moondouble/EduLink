@@ -7,9 +7,8 @@ import EduLink.domain.AuthInfoDTO;
 
 @Mapper
 public interface LoginMapper {
-	public Integer idCheckSelectOne(@Param("userId")  String userId);
-	public Integer emailCheckSelectOne(@Param("userEmail") String userEmail);
-	public AuthInfoDTO loginSelectOne(String userId);
+	public String selectIdCheck(String userId);
+	public String selectEmailCheck(String userEmail);
 }
 
 

@@ -6,10 +6,11 @@ import org.springframework.stereotype.Service;
 import EduLink.mapper.LoginMapper;
 
 @Service
-public class IdcheckService {
+public class IdcheckService{
 	@Autowired
 	LoginMapper loginMapper;
-	public Integer execute(String userId) {
-		return loginMapper.idCheckSelectOne(userId);
+	public String execute(String userId) {
+		String resultId = loginMapper.selectIdCheck(userId);
+		return resultId;
 	}
 }

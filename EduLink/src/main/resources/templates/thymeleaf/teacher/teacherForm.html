@@ -3,6 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <title>teacherForm.html</title>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#teacherEmail").on("change keyup", function(){
+		$.ajax({
+			type: 'post',
+			url: "/checkRest/userEmailCheck",
+			data:{"userEmail":$("#teacherEmail").val()},
+			dataType: 'text',
+			success: function(result){
+				$("#emailCheck").text(result);
+				if(result.trim() == "사용가능한 이메일입니다."){
+					$("#emailCheck").css("color", "green");
+				}else{
+					$("#emailCheck").css("color", "red");
+				}
+			},
+			error:function(){}
+		});
+	});
+	$("#teacherId").on("change keyup", function(){
+		$.ajax({
+			type: 'post',
+			url: "/login/userIdCheck",
+			data:{"userId":$("#teacherId").val()},
+			dataType: 'text',
+			success: function(result){
+				$("#idCheck").text(result);
+				if(result.trim() == "사용가능한 아이디입니다."){
+					$("#idCheck").css("color", "green");
+				}else{
+					$("#idCheck").css("color", "red");
+				}
+			},
+			error:function(){}
+		});
+	});	
+});
+</script>
 </head>
 <body>
 <form action="teacherRegist" method="post" th:object="${teacherCommand}">
