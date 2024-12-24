@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EduLink.mapper.MyPageMapper">
+
+    <!-- 결과 매핑 -->
+    <resultMap id="UserInfoMap" type="EduLink.domain.UserInfoDTO">
+        <result property="userNum" column="user_num" />
+        <result property="userId" column="user_id" />
+        <result property="userPw" column="user_pw" />
+        <result property="userEmail" column="user_email" />
+        <result property="userName" column="user_name" />
+        <result property="userPhone" column="user_phone" />
+        <result property="userImage" column="user_image" />
+        <result property="userRegist" column="user_regist" />
+    </resultMap>
+
+    <!-- 사용자 정보 조회 -->
+    <select id="userSelectOne" resultMap="UserInfoMap" parameterType="String">
+        SELECT 
+            student_id AS user_id, 
+            student_num AS user_num, 
+            student_pw AS user_pw, 
+            student_email AS user_email, 
+            student_name AS user_name, 
+            student_phone1 AS user_phone, 
+            student_image AS user_image, 
+            student_regist AS user_regist
+        FROM student
+        WHERE student_id = #{userId}
+        UNION
+        SELECT 
+            teacher_id AS user_id, 
+            teacher_num AS user_num, 
+            teacher_PW AS user_pw, 
+            teacher_email AS user_email, 
+            teacher_name AS user_name, 
+            teacher_phone1 AS user_phone, 
+            teacher_image AS user_image, 
+            teacher_regist AS user_regist
+        FROM teacher
+        WHERE teacher_id = #{userId}
+    </select>
+    
+</mapper>

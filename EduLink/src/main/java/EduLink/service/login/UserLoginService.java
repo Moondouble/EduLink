@@ -15,6 +15,7 @@ public class UserLoginService {
     LoginMapper loginMapper;
 
     public void execute(LoginCommand loginCommand, HttpSession session, BindingResult result) {
+    	
         AuthInfoDTO auth = loginMapper.loginSelectOne(loginCommand.getUserId());
 
         if (auth != null) {
