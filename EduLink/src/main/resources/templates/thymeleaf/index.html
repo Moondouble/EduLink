@@ -36,6 +36,7 @@
 <a href="/teacher/teacherList">교육자 목록</a><br />
 <a href="/board/boardList">게시글 목록</a><br />
 <a href="/employee/empList">관리자아이디리스트</a><br />
+<a href="/class/classList">강의목록</a><br />
 <div th:if="${session.auth == null}">
     <a href="/login/loginPage">로그인</a>
 </div>
@@ -44,6 +45,7 @@
 <div th:if="${session.auth != null}" >
 <ul>
     <a href="/student/studentList">학생 목록</a><br />
+    <a href="/myPage/profile">마이페이지</a>
     <li><a href="login/logout">로그아웃</a></li>
 </ul>
 </div>
