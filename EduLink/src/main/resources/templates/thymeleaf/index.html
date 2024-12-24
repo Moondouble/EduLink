@@ -36,7 +36,6 @@
 <a href="/teacher/teacherList">교육자 목록</a><br />
 <a href="/board/boardList">게시글 목록</a><br />
 <a href="/employee/empList">관리자아이디리스트</a><br />
-<<<<<<< HEAD
 <div th:if="${session.auth == null}">
     <a href="/login/loginPage">로그인</a>
 </div>
@@ -49,25 +48,6 @@
 </ul>
 </div>
 
-=======
-<a href="/class/classList">강의리스트</a>
-<th:block>
-    <div th:if="${session.auth == null}">
-        <a th:href="@{/login/loginPage}">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span class="padding_10">로그인</span>
-        </a>
-    </div>
-    <div th:if="${session.auth != null and session.auth.userId != null}">
-        <a th:href="@{/myPage/profile}">
-            <i class="fa fa-user" aria-hidden="true"></i>
-            <span class="padding_10">마이페이지</span>
-        </a>
-        </br><a th:href="@{/login/logout}">로그아웃</a>
-    </div>
-</th:block>
- 
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
   <!-- Project Section -->
   <div class="w3-container w3-padding-32" id="projects">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
