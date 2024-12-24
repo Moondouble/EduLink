@@ -16,4 +16,5 @@ String userName;
 String userPhone;
 String userImage;
 String userRegist;
+String usergrade;
 }
