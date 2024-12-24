@@ -5,15 +5,19 @@
     <title>profile.html</title>
 </head>
 <body>
-    <table border="1" th:if="${userInfo != null}">
+    <table border="1" >
         <thead>
             <tr>
                 <th colspan="3">내 정보</th>
             </tr>
         </thead>
         <tbody>
+        <tr><td colspan="3">
+        <div th:if="${userInfo.usergrade}=='teacher'">교육자용 아이디</div>
+        <div th:if="${userInfo.usergrade}=='student'">학생용 아이디</div>
+        <div th:if="${userInfo.usergrade}=='employee'">관리자용 아이디</div>
             <tr>
-                <td rowspan="3">
+                <td rowspan="4">
                     <img th:src="${userInfo.userImage}" alt="프로필사진" style="width:150px; height:150px;" />
                 </td>
                 <td>이름</td>
@@ -26,6 +30,10 @@
             <tr>
                 <td>전화번호</td>
                 <td th:text="${userInfo.userPhone}"></td>
+            </tr>
+            <tr>
+                <td>가입일</td>
+                <td th:text="${userInfo.userRegist}"></td>
             </tr>
         </tbody>
     </table>

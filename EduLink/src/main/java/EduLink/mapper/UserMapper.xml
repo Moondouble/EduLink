@@ -29,5 +29,9 @@ union
 select TEACHER_ID, TEACHER_PW, TEACHER_NAME, 'teacher', TEACHER_EMAIL
 from teacher
 where teacher_id = #{userId}
+union
+select EMP_ID, EMP_PW, EMP_NAME, 'employee', EMP_EMAIL
+from employee
+where emp_id = #{userId}
 </select>
 </mapper>
