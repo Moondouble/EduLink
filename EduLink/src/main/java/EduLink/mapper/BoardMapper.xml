@@ -9,30 +9,31 @@ BOARD_NUM as boardNum, CLASS_NUM as classNum, STUDENT_NUM as studentNum, TEACHER
 </sql>
 
 <insert id="boardInsert" parameterType="boardDTO">
-insert into board(BOARD_NUM, CLASS_NUM, STUDENT_NUM, TEACHER_NUM, WRITE_NUM, BOARD_NAME, BOARD_CONTENTS, BOARD_DATE)
-values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{writeNum}, #{boardName}, #{boardContents}, sysdate)
+insert into board(BOARD_NUM, CLASS_NUM, STUDENT_NUM, TEACHER_NUM, BOARD_NAME, BOARD_CONTENTS, BOARD_DATE)
+values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{boardName}, #{boardContents}, sysdate)
 </insert>
 
-<select id="boardSelectAll" resultType="boardDTO">
-select <include refid="boardColumnsBase" />
+<select id="boardSelectAll" parameterType="string" resultType="boardDTO">
+select BOARD_NUM as boardNum, BOARD_NAME as boardName, STUDENT_NUM as studentNum, BOARD_CONTENTS as boardContents
 from board
+where class_num = #{classNum}
 </select>
 
 <select id="boardSelectOne" parameterType="string" resultType="boardDTO">
      select <include refid="boardColumnsBase" />
      from board
-     where write_num = #{writeNum}
+     where board_num = #{boardNum}
 </select>
 
 <update id="boardUpdate" parameterType="boardDTO">
 update board
 set	BOARD_NAME = #{boardName}
 	,BOARD_CONTENTS = #{boardContents}
-where WRITE_NUM = #{writeNum}
+where board_num = #{boardNum}
 </update>
 
 <delete id="boardDelete" parameterType="string">
-delete from board where WRITE_NUM = #{writeNum}
+delete from board where board_num = #{boardNum}
 </delete>
 
 </mapper>

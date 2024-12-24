@@ -13,6 +13,7 @@
 강의시작일 : [[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd') }]]<br />
 강의종료일 : [[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd') }]]<br />
 강의회차 : [[${classroomCommand.classWeek}]]<br />
+<a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a><br />
 <a th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의 정보 수정</a> | 
 <a th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의 삭제</a> |
 <a href="classList">강의목록</a>

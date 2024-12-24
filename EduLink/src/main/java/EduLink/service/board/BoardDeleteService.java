@@ -10,8 +10,8 @@ import EduLink.mapper.StudentMapper;
 public class BoardDeleteService {
 	@Autowired
 	BoardMapper boardMapper;
-	public void execute(String writeNum) {
-		boardMapper.boardDelete(writeNum);
+	public void execute(String boardNum) {
+		boardMapper.boardDelete(boardNum);
 		
 	}
 }

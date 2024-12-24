@@ -12,8 +12,8 @@ import EduLink.mapper.StudentMapper;
 public class BoardDetailService {
 	@Autowired
 	BoardMapper boardMapper;
-	public void execute(String writeNum, Model model) {
-		BoardDTO dto = boardMapper.boardSelectOne(writeNum);
+	public void execute(String boardNum, Model model) {
+		BoardDTO dto = boardMapper.boardSelectOne(boardNum);
 		model.addAttribute("boardCommand", dto);
 	}
 }
