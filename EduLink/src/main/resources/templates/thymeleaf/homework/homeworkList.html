@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+과제 목록<br>
+강의번호 : [[${classroomCommand.classNum }]]
+<table border=1>
+<tr><td>번호</td><td>제목</td><td>내용</td><td>마감일</td></tr>
+<tr th:each="dto : ${list}">
+<td><a th:href="|homeworkDetail?hwNum=${dto.hwNum}|">[[${dto.hwNum}]]</a></td>
+<td><a th:href="|homeworkDetail?hwNum=${dto.hwNum}|">[[${dto.hwName}]]</a></td>
+<td>[[${dto.hwContents}]]</a></td>
+<td>[[${#dates.format(dto.hwEndDate, 'yyyy-MM-dd')}]]</a></td>
+</tr>
+</table>
+<a th:href="|homeworkWrite?classNum=${classroomCommand.classNum}|">과제등록</a>
+</body>
+</html>

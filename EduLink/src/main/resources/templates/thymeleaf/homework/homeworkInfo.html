@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+과제상세페이지입니다.<br />
+과제번호 : [[${homeworkCommand.hwNum }]]<br />
+강좌번호 : [[${homeworkCommand.classNum }]]<br />
+교육자번호 : [[${homeworkCommand.teacherNum }]]<br />
+과제제목 : [[${homeworkCommand.hwName }]]<br />
+과제내용 : [[${homeworkCommand.hwContents }]]<br />
+과제마감일 : [[${#dates.format(homeworkCommand.hwEndDate ,'yyyy-MM-dd')}]]<br />
+<a th:href="|homeworkUpdate?hwNum=${homeworkCommand.hwNum}|">과제 수정</a> | 
+<a th:href="|homeworkDelete?hwNum=${homeworkCommand.hwNum}|">과제 삭제</a> |
+<a th:href="|homeworkList?classNum=${homeworkCommand.classNum}|">과제목록</a>
+</body>
+</html>
