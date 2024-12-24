@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+과제수정페이지입니다.<br />
+<form action="homeworkModify" method="post" th:object="${homeworkCommand}"><!-- dto -->
+과제번호 : <input type="text" name="hwNum" th:field="*{hwNum}" readonly="readonly"/><br />
+강좌번호 : <input type="text" name="classNum" th:field="*{classNum}" readonly="readonly"/><br />
+교육자번호 : <input type="text" name="teacherNum" th:field="*{teacherNum}"/><br />
+과제제목 : <input type="text" name="hwName" th:field="*{hwName}" /><br />
+과제내용 : <input type="text" name="hwContents" th:field="*{hwContents}"/><br />
+과제마감일 : <input type="date" name="hwEndDate" th:value="${#dates.format(homeworkCommand.hwEndDate,'yyyy-MM-dd')}"/><br />
+<input type="submit" value="과제수정 완료" /> 
+<input type="button" value="과제목록" th:attr="onclick=|javascript:location.href='homeworkList?classNum=${homeworkCommand.classNum}'|">
+</body>
+</html>

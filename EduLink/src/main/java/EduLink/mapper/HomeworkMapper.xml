@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.HomeworkMapper">
+<sql id="homeworkColumnsBase">
+    hw_num as hwNum, class_num as classNum, teacher_num as teacherNum, hw_name as hwName,
+    hw_contents as hwContents, hw_end_date as hwEndDate, hw_feedback_num as hwFeedbackNum
+</sql>
+
+<insert id="homeworkInsert" parameterType="homeworkDTO">
+    insert into homework (
+       hw_num, class_num, teacher_num, hw_name, hw_contents, hw_end_date
+    )
+    values (
+        #{hwNum}, #{classNum}, #{teacherNum}, #{hwName}, #{hwContents}, #{hwEndDate}
+    )
+</insert>
+
+<select id="homeworkSelectAll" parameterType="string" resultType="homeworkDTO">
+    select hw_num as hwNum, hw_name as hwName, hw_contents as hwContents, hw_end_date as hwEndDate
+    from homework
+    where class_num = #{classNum}
+</select>
+
+<select id="homeworkSelectOne" parameterType="string" resultType="homeworkDTO">
+     select <include refid="homeworkColumnsBase" />
+     from homework
+     where hw_num = #{hwNum}
+</select>
+
+<update id="homeworkUpdate" parameterType="homeworkDTO">
+update homework
+set  hw_contents = #{hwContents}
+    ,hw_end_date = #{hwEndDate}
+    ,hw_name = #{hwName}
+where hw_num = #{hwNum}
+</update>
+
+<delete id="homeworkDelete" parameterType="string">
+delete from homework where hw_num = #{hwNum}
+</delete>
+</mapper>

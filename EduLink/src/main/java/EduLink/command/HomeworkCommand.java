@@ -7,11 +7,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-public class EmployeeCommand {
-	String empNum;
-	String empId;
-	String empName;
-	String empPw;
+public class HomeworkCommand {
+	String hwNum;
+	String classNum;
+	String teacherNum;
+	String hwName;
+	String hwContents;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date empRegist;	
+	Date hwEndDate;
+	String hwFeedbackNum;
 }

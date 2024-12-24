@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+학생등록 페이지입니다.<br />
+<form action="homeworkRegist" method="post" th:object="${homeworkCommand}">
+과제번호 :        	<input type="text" name="hwNum" th:value="${homeworkCommand.hwNum}" readonly="readonly"/>자동부여<br />
+강좌번호 :      	<input type="text" name="classNum" id="classNum" th:value="${classroomCommand.classNum}" readonly="readonly"/><br />
+교육자번호 :    	<input type="text" name="teacherNum" th:value="${homeworkCommand.teacherNum}" /><br />
+과제제목 : 		<input type="text" name="hwName" th:value="${homeworkCommand.hwName} "/><br />
+과제내용 :        <input type="text" name="hwContents" th:value="${homeworkCommand.hwContents}"/><br />     
+과제마감일 : 		<input type="date" name="hwEndDate" th:value="${#dates.format(homeworkCommand.hwEndDate, 'yyyy-MM-dd')}"/><br />
+<input type="submit" value="과제등록" />
+</form>
+</body>
+</html>

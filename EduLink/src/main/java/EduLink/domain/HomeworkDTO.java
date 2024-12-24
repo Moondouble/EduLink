@@ -8,12 +8,14 @@ import org.springframework.format.annotation.DateTimeFormat;
 import lombok.Data;
 
 @Data
-@Alias("employeeDTO")
-public class EmployeeDTO {
-	String empNum;
-	String empId;
-	String empName;
-	String empPw;
+@Alias("homeworkDTO")
+public class HomeworkDTO {
+	String hwNum;
+	String classNum;
+	String teacherNum;
+	String hwName;
+	String hwContents;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	Date empRegist;
+	Date hwEndDate;
+	String hwFeedbackNum;
 }
