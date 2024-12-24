@@ -51,6 +51,10 @@ public class LoginController {
       session.invalidate();
       return "redirect:/";
    }
+   @GetMapping("registSelect")
+   public String registSelect(){
+	  return "thymeleaf/login/registSelect";
+   }
 }
 
 
