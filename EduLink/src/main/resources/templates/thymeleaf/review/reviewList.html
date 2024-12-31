@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>리뷰 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        div {
+            margin-bottom: 20px;
+        }
+        a {
+            color: blue;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>리뷰를 남겨주세요.</h1>
+    <div th:each="dto : ${list}">
+        <p>리뷰 제목: <span th:text="${dto.reviewName}"></span></p>
+        <p>리뷰 내용: <span th:text="${dto.reviewcontent}"></span></p>
+        <hr />
+    </div>
+    <a th:href="|reviewWrite?classNum=${reviewCommand.classNum}|"
+       style="padding: 10px 20px; background-color: #007BFF; color: white; border-radius: 5px; text-decoration: none;">리뷰 작성하기</a>
+</body>
+</html>
