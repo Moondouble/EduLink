@@ -19,9 +19,18 @@ public class BoardWriteService {
 		dto.setBoardDate(boardCommand.getBoardDate());
 		dto.setBoardName(boardCommand.getBoardName());
 		dto.setClassNum(boardCommand.getClassNum());
-		dto.setStudentNum(boardCommand.getStudentNum());
-		dto.setTeacherNum(boardCommand.getTeacherNum());
 		dto.setWriteNum(boardCommand.getWriteNum());
+		if (boardCommand.getTeacherNum() == null) {
+		    dto.setTeacherNum("");
+		}else {
+			dto.setTeacherNum(boardCommand.getTeacherNum());
+		}
+		if (boardCommand.getStudentNum() == null) {
+		    dto.setStudentNum("");
+		}else {
+			dto.setStudentNum(boardCommand.getStudentNum());
+		}
+		
 		boardMapper.boardInsert(dto);
 	}
 }

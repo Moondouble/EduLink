@@ -11,7 +11,7 @@
 <tr th:each="dto : ${list}">
 <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
 <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
-<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${#dates.format(dto.classWeek, 'yyyy-MM-dd')}]]</a></td></tr>
+<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td></tr>
 </table>
 
 <a href="classWrite">강의 개설</a>
