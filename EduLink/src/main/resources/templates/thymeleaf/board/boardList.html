@@ -243,8 +243,7 @@
 <tr th:each="dto : ${list}">
 <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a></td>
 <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardName}]]</a></td>
-<td th:if="${dto.teacherNum == null} && ${dto.studentNum != null}">[[${dto.studentNum}]]</td>
-<td th:if="${dto.studentNum == null} && ${dto.studentNum != null}">[[${dto.teacherNum}]]</td>
+<td>[[${dto.studentNum != null ? dto.studentNum : dto.teacherNum}]]</td>
 <td>[[${dto.boardContents}]]</a></td></tr>
 </table>
 <a th:href="|boardWrite?classNum=${classroomCommand.classNum}|">글작성</a>

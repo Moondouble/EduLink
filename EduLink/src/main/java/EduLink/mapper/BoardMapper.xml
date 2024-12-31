@@ -14,7 +14,7 @@ values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{boardName}, #{b
 </insert>
 
 <select id="boardSelectAll" parameterType="string" resultType="boardDTO">
-select BOARD_NUM as boardNum, BOARD_NAME as boardName, STUDENT_NUM as studentNum, BOARD_CONTENTS as boardContents
+select BOARD_NUM as boardNum, BOARD_NAME as boardName, STUDENT_NUM as studentNum, teacher_num as teacherNum, BOARD_CONTENTS as boardContents
 from board
 where class_num = #{classNum}
 </select>
