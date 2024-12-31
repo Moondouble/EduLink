@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+문의 목록<br>
+<table border=1>
+<tr><td>번호</td><td>유형</td><td>제목</td><td>작성자</td><td>등록일</td></tr>
+<tr th:each="dto : ${list}">
+<td>[[${dto.inquireNum}]]</td>
+<td>[[${dto.inquireCategory}]]</td>
+<td><a th:href="|inquireDetail?inquireNum=${dto.inquireNum}|">[[${dto.inquireName}]]</a></td>
+<td>[[${dto.empNum != null ? dto.empNum : (dto.studentNum != null ? dto.studentNum : (dto.teacherNum != null ? dto.teacherNum : '없음'))}]]</td>
+<td>[[${#dates.format(dto.inquireDate, 'yyyy-MM-dd')}]]</td></tr>
+</table>
+
+<a href="inquireWrite">문의하기</a>
+</body>
+</html>
