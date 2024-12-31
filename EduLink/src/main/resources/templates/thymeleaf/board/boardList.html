@@ -244,10 +244,10 @@
 <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a></td>
 <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardName}]]</a></td>
 <th:block>
-<div th:if="${session.auth.grade == student}">
+<div th:if="${session.auth.grade == 'student'}">
 <td>[[${dto.studentNum}]]</a></td>
 </div>
-<div th:if="${session.auth.grade == teacher}">
+<div th:if="${session.auth.grade == 'teacher'}">
 <td>[[${dto.teacherNum}]]</a></td>
 </div>
 </th:block>

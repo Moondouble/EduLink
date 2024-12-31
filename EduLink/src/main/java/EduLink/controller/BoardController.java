@@ -54,8 +54,10 @@ public class BoardController {
 		model.addAttribute("boardCommand", boardCommand);
 		
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
-		String memberName = auth.getUserName();
-		boardCommand.setWriter(memberName);
+		String userNum = auth.getUserNum();
+		boardCommand.setWriter(userNum);
+		
+		System.out.println("grade:" + auth.getUserNum());
 		
 		classroomDetailService.execute(classNum, model);
 		return "thymeleaf/board/boardForm";
