@@ -22,15 +22,15 @@
 <select id="loginSelect" parameterType="string" resultType="authInfoDTO">
 <!-- 직원과 회원 중 아이디를 가지고 있는 사람을 찾기 위해 union 사용 -->
 select STUDENT_ID userId, STUDENT_PW userPw, STUDENT_NAME userName
-        , 'student' grade, STUDENT_EMAIL userEmail
+        , 'student' grade, STUDENT_EMAIL userEmail, student_num userNum
 from student
 where STUDENT_ID = #{userId}
 union
-select TEACHER_ID, TEACHER_PW, TEACHER_NAME, 'teacher', TEACHER_EMAIL
+select TEACHER_ID, TEACHER_PW, TEACHER_NAME, 'teacher', TEACHER_EMAIL, teacher_num
 from teacher
 where teacher_id = #{userId}
 union
-select EMP_ID, EMP_PW, EMP_NAME, 'employee', EMP_EMAIL
+select EMP_ID, EMP_PW, EMP_NAME, 'employee', EMP_EMAIL, emp_num
 from employee
 where emp_id = #{userId}
 </select>
