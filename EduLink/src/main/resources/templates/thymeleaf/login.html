@@ -1,31 +1,249 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
-<title>login.html</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOGIN</title>
+<style>
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Arial, sans-serif;
+	background-color: #f4f4f4;
+	color: #333;
+}
+
+header {
+	background: #fff;
+	color: #000;
+	padding: 15px 20px;
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+	box-sizing: border-box;
+	height: 80px;
+}
+
+.logo {
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	flex: 1;
+	text-decoration: none;
+}
+
+.nav-links {
+	display: flex;
+	justify-content: center;
+	gap: 30px;
+	flex: 2;
+}
+
+.nav-links a {
+	text-decoration: none;
+	font-size: 14px;
+	font-weight: normal;
+	color: #888;
+	text-transform: uppercase;
+}
+
+.nav-links a:hover {
+	color: #007bff;
+}
+
+.auth-links {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+	position: relative;
+	top: -5px;
+	flex: 1;
+	right: -50px;
+}
+
+.auth-links div:first-child {
+	display: flex;
+	gap: 30px;
+}
+
+.auth-links a {
+	text-decoration: none;
+	font-size: 10px;
+	font-weight: normal;
+	color: #666;
+	text-transform: uppercase;
+}
+
+.auth-links a:hover {
+	color: #007bff;
+}
+
+.icons {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.icons img {
+	width: 24px;
+	height: 24px;
+}
+
+.login-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: calc(100vh - 80px);
+	margin-top: 80px;
+}
+
+.login-box {
+	background: #fff;
+	width: 400px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 30px;
+	text-align: left;
+	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-box h1 {
+	font-size: 24px;
+	text-align: center;
+	margin-bottom: 30px;
+	color: #333;
+}
+
+.form-group {
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.form-group label {
+	font-size: 12px;
+	font-weight: bold;
+	color: #555;
+	margin-right: 10px;
+	width: 80px;
+}
+
+.form-group input {
+	flex: 1;
+	border: none;
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	font-size: 14px;
+	background: none;
+	outline: none;
+	box-shadow: none;
+}
+
+.form-group input:-webkit-autofill {
+	background-color: transparent !important;
+	box-shadow: 0 0 0px 1000px white inset !important;
+	-webkit-text-fill-color: #000 !important;
+}
+
+.form-group input:focus {
+	border-bottom: 1px solid #ccc;
+	background: none;
+	box-shadow: none;
+	outline: none;
+}
+
+.btn-primary {
+	background: #333;
+	color: #fff;
+	border: none;
+	padding: 10px 15px;
+	font-size: 16px;
+	border-radius: 30px;
+	cursor: pointer;
+	width: 100%;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.btn-primary:hover {
+	background: #555;
+}
+
+.btn-secondary {
+	background: #fff;
+	color: #333;
+	border: 1px solid #ccc;
+	padding: 10px 15px;
+	font-size: 16px;
+	border-radius: 30px;
+	cursor: pointer;
+	width: 100%;
+	text-align: center;
+}
+
+.btn-secondary:hover {
+	background: #f4f4f4;
+}
+
+.login-options {
+	font-size: 12px;
+	color: #888;
+	margin-top: 15px;
+	text-align: center;
+}
+
+.login-options a {
+	color: #555;
+	text-decoration: none;
+	margin: 0 5px;
+}
+
+.login-options a:hover {
+	color: #000;
+}
+
+.error-message {
+	font-size: 12px;
+	color: red;
+	margin-top: 5px;
+	display: block;
+	text-align: left;
+}
+</style>
 </head>
 <body>
-<div th:if="${session.auth == null}" >
-<form action="/login/login" method="post" th:object="${loginCommand}">
-	<table border="1" align="center">
-		<tr><td colspan="2">
-				자동로그인<input type="checkbox" name="autoLogin" />
-				아이디저장<input type="checkbox" name="idStore" />
-			</td></tr>
-		<tr><td><input type="text" name="userId" placeholder="아이디" th:value="${loginCommand.userId}"/><br />
-		        <span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}" ></span></td>
-			<td rowspan="2">
-				<input type="image" src="/static/images/sbmt.png" width="60">
-			</td></tr>
-		<tr><td><input type="password" name="userPw" placeholder="비밀번호" /><br />
-		        <span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" ></span></td></tr>
-		<tr><td colspan="2">
-		                    
-						    <a href="/help/findId">아이디 찾기 </a> |
-						    <a href="/help/findPw">비밀번호 찾기</a> |
-						    <a href="/login/registSelect">회원가입</a></td></tr>
-	</table>
-</form>
-</div>
+
+	<!-- 로그인 폼 -->
+	<div class="login-container">
+		<div class="login-box">
+			<h1>Login</h1>
+			<form action="login" method="post" th:object="${loginCommand}">
+				<div class="form-group">
+					<label for="id">ID</label>
+					<input type="text" id="id" name="userId" th:value="${loginCommand.userId}">
+					<span th:if="${#fields.hasErrors('userId')}" th:class="'error-message'" th:errors="*{userId}"></span>
+				</div>
+				<div class="form-group">
+					<label for="password">PASSWORD</label>
+					<input type="password" id="password" name="userPw" th:value="${loginCommand.userPw}">
+					<span th:if="${#fields.hasErrors('userPw')}" th:class="'error-message'" th:errors="*{userPw}"></span>
+				</div>
+				<button type="submit" class="btn-primary">LOGIN</button>
+				<button type="button" class="btn-secondary" onclick="location.href='/register/userWrite'">JOIN US</button>
+				<div class="login-options">
+					<a href="/help/findId">아이디 찾기</a> | <a href="/help/findPw">비밀번호 찾기</a> | <a href="/login/registSelect">회원가입</a>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
