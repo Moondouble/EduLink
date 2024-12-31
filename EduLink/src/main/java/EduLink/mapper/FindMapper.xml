@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.FindMapper">
+   <select id="findId" parameterType="map" resultType="string">
+        SELECT STUDENT_ID
+        FROM student
+        WHERE STUDENT_NAME = #{userName}
+          AND STUDENT_EMAIL = #{userEmail}
+        UNION
+        SELECT TEACHER_ID
+        FROM teacher
+        WHERE TEACHER_NAME = #{userName}
+          AND TEACHER_EMAIL = #{userEmail}
+    </select>
+    
+    <select id="findPw" parameterType="map" resultType="string">
+        SELECT STUDENT_PW
+        FROM student
+        WHERE STUDENT_ID = #{userId}
+          AND STUDENT_NAME = #{userName}
+          AND STUDENT_EMAIL = #{userEmail}
+        UNION
+        SELECT TEACHER_PW
+        FROM teacher
+        WHERE TEACHER_ID = #{userId}
+          AND TEACHER_NAME = #{userName}
+          AND TEACHER_EMAIL = #{userEmail}
+    </select>
+    
+</mapper>

@@ -20,8 +20,10 @@
 		<tr><td><input type="password" name="userPw" placeholder="비밀번호" /><br />
 		        <span th:if="${#fields.hasErrors('userPw')}" th:errors="*{userPw}" ></span></td></tr>
 		<tr><td colspan="2">
-		                    <a href="/login/registSelect">회원가입</a> | 
-						    아이디/비밀번호 찾기</td></tr>
+		                    
+						    <a href="/help/findId">아이디 찾기 </a> |
+						    <a href="/help/findPw">비밀번호 찾기</a> |
+						    <a href="/login/registSelect">회원가입</a></td></tr>
 	</table>
 </form>
 </div>
