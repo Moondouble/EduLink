@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import EduLink.command.StudentCommand;
 import EduLink.command.TeacherCommand;
 import EduLink.service.AutoNumService;
+import EduLink.service.IdcheckService;
 import EduLink.service.teacher.TeacherDeleteService;
 import EduLink.service.teacher.TeacherDetailService;
 import EduLink.service.teacher.TeacherListService;
@@ -34,6 +34,8 @@ public class TeacherController {
 	TeacherUpdateService teacherUpdateService;
 	@Autowired
 	TeacherDeleteService teacherDeleteService;
+	@Autowired
+	IdcheckService idcheckService;
 	@GetMapping("teacherWrite")
 	public String teacherWrite(Model model) {
 		String autoNum = autoNumService.execute("teacher_", "teacher_num", 9, "teacher");
@@ -53,6 +55,12 @@ public class TeacherController {
 					, "비밀번호가 일치하지 않습니다.");
 			return "thymeleaf/teacher/teacherForm";
 		}
+		String teacherid = teacherCommand.getTeacherId();
+		if(idcheckService.execute(teacherid) != null) {
+			System.out.println("아이디 중복");
+			return "thymeleaf/student/studentForm";
+		}
+		
 		teacherWriteService.execute(teacherCommand);
 		return "redirect:/";
 	}

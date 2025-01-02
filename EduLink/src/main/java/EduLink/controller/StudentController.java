@@ -6,14 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.StudentCommand;
-import EduLink.command.TeacherCommand;
 import EduLink.service.AutoNumService;
+import EduLink.service.IdcheckService;
 import EduLink.service.student.StudentDeleteService;
 import EduLink.service.student.StudentDetailService;
 import EduLink.service.student.StudentListService;
@@ -35,6 +34,8 @@ public class StudentController {
 	StudentUpdateService studentUpdateService;
 	@Autowired
 	StudentDeleteService studentDeleteService;
+	@Autowired
+	IdcheckService idcheckService;
 	@GetMapping("studentList")
 	public String studentList(Model model) {
 		studentListService.execute(model);
@@ -57,6 +58,11 @@ public class StudentController {
 		if(!studentCommand.isStudentPwEqualStudentPwCon()) {
 			result.rejectValue("studentPwCon", "studentCommand.studentPwCon"
 					, "비밀번호가 일치하지 않습니다.");
+			return "thymeleaf/student/studentForm";
+		}
+		String studentid = studentCommand.getStudentId();
+		if(idcheckService.execute(studentid) != null) {
+			System.out.println("아이디 중복");
 			return "thymeleaf/student/studentForm";
 		}
 		studentWriteService.execute(studentCommand);
