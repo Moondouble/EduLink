@@ -84,9 +84,9 @@ public class BoardController {
 		return "redirect:boardDetail?boardNum="+boardCommand.getBoardNum();
 	}
 	@GetMapping("boardDelete")
-	public String boardDelete(@RequestParam("boardNum") String boardNum) {
+	public String boardDelete(@RequestParam("boardNum") String boardNum, BoardCommand boardCommand) {
 		boardDeleteService.execute(boardNum);
-		return "redirect:/";
+		return "redirect:boardList?classNum= " + boardCommand.getClassNum();
 	}
 	
 	

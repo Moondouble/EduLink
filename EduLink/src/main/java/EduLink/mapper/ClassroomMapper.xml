@@ -14,7 +14,7 @@ CLASS_NUM as classNum
 </sql>
 
 <select id="classSelectAll">
-select <include refid="classroomColumnBase"></include> from classroom
+select <include refid="classroomColumnBase"></include> from classroom order by class_num asc
 </select>
 <select id="classSelectOne">
 select <include refid="classroomColumnBase"></include> from classroom

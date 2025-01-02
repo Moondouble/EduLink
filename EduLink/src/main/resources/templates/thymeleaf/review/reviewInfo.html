@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	회원상세페이지입니다.
+	<br /> 리뷰번호 : [[${reviewCommand.reviewNum }]]
+	<br /> 강의번호 : [[${reviewCommand.classNum }]]
+	<br /> 학생번호 : [[${reviewCommand.studentNum }]]
+	<br /> 리뷰제목 : [[${reviewCommand.reviewName }]]
+	<br /> 리뷰내용 : [[${reviewCommand.reviewContents }]]
+	<br /> 리뷰평점 : [[${reviewCommand.reviewRate }]]
+	<br /> 리뷰등록일 : [[${#dates.format(reviewCommand.reviewDate
+	,'yyyy-MM-dd')}]]
+	<br />
+	<a
+		th:href="|reviewUpdate?classNum=${reviewCommand.classNum}&reviewNum=${reviewCommand.reviewNum}|">리뷰
+		수정</a>
+	<form
+		th:action="|reviewDelete?classNum=${reviewCommand.classNum}&reviewNum=${reviewCommand.reviewNum}|"
+		method="post" style="display: inline;">
+		<button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">리뷰삭제</button>
+	</form>
+	|
+	<a href="reviewList">리뷰목록</a>
+</body>
+</html>
+
+
+
+
+
+

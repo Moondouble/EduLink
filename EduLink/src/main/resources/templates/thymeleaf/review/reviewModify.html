@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+#myform fieldset{
+    display: inline-block;
+    direction: rtl;
+    border:0;
+}
+#myform fieldset legend{
+    text-align: right;
+}
+#myform input[type=radio]{
+    display: none;
+}
+#myform label{
+    font-size: 3em;
+    color: transparent;
+    text-shadow: 0 0 0 #f0f0f0;
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgba(250, 208, 0, 0.99);
+}
+#reviewContents {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: solid 1.5px #D3D3D3;
+    border-radius: 5px;
+    font-size: 16px;
+    resize: none;
+}
+
+</style>
+</head>
+<body>
+리뷰수정 페이지입니다.<br />
+<form action="reviewUpdate" method="post" th:object="${reviewCommand}" id="myform" name="myform">
+    리뷰번호:
+    <input type="text" id="reviewNum" th:field="*{reviewNum}" name="reviewNum" readonly="readonly"/><br />
+
+    강의번호:
+    <input type="text" id="classNum" name="classNum" th:field="*{classNum}" readonly="readonly"/><br />
+
+    학생번호:
+    <input type="text" id="studentNum" name="studentNum" th:field="*{studentNum}" readonly="readonly"/><br />
+
+    리뷰제목:
+    <input type="text" id="reviewName" name="reviewName" th:field="*{reviewName}" /><br />
+
+    리뷰내용:
+    <textarea id="reviewContents" name="reviewContents" th:field="*{reviewContents}" rows="5"></textarea><br />
+
+    리뷰평점:
+    <fieldset>
+        <legend>별점을 선택해주세요</legend>
+        <input type="radio" name="reviewRate" value="5" id="rate1"><label for="rate1">★</label>
+        <input type="radio" name="reviewRate" value="4" id="rate2"><label for="rate2">★</label>
+        <input type="radio" name="reviewRate" value="3" id="rate3"><label for="rate3">★</label>
+        <input type="radio" name="reviewRate" value="2" id="rate4"><label for="rate4">★</label>
+        <input type="radio" name="reviewRate" value="1" id="rate5"><label for="rate5">★</label>
+    </fieldset><br />
+    <input type="submit" value="리뷰수정 완료" /> 
+   <input type="button" value="리뷰목록" 
+       onclick="location.href='/reviewList?classNum=' + encodeURIComponent('${reviewCommand.classNum}')" />
+</form>
+</body>
+</html>

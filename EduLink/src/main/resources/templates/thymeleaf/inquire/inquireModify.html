@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+문의수정 페이지입니다.<br />
+<form action="inquireModify" method="post" th:object="${inquireCommand}"><!-- dto -->
+문의번호 : <input type="text" name="inquireNum" th:field="*{inquireNum}" readonly="readonly" /><br />
+유형 : <select name="inquireCategory" th:field="*{inquireCategory}">
+				<option value="none">== 선택 ==</option>
+				<option value="select1">문의1</option>
+				<option value="select2">문의2</option>
+				<option value="select3">문의3</option>
+	  </select><br />
+제목 : <input type="text" name="inquireName" th:field="*{inquireName}"/><br />
+내용 : <input type="text" name="inquireContents" th:field="*{inquireContents}"/><br />
+<input type="submit" value="문의수정 완료" />
+</body>
+</html>

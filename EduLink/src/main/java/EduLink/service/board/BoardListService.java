@@ -19,6 +19,10 @@ public class BoardListService {
 	public void execute(String classNum, Model model) {
 		List<BoardDTO> list = boardMapper.boardSelectAll(classNum);
 		model.addAttribute("list", list);
-		
+		for (BoardDTO dto : list) {
+		    System.out.println("BoardNum: " + dto.getBoardNum());
+		    System.out.println("TeacherNum: " + dto.getTeacherNum());
+		    System.out.println("StudentNum: " + dto.getStudentNum());
+		}
 	}
 }

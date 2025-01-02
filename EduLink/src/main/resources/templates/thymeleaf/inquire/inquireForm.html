@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="inquireRegist" method="post" th:object="${inquireCommand}">
+문의번호 :     <input type="text" name="inquireNum" th:value="${inquireCommand.inquireNum}" readonly="readonly"/>
+              <span style="color:red">자동 부여</span><br />
+
+<div th:if="${session.auth.grade == 'student'}">
+작성자 :		<input type="text" name="studentNum" th:value="${session.auth.userNum}"/><br />
+</div>
+<div th:if="${session.auth.grade == 'teacher'}">
+작성자 :		<input type="text" name="teacherNum" th:value="${session.auth.userNum}"/><br />
+</div>
+제목 :    	 <input type="text" name="inquireName" th:value="${inquireCommand.inquireName}"/><br />
+카테고리 : 	<select name="inquireCategory">
+				<option value="none">== 선택 ==</option>
+				<option value="select1">문의1</option>
+				<option value="select2">문의2</option>
+				<option value="select3">문의3</option>
+			</select><br />
+내용 :        <textarea rows="5" cols="60" name="inquireContents" ></textarea><br />
+
+<input type="submit" value="문의등록" />
+</form>
+</body>
+</html>
