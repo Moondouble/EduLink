@@ -1,5 +1,7 @@
 package EduLink.controller;
 
+import java.io.PrintWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import EduLink.service.student.StudentDetailService;
 import EduLink.service.student.StudentListService;
 import EduLink.service.student.StudentUpdateService;
 import EduLink.service.student.StudentWriteService;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("student")
@@ -60,11 +63,11 @@ public class StudentController {
 					, "비밀번호가 일치하지 않습니다.");
 			return "thymeleaf/student/studentForm";
 		}
-		String studentid = studentCommand.getStudentId();
-		if(idcheckService.execute(studentid) != null) {
-			System.out.println("아이디 중복");
-			return "thymeleaf/student/studentForm";
-		}
+		String studentId = studentCommand.getStudentId();
+	    if (idcheckService.execute(studentId) != null) {
+	        result.rejectValue("studentId", "error.studentCommand", "사용중인 아이디입니다.");
+	        return "thymeleaf/student/studentForm";
+	    }
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}
@@ -88,5 +91,4 @@ public class StudentController {
 		studentDeleteService.execute(studentNum);
 		return "redirect:/";
 	}
-	
 }

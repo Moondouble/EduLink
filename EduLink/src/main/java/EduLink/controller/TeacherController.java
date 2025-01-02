@@ -55,9 +55,9 @@ public class TeacherController {
 					, "비밀번호가 일치하지 않습니다.");
 			return "thymeleaf/teacher/teacherForm";
 		}
-		String teacherid = teacherCommand.getTeacherId();
-		if(idcheckService.execute(teacherid) != null) {
-			System.out.println("아이디 중복");
+		String teacherId = teacherCommand.getTeacherId();
+		if(idcheckService.execute(teacherId) != null) {
+			result.rejectValue("teacherId", "error.teacherCommand", "사용중인 아이디입니다.");
 			return "thymeleaf/student/studentForm";
 		}
 		
