@@ -5,30 +5,55 @@
 <mapper namespace="EduLink.mapper.ReviewMapper">
 
 <sql id="ReviewColumnBase">
-review_num,
-class_num,
-student_num,
-review_name,
-review_contents,
-review_rate,
-review_date
+    review_num AS reviewNum,
+    class_num AS classNum,
+    student_num AS studentNum,
+    review_name AS reviewName,
+    review_contents AS reviewContents,
+    review_rate AS reviewRate,
+    review_date AS reviewDate
 </sql>
 
-<select id="reviewSelectAll" parameterType="reviewDTO">
-    select review_num as reviewNum, student_num as studentNum, review_name as reviewName,
-     review_contents as reviewContents, review_rate as reviewRate, review_date as reviewDate
-    from review
-    where class_num = #{classNum}
+<select id="reviewSelectAll" parameterType="String" resultType="ReviewDTO">
+    SELECT <include refid="ReviewColumnBase"></include>
+    FROM review
+    WHERE class_num = #{classNum}
 </select>
 
-<insert id="reviewInsert" parameterType="reviewDTO">
-    insert into review (
-        <include refid="ReviewColumnBase"></include>
+<insert id="reviewInsert" parameterType="ReviewDTO">
+    INSERT INTO review (
+        review_num,
+        class_num,
+        student_num,
+        review_name,
+        review_contents,
+        review_rate,
+        review_date
     )
-    values (
+    VALUES (
         #{reviewNum}, #{classNum}, #{studentNum}, #{reviewName},
         #{reviewContents}, #{reviewRate}, sysdate
     )
 </insert>
 
+<select id="reviewSelectOne" parameterType="map" resultType="ReviewDTO">
+    SELECT <include refid="ReviewColumnBase"></include>
+    FROM review
+    WHERE review_num = #{reviewNum}
+</select>
+
+<update id="reviewUpdate" parameterType="reviewDTO">
+update review
+set
+	review_name = #{reviewName}
+	,review_contents = #{reviewContents}
+	,review_rate = #{reviewRate}
+	,review_date = sysdate
+where review_num = #{reviewNum}
+</update>
+
+<delete id="reviewDelete">
+delete from review where review_num = #{reviewNum}
+
+</delete>
 </mapper>

@@ -27,10 +27,13 @@
     <h1>리뷰를 남겨주세요.</h1>
     <table border="1">
     <tr th:each="dto : ${list}">
-        <td>리뷰 제목: <span th:text="${dto.reviewName}"></span></td>
-        <td>리뷰 내용: <span th:text="${dto.reviewContents}"></span></td>
-       	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><a href="review/reviewModify">리뷰수정</a></td>
-       	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><a href="review/reviewModify">리뷰삭제</a></td>
+        <td><a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰 제목: <span th:text="${dto.reviewName}"></span></a></td>
+        <td><a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰 내용: <span th:text="${dto.reviewContents}"></span></a></td>
+       	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><a th:href="|reviewUpdate?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰수정</a></td>
+       	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><form th:action="|reviewDelete?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|" method="post"
+                          style="display: inline;">
+                        <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">리뷰삭제</button>
+                    </form></td>
     </tr>
     </table>
     <br />

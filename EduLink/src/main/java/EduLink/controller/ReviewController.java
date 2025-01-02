@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.ReviewCommand;
 import EduLink.service.AutoNumService;
+import EduLink.service.review.ReviewDeleteService;
+import EduLink.service.review.ReviewDetailService;
 import EduLink.service.review.ReviewListService;
+import EduLink.service.review.ReviewUpdateService;
 import EduLink.service.review.ReviewWriteService;
 import jakarta.servlet.http.HttpSession;
 
@@ -24,6 +27,12 @@ public class ReviewController
 	AutoNumService autoNumService;
 	@Autowired
 	ReviewWriteService reviewWriteService;
+	@Autowired
+	ReviewDetailService reviewDetailService;
+	@Autowired
+	ReviewUpdateService	 reviewUpdateService;
+	@Autowired
+	ReviewDeleteService reviewDeleteService;
 	@GetMapping("reviewList")
 	public String reviewList(@RequestParam("classNum")String classNum,Model model) {
 		ReviewCommand reviewCommand = new ReviewCommand();
@@ -45,6 +54,28 @@ public class ReviewController
 	@PostMapping("reviewWrite")
 	public String reviewRegist(ReviewCommand reviewCommand) {
 		reviewWriteService.execute(reviewCommand);
-		return "thymeleaf/review/reviewList";
+		return "redirect:reviewList?classNum="+reviewCommand.getClassNum();
+	}
+	
+	@GetMapping("reviewDetail")
+	public String reviewDetail(@RequestParam("reviewNum")String reviewNum,Model model) {
+		reviewDetailService.execute(reviewNum,model);
+		return "thymeleaf/review/reviewInfo";
+	}
+	
+	@GetMapping("reviewUpdate")
+	public String reviewModify(@RequestParam("reviewNum")String reviewNum,Model model) {
+		reviewDetailService.execute(reviewNum, model);
+		return "thymeleaf/review/reviewModify";
+	}
+	@PostMapping("reviewUpdate")
+	public String reviewPUpdate(ReviewCommand reviewCommand) {
+		reviewUpdateService.execute(reviewCommand);
+		return "redirect:reviewList?classNum="+reviewCommand.getClassNum();
+	}
+	@PostMapping("reviewDelete")
+	public String reviewDelete(@RequestParam("classNum")String classNum,@RequestParam("reviewNum")String reviewNum) {
+		reviewDeleteService.execute(reviewNum);
+		return "redirect:reviewList?classNum="+classNum;
 	}
 }
