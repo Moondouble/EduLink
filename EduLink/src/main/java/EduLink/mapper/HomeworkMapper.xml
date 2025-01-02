@@ -21,6 +21,7 @@
     select hw_num as hwNum, hw_name as hwName, hw_contents as hwContents, hw_end_date as hwEndDate
     from homework
     where class_num = #{classNum}
+    order by hw_num asc
 </select>
 
 <select id="homeworkSelectOne" parameterType="string" resultType="homeworkDTO">

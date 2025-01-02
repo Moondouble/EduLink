@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import EduLink.command.BoardCommand;
 import EduLink.command.ClassroomCommand;
+import EduLink.domain.AuthInfoDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.classroom.ClassroomDeleteService;
 import EduLink.service.classroom.ClassroomDetailService;
 import EduLink.service.classroom.ClassroomListService;
 import EduLink.service.classroom.ClassroomUpdateService;
 import EduLink.service.classroom.ClassroomWriteService;
+import jakarta.servlet.http.HttpSession;
 
 
 @Controller
@@ -40,7 +42,7 @@ public class ClassroomController
 		return "thymeleaf/class/classList";
 	}
 	@GetMapping("classWrite")
-	public String Write(Model model) {
+	public String Write(Model model, HttpSession session) {
 		String autoNum = autoNumService.execute("class_", "class_num", 7, "classroom");
 		ClassroomCommand classroomCommand = new ClassroomCommand();
 		classroomCommand.setClassNum(autoNum);
@@ -50,6 +52,10 @@ public class ClassroomController
 		
 		System.out.println(classroomCommand.getClassNum());
 
+		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
+		String userNum = auth.getUserNum();
+		classroomCommand.setTeacherNum(userNum);
+		
 		model.addAttribute("classroomCommand", classroomCommand);
 		System.out.println("Generated classroomCommand: " + classroomCommand);
 		return "thymeleaf/class/classForm";
