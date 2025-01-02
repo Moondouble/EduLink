@@ -3,13 +3,32 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="EduLink.mapper.ReviewMapper">
-<sql id="ReviewColumnBase"></sql>
 
-<select id="reviewSelectAll">
- select student_num, review_name, review_contents, review_rate,review_date from review
- where class_num = #{classNum}
+<sql id="ReviewColumnBase">
+review_num,
+class_num,
+student_num,
+review_name,
+review_contents,
+review_rate,
+review_date
+</sql>
+
+<select id="reviewSelectAll" parameterType="reviewDTO">
+    select review_num as reviewNum, student_num as studentNum, review_name as reviewName,
+     review_contents as reviewContents, review_rate as reviewRate, review_date as reviewDate
+    from review
+    where class_num = #{classNum}
 </select>
 
-
+<insert id="reviewInsert" parameterType="reviewDTO">
+    insert into review (
+        <include refid="ReviewColumnBase"></include>
+    )
+    values (
+        #{reviewNum}, #{classNum}, #{studentNum}, #{reviewName},
+        #{reviewContents}, #{reviewRate}, sysdate
+    )
+</insert>
 
 </mapper>

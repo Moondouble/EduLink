@@ -44,10 +44,10 @@
 </head>
 <body>
 
-<form class="mb-3" action="reviewWrite" name="myform" id="myform">
+<form class="mb-3" action="reviewWrite" name="myform" id="myform" method="post">
 리뷰번호 : <input type="text" name="reviewNum" id="reviewNum" th:value="${reviewCommand.reviewNum}"readonly="readonly">자동부여<br />
 강좌번호 : <input type="text" name="classNum" id="classNum" th:value="${reviewCommand.classNum}" readonly="readonly"/>자동부여<br />
-작성자 아이디 : <input type="text" name="studentNum" id="studentNum" th:value="${session.auth.userId}" readonly="readonly"/>자동부여<br />
+작성자 아이디 : <input type="text" name="studentNum" id="studentNum" th:value="${session.auth.userNum}" readonly="readonly"/>자동부여<br />
 리뷰제목 : <input type="text" name="reviewName" id="reviewName"><br />
 리뷰내용 : <textarea rows="5" cols="60" name="reviewContents" id="reveiwContents"></textarea> <br />
 별점 : <fieldset>

@@ -45,6 +45,6 @@ public class ReviewController
 	@PostMapping("reviewWrite")
 	public String reviewRegist(ReviewCommand reviewCommand) {
 		reviewWriteService.execute(reviewCommand);
-		return "";
+		return "thymeleaf/review/reviewList";
 	}
 }

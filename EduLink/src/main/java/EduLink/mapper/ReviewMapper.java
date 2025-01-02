@@ -10,4 +10,5 @@ import EduLink.domain.ReviewDTO;
 public interface ReviewMapper
 {
 	public List<ReviewDTO> reviewSelectAll(String classNum);
+	public void reviewInsert(ReviewDTO dto);
 }
