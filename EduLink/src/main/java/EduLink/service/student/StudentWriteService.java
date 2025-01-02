@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import EduLink.command.StudentCommand;
 import EduLink.domain.StudentDTO;
 import EduLink.mapper.StudentMapper;
+import jakarta.servlet.http.HttpSession;
 
 @Service
 public class StudentWriteService {

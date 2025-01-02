@@ -2,589 +2,94 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>게시판 상세 페이지</title>
 <style>
-body {
-	font-family: Arial, sans-serif;
-	padding: 40px;
-	min-height: 100vh;
-	background: #B1C9EF;
+html {
+    font-family: "Noto Sans KR", sans-serif;
 }
 
-h1 {
-	margin-bottom: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
+body, ul, li, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
-h2 {
-	margin-top: 10px;
-	margin-bottom: 10px;
-	margin-left: 20px;
-	margin-right: 20px;
+.con {
+    margin: 0 auto;
+    max-width: 950px;
 }
 
-hr {
-	width: 90%;
+.article-detail {
+    border: 2px solid lightgray;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-span, #post-content {
-	margin-left: 20px;
-	margin-right: 20px;
+.article-detail > table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.container {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	max-width: 430px;
-	width: 90%;
-	background: #fff;
-	border-radius: 7px;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+.article-detail > table th, .article-detail > table td {
+    border: 1px solid lightgray;
+    padding: 10px;
+    text-align: left;
 }
 
-.snowflake {
-	--size: 1vw;
-	width: var(--size);
-	height: var(--size);
-	background: white;
-	border-radius: 50%;
-	position: absolute;
-	top: -5vh;
+.article-detail > table tr.article-title > td {
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
 }
 
-@
-keyframes snowfall { 0% {
-	transform: translate3d(var(--left-ini), 0, 0);
+.article-detail > .article-writer span {
+    font-size: 1rem;
 }
 
-100
-%
-{
-transform
-:
-translate3d(
-var(
---left-end
-)
-,
-110vh
-,
-0
-);
-}
-}
-.snowflake:nth-child(1) {
-	--size: 2vw;
-	--left-ini: -8vw;
-	--left-end: 3vw;
-	left: 21vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -10s;
+.text-align-center {
+    text-align: center;
 }
 
-.snowflake:nth-child(2) {
-	--size: 1.6vw;
-	--left-ini: 2vw;
-	--left-end: 10vw;
-	left: 17vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -9s;
+.text-align-center a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: blue;
 }
 
-.snowflake:nth-child(3) {
-	--size: 1.8vw;
-	--left-ini: -5vw;
-	--left-end: -7vw;
-	left: 78vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -1s;
-}
-
-.snowflake:nth-child(4) {
-	--size: 1.2vw;
-	--left-ini: -1vw;
-	--left-end: -9vw;
-	left: 57vw;
-	animation: snowfall 6s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(5) {
-	--size: 1.2vw;
-	--left-ini: 9vw;
-	--left-end: -1vw;
-	left: 39vw;
-	animation: snowfall 10s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(6) {
-	--size: 1.8vw;
-	--left-ini: 3vw;
-	--left-end: -6vw;
-	left: 60vw;
-	animation: snowfall 10s linear infinite;
-	animation-delay: -1s;
-}
-
-.snowflake:nth-child(7) {
-	--size: 2vw;
-	--left-ini: -1vw;
-	--left-end: -4vw;
-	left: 89vw;
-	animation: snowfall 6s linear infinite;
-	animation-delay: -8s;
-}
-
-.snowflake:nth-child(8) {
-	--size: 2vw;
-	--left-ini: -4vw;
-	--left-end: -7vw;
-	left: 33vw;
-	animation: snowfall 11s linear infinite;
-	animation-delay: -2s;
-}
-
-.snowflake:nth-child(9) {
-	--size: 2vw;
-	--left-ini: -4vw;
-	--left-end: -4vw;
-	left: 78vw;
-	animation: snowfall 10s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(10) {
-	--size: 1.6vw;
-	--left-ini: -3vw;
-	--left-end: 1vw;
-	left: 73vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -7s;
-}
-
-.snowflake:nth-child(11) {
-	--size: 1.4vw;
-	--left-ini: 6vw;
-	--left-end: -1vw;
-	left: 62vw;
-	animation: snowfall 8s linear infinite;
-	animation-delay: -8s;
-}
-
-.snowflake:nth-child(12) {
-	--size: 1.4vw;
-	--left-ini: -1vw;
-	--left-end: 1vw;
-	left: 46vw;
-	animation: snowfall 14s linear infinite;
-	animation-delay: -10s;
-}
-
-.snowflake:nth-child(13) {
-	--size: 1.8vw;
-	--left-ini: 5vw;
-	--left-end: 0vw;
-	left: 28vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(14) {
-	--size: 1.8vw;
-	--left-ini: 0vw;
-	--left-end: -8vw;
-	left: 96vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(15) {
-	--size: 2vw;
-	--left-ini: 9vw;
-	--left-end: 4vw;
-	left: 48vw;
-	animation: snowfall 8s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(16) {
-	--size: 1.6vw;
-	--left-ini: -2vw;
-	--left-end: 6vw;
-	left: 42vw;
-	animation: snowfall 11s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(17) {
-	--size: 1.8vw;
-	--left-ini: -5vw;
-	--left-end: -5vw;
-	left: 11vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -4s;
-}
-
-.snowflake:nth-child(18) {
-	--size: 2vw;
-	--left-ini: -5vw;
-	--left-end: 2vw;
-	left: 21vw;
-	animation: snowfall 6s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(19) {
-	--size: 1.6vw;
-	--left-ini: -6vw;
-	--left-end: 0vw;
-	left: 66vw;
-	animation: snowfall 14s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(20) {
-	--size: 1.8vw;
-	--left-ini: 7vw;
-	--left-end: -5vw;
-	left: 20vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -4s;
-}
-
-.snowflake:nth-child(21) {
-	--size: 2vw;
-	--left-ini: 5vw;
-	--left-end: -9vw;
-	left: 50vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -2s;
-}
-
-.snowflake:nth-child(22) {
-	--size: 1.8vw;
-	--left-ini: 3vw;
-	--left-end: 5vw;
-	left: 16vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -8s;
-}
-
-.snowflake:nth-child(23) {
-	--size: 1.2vw;
-	--left-ini: -1vw;
-	--left-end: 5vw;
-	left: 89vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -2s;
-}
-
-.snowflake:nth-child(24) {
-	--size: 1.2vw;
-	--left-ini: -8vw;
-	--left-end: -9vw;
-	left: 36vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(25) {
-	--size: 1.2vw;
-	--left-ini: -6vw;
-	--left-end: 0vw;
-	left: 100vw;
-	animation: snowfall 8s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(26) {
-	--size: 2vw;
-	--left-ini: -4vw;
-	--left-end: 3vw;
-	left: 72vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(27) {
-	--size: 1.8vw;
-	--left-ini: -1vw;
-	--left-end: 0vw;
-	left: 23vw;
-	animation: snowfall 14s linear infinite;
-	animation-delay: -1s;
-}
-
-.snowflake:nth-child(28) {
-	--size: 1.2vw;
-	--left-ini: 8vw;
-	--left-end: -5vw;
-	left: 37vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -5s;
-}
-
-.snowflake:nth-child(29) {
-	--size: 2vw;
-	--left-ini: 9vw;
-	--left-end: 8vw;
-	left: 61vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -1s;
-}
-
-.snowflake:nth-child(30) {
-	--size: 2vw;
-	--left-ini: -4vw;
-	--left-end: -1vw;
-	left: 59vw;
-	animation: snowfall 11s linear infinite;
-	animation-delay: -10s;
-}
-
-.snowflake:nth-child(31) {
-	--size: 2vw;
-	--left-ini: 2vw;
-	--left-end: -3vw;
-	left: 54vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -7s;
-}
-
-.snowflake:nth-child(32) {
-	--size: 2vw;
-	--left-ini: -4vw;
-	--left-end: -2vw;
-	left: 82vw;
-	animation: snowfall 6s linear infinite;
-	animation-delay: -6s;
-}
-
-.snowflake:nth-child(33) {
-	--size: 1.8vw;
-	--left-ini: 8vw;
-	--left-end: 4vw;
-	left: 16vw;
-	animation: snowfall 7s linear infinite;
-	animation-delay: -2s;
-}
-
-.snowflake:nth-child(34) {
-	--size: 1.8vw;
-	--left-ini: -8vw;
-	--left-end: -4vw;
-	left: 39vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -10s;
-}
-
-.snowflake:nth-child(35) {
-	--size: 2vw;
-	--left-ini: -9vw;
-	--left-end: 6vw;
-	left: 40vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -1s;
-}
-
-.snowflake:nth-child(36) {
-	--size: 1.4vw;
-	--left-ini: -6vw;
-	--left-end: -6vw;
-	left: 36vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -7s;
-}
-
-.snowflake:nth-child(37) {
-	--size: 2.4vw;
-	--left-ini: -5vw;
-	--left-end: -6vw;
-	left: 90vw;
-	animation: snowfall 7s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(38) {
-	--size: 2vw;
-	--left-ini: -8vw;
-	--left-end: -8vw;
-	left: 9vw;
-	animation: snowfall 7s linear infinite;
-	animation-delay: -6s;
-}
-
-.snowflake:nth-child(39) {
-	--size: 1.6vw;
-	--left-ini: 5vw;
-	--left-end: 3vw;
-	left: 83vw;
-	animation: snowfall 7s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(40) {
-	--size: 1.6vw;
-	--left-ini: -2vw;
-	--left-end: 1vw;
-	left: 84vw;
-	animation: snowfall 9s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(41) {
-	--size: 1.6vw;
-	--left-ini: -1vw;
-	--left-end: -8vw;
-	left: 73vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(42) {
-	--size: 1.2vw;
-	--left-ini: -4vw;
-	--left-end: 3vw;
-	left: 19vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -10s;
-}
-
-.snowflake:nth-child(43) {
-	--size: 1.4vw;
-	--left-ini: -2vw;
-	--left-end: 4vw;
-	left: 80vw;
-	animation: snowfall 13s linear infinite;
-	animation-delay: -3s;
-}
-
-.snowflake:nth-child(44) {
-	--size: 1.8vw;
-	--left-ini: 6vw;
-	--left-end: -3vw;
-	left: 7vw;
-	animation: snowfall 8s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(45) {
-	--size: 1.6vw;
-	--left-ini: -5vw;
-	--left-end: -7vw;
-	left: 60vw;
-	animation: snowfall 8s linear infinite;
-	animation-delay: -7s;
-}
-
-.snowflake:nth-child(46) {
-	--size: 1.2vw;
-	--left-ini: -4vw;
-	--left-end: -9vw;
-	left: 82vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -7s;
-}
-
-.snowflake:nth-child(47) {
-	--size: 1.2vw;
-	--left-ini: -4vw;
-	--left-end: -2vw;
-	left: 56vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -8s;
-}
-
-.snowflake:nth-child(48) {
-	--size: 1.6vw;
-	--left-ini: 8vw;
-	--left-end: -8vw;
-	left: 11vw;
-	animation: snowfall 15s linear infinite;
-	animation-delay: -10s;
-}
-
-.snowflake:nth-child(49) {
-	--size: 2vw;
-	--left-ini: 3vw;
-	--left-end: 8vw;
-	left: 24vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -9s;
-}
-
-.snowflake:nth-child(50) {
-	--size: 2vw;
-	--left-ini: 7vw;
-	--left-end: -8vw;
-	left: 69vw;
-	animation: snowfall 12s linear infinite;
-	animation-delay: -3s;
-}
-
-/* added small blur every 6 snowflakes*/
-.snowflake:nth-child(6n) {
-	filter: blur(1px);
-}
-
-.back {
-	position: absolute;
-	left: 20px;
-	top: 20px;
-	height: 40px;
-	width: 40px;
-	border-radius: 50%;
-	cursor: pointer;
-}
-
-img {
-	height: 40px;
-	width: 40px;
+.text-align-center a:hover {
+    text-decoration: underline;
 }
 </style>
-
-<title>Insert title here</title>
 </head>
 <body>
-	<h1>게시판 상세 페이지</h1>
-	<table class="container">
-		<tr>
-			<td colspan="2"><h1>[[${boardCommand.boardName}]]</h1></td>
-		</tr>
-		<tr>
-			<td colspan="2"><hr></td>
-		</tr>
-		<tr>
-			<td><span>강의번호 : [[${boardCommand.classNum}]]</span></td>
-			<td></td>
-		</tr>
-		<tr
-			th:if="${boardCommand.studentNum != null && boardCommand.studentNum != ''}">
-			<td>작성자 (학생):</td>
-			<td>[[${boardCommand.studentNum}]]</td>
-		</tr>
-		<tr
-			th:if="${boardCommand.teacherNum != null && boardCommand.teacherNum != ''}">
-			<td>작성자 (선생):</td>
-			<td>[[${boardCommand.teacherNum}]]</td>
-		</tr>
-		<tr>
-			<td>내용:</td>
-			<td>[[${boardCommand.boardContents}]]</td>
-		</tr>
-		<tr>
-			<td colspan="2" style="text-align: center;">
-				<div>
-					<a th:href="|boardUpdate?boardNum=${boardCommand.boardNum}|">수정</a>
-					| <a th:href="|boardDelete?boardNum=${boardCommand.boardNum}|">삭제</a>
-					| <a th:href="|boardList?classNum=${boardCommand.classNum}|">글목록</a>
-				</div>
-			</td>
-		</tr>
-	</table>
-
+    <h1 class="con">게시글 상세보기</h1>
+    <section class="article-detail con">
+        <table>
+            <tbody>
+                <tr class="article-title">
+                    <th>제목</th>
+                    <td colspan="3">[[${boardCommand.boardName}]]</td>
+                </tr>
+                <tr>
+                    <th>강의번호</th>
+                    <td>[[${boardCommand.classNum}]]</td>
+                    <th>작성자</th>
+                    <td>
+                        <span th:if="${boardCommand.studentNum != null}">[[${boardCommand.studentNum}]] (학생)</span>
+                        <span th:if="${boardCommand.teacherNum != null}">[[${boardCommand.teacherNum}]] (교육자)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">[[${boardCommand.boardContents}]]</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="text-align-center">
+            <a th:href="|boardUpdate?boardNum=${boardCommand.boardNum}|">수정</a>
+            | <a th:href="|boardDelete?boardNum=${boardCommand.boardNum}|">삭제</a>
+            | <a th:href="|boardList?classNum=${boardCommand.classNum}|">글목록</a>
+        </div>
+    </section>
 </body>
 </html>

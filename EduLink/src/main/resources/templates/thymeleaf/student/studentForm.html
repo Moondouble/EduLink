@@ -8,42 +8,42 @@
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#studentEmail").on("change keyup", function(){
-		$.ajax({
-			type: 'post',
-			url: "/checkRest/userEmailCheck",
-			data:{"userEmail":$("#studentEmail").val()},
-			dataType: 'text',
-			success: function(result){
-				$("#emailCheck").text(result);
-				if(result.trim() == "사용가능한 이메일입니다."){
-					$("#emailCheck").css("color", "green");
-				}else{
-					$("#emailCheck").css("color", "red");
-				}
-			},
-			error:function(){}
-		});
-	});
-	$("#studentId").on("change keyup", function(){
-		$.ajax({
-			type: 'post',
-			url: "/login/userIdCheck",
-			data:{"userId":$("#studentId").val()},
-			dataType: 'text',
-			success: function(result){
-				// userIdCheck주소에서 넘어온 값을 result가 받아온다.
-				// 받아온 값을 span에 전달한다.
-				$("#idCheck").text(result);
-				if(result.trim() == "사용가능한 아이디입니다."){
-					$("#idCheck").css("color", "green");
-				}else{
-					$("#idCheck").css("color", "red");
-				}
-			},
-			error:function(){}
-		});
-	});	
+   $("#studentEmail").on("change keyup", function(){
+      $.ajax({
+         type: 'post',
+         url: "/checkRest/userEmailCheck",
+         data:{"userEmail":$("#studentEmail").val()},
+         dataType: 'text',
+         success: function(result){
+            $("#emailCheck").text(result);
+            if(result.trim() == "사용가능한 이메일입니다."){
+               $("#emailCheck").css("color", "green");
+            }else{
+               $("#emailCheck").css("color", "red");
+            }
+         },
+         error:function(){}
+      });
+   });
+   $("#studentId").on("change keyup", function(){
+      $.ajax({
+         type: 'post',
+         url: "/login/userIdCheck",
+         data:{"userId":$("#studentId").val()},
+         dataType: 'text',
+         success: function(result){
+            // userIdCheck주소에서 넘어온 값을 result가 받아온다.
+            // 받아온 값을 span에 전달한다.
+            $("#idCheck").text(result);
+            if(result.trim() == "사용가능한 아이디입니다."){
+               $("#idCheck").css("color", "green");
+            }else{
+               $("#idCheck").css("color", "red");
+            }
+         },
+         error:function(){}
+      });
+   });   
 });
 </script>
 <style>
@@ -274,6 +274,11 @@ $(function(){
         
         <h1>학생등록</h1>
         <form action="studentRegist" method="post" id="frm" th:object="${studentCommand}">
+        
+            <div class="form-group">
+                <label for="studentNum">학생번호</label>
+                <input type="text" name="studentNum" th:value="${studentCommand.studentNum}"/>
+            </div>
             <div class="form-group">
                 <label for="studentId">학생아이디</label>
                 <input type="text" name="studentId" id="studentId" th:value="${studentCommand.studentId}" />
@@ -321,12 +326,25 @@ $(function(){
                 <input type="tel" name="studentPhone1" id="studentPhone1" th:value="${studentCommand.studentPhone1}" />
                 <span th:if="${#fields.hasErrors('studentPhone1')}" th:class="error-message" th:errors="*{studentPhone1}"></span>
             </div>
+            
+            <div class="form-group">
+                <label for="studentPhone2">일반전화</label>
+                <input type="tel" name="studentPhone2" id="studentPhone2" th:value="${studentCommand.studentPhone2}" />
+                <span th:if="${#fields.hasErrors('studentPhone2')}" th:class="error-message" th:errors="*{studentPhone2}"></span>
+            </div>
 
             <div class="form-group">
                 <label for="studentBirth">생년월일</label>
                 <input type="date" name="studentBirth" id="studentBirth" th:value="${#dates.format(studentCommand.studentBirth, 'yyyy-MM-dd')}" />
                 <span th:if="${#fields.hasErrors('studentBirth')}" th:class="error-message" th:errors="*{studentBirth}"></span>
             </div>
+            
+            
+            <div class="form-group">
+                <label for="studentJumin">주민등록번호</label>
+                <input type="text" name="studentJumin" id="studentJumin" th:value="${studentCommand.studentJumin}" />
+            </div>
+
 
             <div class="form-group">
                 <label for="studentEmail">학생이메일</label>
@@ -344,7 +362,6 @@ $(function(){
 </div>
 </body>
 </html>
-
 
 
 
