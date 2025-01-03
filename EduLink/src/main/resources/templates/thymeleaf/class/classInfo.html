@@ -78,18 +78,12 @@
     <div class="container">
         <h1>강의 상세 정보</h1>
         <dl class="details">
-            <dt>강의번호:</dt>
-            <dd>[[${classroomCommand.classNum}]]</dd>
-            <dt>강사번호:</dt>
-            <dd>[[${classroomCommand.teacherNum}]]</dd>
-            <dt>강의명:</dt>
-            <dd>[[${classroomCommand.className}]]</dd>
-            <dt>강의시작일:</dt>
-            <dd>[[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]]</dd>
-            <dt>강의종료일:</dt>
-            <dd>[[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]</dd>
-            <dt>강의회차:</dt>
-            <dd>[[${classroomCommand.classWeek}]]</dd>
+            <dt>강의번호:[[${classroomCommand.classNum}]]</dt>
+            <dt>강사번호:[[${classroomCommand.teacherNum}]]</dt>
+            <dt>강의명:[[${classroomCommand.className}]]</dt>
+            <dt>강의시작일:[[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]]</dt>
+            <dt>강의종료일:[[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]</dt>
+            <dt>강의회차:[[${classroomCommand.classWeek}]]</dt>
         </dl>
         <div>
             <a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
@@ -107,9 +101,9 @@
                 <div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
             </div>
             <div id="tab1" class="tabs__content">
-                [[${classroomCommand.classContents}]]
+            [[${classroomCommand.classContents}]]
             </div>
-            <div id="tab2" class="tabs__content">
+            <div id="tab2" class="tabs__content">	
                 강의 목록 내용이 표시됩니다.
             </div>
             <div id="tab3" class="tabs__content">
