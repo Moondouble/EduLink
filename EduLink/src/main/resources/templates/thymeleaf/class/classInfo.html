@@ -1,29 +1,138 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>ClassInfo.html</title>
+    <meta charset="UTF-8">
+    <title>ClassInfo.html</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 768px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 2.4rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .details {
+            font-size: 1.6rem;
+            line-height: 2;
+        }
+        .details dt {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .details dd {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        .tabs {
+            margin-top: 20px;
+        }
+        .tabs__menu {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+        }
+        .tabs__menu-item {
+            flex: 1;
+            text-align: center;
+            padding: 10px 0;
+            cursor: pointer;
+            font-size: 1.6rem;
+        }
+        .tabs__menu-item.on {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .tabs__content {
+            display: none;
+            font-size: 1.4rem;
+            color: #333;
+            line-height: 2;
+            white-space: pre-line; /* 줄바꿈 처리 */
+        }
+        .tabs__content.on {
+            display: block;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-강의페이지입니다.<br />
-강의번호 : [[${classroomCommand.classNum }]]<br />
-강사번호 : [[${classroomCommand.teacherNum }]]<br />
-강의명 : [[${classroomCommand.className }]]<br />
-강의내용 : [[${classroomCommand.classContents }]]<br />
-강의시작일 : [[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd') }]]<br />
-강의종료일 : [[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd') }]]<br />
-강의회차 : [[${classroomCommand.classWeek}]]<br />
-<a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
-<a th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>
-<a th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</a><br />
-<a th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의 정보 수정</a> | 
-<a th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의 삭제</a> |
-<a href="classList">강의목록</a>
+    <div class="container">
+        <h1>강의 상세 정보</h1>
+        <dl class="details">
+            <dt>강의번호:</dt>
+            <dd>[[${classroomCommand.classNum}]]</dd>
+            <dt>강사번호:</dt>
+            <dd>[[${classroomCommand.teacherNum}]]</dd>
+            <dt>강의명:</dt>
+            <dd>[[${classroomCommand.className}]]</dd>
+            <dt>강의시작일:</dt>
+            <dd>[[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]]</dd>
+            <dt>강의종료일:</dt>
+            <dd>[[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]</dd>
+            <dt>강의회차:</dt>
+            <dd>[[${classroomCommand.classWeek}]]</dd>
+        </dl>
+        <div>
+            <a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
+            <a th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>
+            <a th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</a><br />
+            <a th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의 정보 수정</a> | 
+            <a th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의 삭제</a> |
+            <a href="classList">강의목록</a>
+        </div>
+
+        <div class="tabs">
+            <div class="tabs__menu">
+                <div class="tabs__menu-item" data-tab="tab1">강좌 소개</div>
+                <div class="tabs__menu-item" data-tab="tab2">강의 목록</div>
+                <div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
+            </div>
+            <div id="tab1" class="tabs__content">
+                [[${classroomCommand.classContents}]]
+            </div>
+            <div id="tab2" class="tabs__content">
+                강의 목록 내용이 표시됩니다.
+            </div>
+            <div id="tab3" class="tabs__content">
+                학습 Q&A 내용이 표시됩니다.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabsMenuItems = document.querySelectorAll('.tabs__menu-item');
+            const tabsContent = document.querySelectorAll('.tabs__content');
+
+            tabsMenuItems.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabsMenuItems.forEach(item => item.classList.remove('on'));
+                    tabsContent.forEach(content => content.classList.remove('on'));
+
+                    tab.classList.add('on');
+                    document.getElementById(tab.getAttribute('data-tab')).classList.add('on');
+                });
+            });
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
-
