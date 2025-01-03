@@ -78,9 +78,6 @@ public class ClassroomController
 		String teacherNum = classroomCommand.getTeacherNum();
 		System.out.println(teacherNum);
 		teacherDetailService.execute(teacherNum, model);
-		TeacherDTO teacherCommand = (TeacherDTO) model.getAttribute("teacherCommand");
-		
-		System.out.println(teacherCommand.getTeacherStoreImage());
 		return "thymeleaf/class/classInfo";
 	}
 	
