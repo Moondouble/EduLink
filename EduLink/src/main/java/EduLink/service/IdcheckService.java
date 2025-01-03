@@ -9,6 +9,12 @@ import EduLink.mapper.LoginMapper;
 public class IdcheckService{
 	@Autowired
 	LoginMapper loginMapper;
+	
+    public boolean isIdAvailable(String userId) {
+        String resultId = execute(userId);
+        return resultId == null;
+    }
+    
 	public String execute(String userId) {
 		String resultId = loginMapper.selectIdCheck(userId);
 		return resultId;

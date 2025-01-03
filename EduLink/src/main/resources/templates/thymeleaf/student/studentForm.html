@@ -9,44 +9,90 @@
 <script src ="/static/js/daumAddressScript.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
-$(function(){
-   $("#studentEmail").on("change keyup", function(){
-      $.ajax({
-         type: 'post',
-         url: "/checkRest/userEmailCheck",
-         data:{"userEmail":$("#studentEmail").val()},
-         dataType: 'text',
-         success: function(result){
-            $("#emailCheck").text(result);
-            if(result.trim() == "사용가능한 이메일입니다."){
-               $("#emailCheck").css("color", "green");
-            }else{
-               $("#emailCheck").css("color", "red");
-            }
-         },
-         error:function(){}
-      });
-   });
-   $("#studentId").on("change keyup", function(){
-      $.ajax({
-         type: 'post',
-         url: "/login/userIdCheck",
-         data:{"userId":$("#studentId").val()},
-         dataType: 'text',
-         success: function(result){
-            // userIdCheck주소에서 넘어온 값을 result가 받아온다.
-            // 받아온 값을 span에 전달한다.
-            $("#idCheck").text(result);
-            if(result.trim() == "사용가능한 아이디입니다."){
-               $("#idCheck").css("color", "green");
-            }else{
-               $("#idCheck").css("color", "red");
-            }
-         },
-         error:function(){}
-      });
-   });   
-});
+$(function () {
+	   // 이메일 중복 확인
+	   $("#studentEmail").on("change keyup", function () {
+	      $.ajax({
+	         type: "post",
+	         url: "/checkRest/userEmailCheck",
+	         data: { "userEmail": $("#studentEmail").val() },
+	         dataType: "text",
+	         success: function (result) {
+	            $("#emailCheck").text(result);
+	            if (result.trim() === "사용가능한 이메일입니다.") {
+	               $("#emailCheck").css("color", "green");
+	               validateRegisterButton();
+	            } else {
+	               $("#emailCheck").css("color", "red");
+	               disableRegisterButton();
+	            }
+	         },
+	         error: function () {
+	            $("#emailCheck").text("서버 오류 발생").css("color", "red");
+	            disableRegisterButton();
+	         }
+	      });
+	   });
+	   
+	   // 비밀번호 확인 로직
+	    $("#studentPw, #studentPwCon").on("change keyup", function () {
+	        const password = $("#studentPw").val();
+	        const confirmPassword = $("#studentPwCon").val();
+
+	        if (password && confirmPassword) {
+	            if (password === confirmPassword) {
+	                $("#passwordCheck").text("비밀번호가 일치합니다.").css("color", "green");
+	                validateRegisterButton();
+	            } else {
+	                $("#passwordCheck").text("비밀번호가 일치하지 않습니다.").css("color", "red");
+	                disableRegisterButton();
+	            }
+	        } else {
+	            $("#passwordCheck").text("");
+	        }
+	    });
+	   
+	   // 아이디 중복 확인
+	   $("#studentId").on("change keyup", function () {
+	      $.ajax({
+	         type: "post",
+	         url: "/login/userIdCheck",
+	         data: { "userId": $("#studentId").val() },
+	         dataType: "text",
+	         success: function (result) {
+	            $("#idCheck").text(result);
+	            if (result.trim() === "사용가능한 아이디입니다.") {
+	               $("#idCheck").css("color", "green");
+	               validateRegisterButton();
+	            } else {
+	               $("#idCheck").css("color", "red");
+	               disableRegisterButton();
+	            }
+	         },
+	         error: function () {
+	            $("#idCheck").text("서버 오류 발생").css("color", "red");
+	            disableRegisterButton();
+	         }
+	      });
+	   });
+
+	   // 회원가입 버튼 활성화 체크
+	   function validateRegisterButton() {
+	      const emailValid = $("#emailCheck").text().trim() === "사용가능한 이메일입니다.";
+	      const idValid = $("#idCheck").text().trim() === "사용가능한 아이디입니다.";
+
+	      if (emailValid && idValid) {
+	         $("#registerButton").prop("disabled", false).removeClass("disabled-btn");
+	      } else {
+	         disableRegisterButton();
+	      }
+	   }
+
+	   // 회원가입 버튼 비활성화
+	   function disableRegisterButton() {
+	      $("#registerButton").prop("disabled", true).addClass("disabled-btn");
+	   }
+	});
 </script>
 <style>
     body {
@@ -251,6 +297,12 @@ $(function(){
     .form-actions .join-btn:hover {
         background: #003366;
     }
+
+	button.disabled-btn {
+  		background-color: #cccccc;
+   		color: #666666;
+  	    cursor: not-allowed;
+}
     
     .error-message {
     font-size: 10px; /* 글씨 크기 줄이기 */
@@ -357,8 +409,7 @@ $(function(){
 
             <div class="form-actions">
                 <button type="button" class="cancel-btn" onclick="location.href='/'">CANCEL</button>
-                <button type="submit" class="join-btn" onclick="location.href='/'">REGISTER</button>
-            </div>
+                 <button type="submit" class="join-btn disabled-btn" id="registerButton" disabled>REGISTER</button>            </div>
         </form>
     </div>
 </div>

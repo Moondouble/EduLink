@@ -63,11 +63,6 @@ public class StudentController {
 					, "비밀번호가 일치하지 않습니다.");
 			return "thymeleaf/student/studentForm";
 		}
-		String studentId = studentCommand.getStudentId();
-	    if (idcheckService.execute(studentId) != null) {
-	        result.rejectValue("studentId", "error.studentCommand", "사용중인 아이디입니다.");
-	        return "thymeleaf/student/studentForm";
-	    }
 		studentWriteService.execute(studentCommand);
 		return "redirect:/";
 	}

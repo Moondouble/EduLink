@@ -15,6 +15,7 @@ String userEmail;
 String userName;
 String userPhone;
 String userImage;
+String userStoreImage;
 String userRegist;
 String usergrade;
 }

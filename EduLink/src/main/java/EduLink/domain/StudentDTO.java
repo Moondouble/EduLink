@@ -29,4 +29,5 @@ public class StudentDTO {
 	String studentPhone1;
 	String studentPhone2;
 	String studentImage;
+	String studentStoreImage;
 }
