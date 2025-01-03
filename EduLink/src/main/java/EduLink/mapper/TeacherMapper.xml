@@ -16,14 +16,14 @@
         ,TEACHER_EMAIL_CONF, TEACHER_REGIST, TEACHER_PW
         ,TEACHER_ADDR, TEACHER_ADDR_DETAIL, TEACHER_JUMIN
         ,TEACHER_POST, TEACHER_PHONE1, TEACHER_PHONE2
-        ,TEACHER_IMAGE
+        ,TEACHER_IMAGE, TEACHER_STORE_IMAGE
     )
     values (
         #{teacherNum}, #{teacherId}, #{teacherName}, #{teacherEmail}
         ,null, sysdate, #{teacherPw}
         ,#{teacherAddr}, #{teacherAddrDetail}, #{teacherJumin}
         ,#{teacherPost}, #{teacherPhone1}, #{teacherPhone2}
-        ,null
+        ,#{teacherImage},#{teacherStoreImage}
     )
 </insert>
 <select id="teacherSelectAll" resultType="teacherDTO">

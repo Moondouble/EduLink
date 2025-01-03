@@ -18,7 +18,8 @@
         <div th:if="${userInfo.usergrade}=='employee'">관리자용 아이디</div>
             <tr>
                 <td rowspan="4">
-                    <img th:src="${userInfo.userImage}" alt="프로필사진" style="width:150px; height:150px;" />
+                
+                     <img th:src="|/static/upload/${userInfo.userStoreImage}|" th:alt="${userInfo.userImage}" style="width:150px; height:150px;" />
                 </td>
                 <td>이름</td>
                 <td th:text="${userInfo.userName}"></td>

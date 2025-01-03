@@ -13,6 +13,7 @@
         <result property="userName" column="user_name" />
         <result property="userPhone" column="user_phone" />
         <result property="userImage" column="user_image" />
+        <result property="userStoreImage" column="user_store_image" />
         <result property="userRegist" column="user_regist" />
         <result property="usergrade" column="user_grade" />
     </resultMap>
@@ -27,6 +28,7 @@
             student_name AS user_name, 
             student_phone1 AS user_phone, 
             student_image AS user_image, 
+            student_store_image as user_store_image,
             student_regist AS user_regist,
             'student' AS user_grade
         FROM student
@@ -40,6 +42,7 @@
             teacher_name AS user_name, 
             teacher_phone1 AS user_phone, 
             teacher_image AS user_image, 
+            teacher_store_image as user_store_image,
             teacher_regist AS user_regist,
             'teacher' AS user_grade
         FROM teacher
@@ -53,6 +56,7 @@
             emp_name AS user_name, 
             emp_phone1 AS user_phone, 
             emp_image AS user_image, 
+            emp_store_image as user_store_image,
             emp_regist AS user_regist,
             'employee' AS user_grade
         FROM employee

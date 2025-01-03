@@ -17,14 +17,14 @@
         STUDENT_EMAIL, STUDENT_EMAIL_CONF, STUDENT_REGIST,
         STUDENT_BIRTH, STUDENT_JUMIN, STUDENT_ADDR,
         STUDENT_ADDR_DETAIL, STUDENT_POST, STUDENT_PHONE1,
-        STUDENT_PHONE2, STUDENT_IMAGE
+        STUDENT_PHONE2, STUDENT_IMAGE, STUDENT_STORE_IMAGE
     )
     values (
         #{studentNum}, #{studentName}, #{studentId}, #{studentPw},
         #{studentEmail}, null, sysdate,
         #{studentBirth}, #{studentJumin}, #{studentAddr},
         #{studentAddrDetail}, #{studentPost}, #{studentPhone1},
-        #{studentPhone2}, null
+        #{studentPhone2}, #{studentImage},#{studentStoreImage}
     )
 </insert>
 
@@ -48,7 +48,8 @@ set  STUDENT_NAME = #{studentName}
     ,STUDENT_POST = #{studentPost}
     ,STUDENT_PHONE1 = #{studentPhone1}
     ,STUDENT_PHONE2 = #{studentPhone2} 
-    ,STUDENT_IMAGE = null 
+    ,STUDENT_IMAGE = #{studentImage}
+    ,STUDENT_STORE_IMAGE = #{studentStoreImage}
 where student_num = #{studentNum}
 </update>
 <delete id="studentDelete" parameterType="string">

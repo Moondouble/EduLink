@@ -1,5 +1,8 @@
 package EduLink.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,17 +26,17 @@ public class LoginController {
 	IdcheckService idcheckService;
 	@Autowired
 	UserLoginService userLoginService;
-	@PostMapping("userIdCheck")
-	// html 문서 아닌 텍스트를 전달하기 위해서는 @ResponseBody가 필요.
-	public @ResponseBody String userIdCheck(
-			@RequestParam(value="userId") String userId) {
-			String resultId = idcheckService.execute(userId);
-			if(resultId == null) {
-				return "사용가능한 아이디입니다.";
-			}else {
-			    return "사용중인 아이디입니다.";
-		    }
-		}
+    @PostMapping("userIdCheck")
+    @ResponseBody
+    public String userIdCheck(@RequestParam("userId") String userId) {
+        String response = new String();
+        if (idcheckService.isIdAvailable(userId)) {
+            response = "사용가능한 아이디입니다.";
+        } else {
+            response = "사용중인 아이디입니다.";
+        }
+        return response;
+    }
 	 // 로그인 페이지 이동
     @GetMapping("loginPage")
     public String loginPage(@ModelAttribute("loginCommand") LoginCommand loginCommand) {

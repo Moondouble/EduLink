@@ -3,6 +3,7 @@ package EduLink.command;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -39,7 +40,8 @@ public class StudentCommand {
 	@NotBlank(message = "휴대전화번호를 입력해 주세요.")
 	String studentPhone1;
 	String studentPhone2;
-	String studentImage;
+	MultipartFile studentImage;
+	MultipartFile studentStoreImage;
 	
 	public boolean isStudentPwEqualStudentPwCon() {
 		return studentPw.equals(studentPwCon);

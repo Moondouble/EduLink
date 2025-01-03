@@ -3,49 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <title>teacherForm.html</title>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src ="/static/js/daumAddressScript.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#teacherEmail").on("change keyup", function(){
-		$.ajax({
-			type: 'post',
-			url: "/checkRest/userEmailCheck",
-			data:{"userEmail":$("#teacherEmail").val()},
-			dataType: 'text',
-			success: function(result){
-				$("#emailCheck").text(result);
-				if(result.trim() == "사용가능한 이메일입니다."){
-					$("#emailCheck").css("color", "green");
-				}else{
-					$("#emailCheck").css("color", "red");
-				}
-			},
-			error:function(){}
-		});
-	});
-	$("#teacherId").on("change keyup", function(){
-		$.ajax({
-			type: 'post',
-			url: "/login/userIdCheck",
-			data:{"userId":$("#teacherId").val()},
-			dataType: 'text',
-			success: function(result){
-				$("#idCheck").text(result);
-				if(result.trim() == "사용가능한 아이디입니다."){
-					$("#idCheck").css("color", "green");
-				}else{
-					$("#idCheck").css("color", "red");
-				}
-			},
-			error:function(){}
-		});
-	});	
+    // 이메일 중복 확인
+    $("#teacherEmail").on("change keyup", function(){
+        $.ajax({
+            type: 'post',
+            url: "/checkRest/userEmailCheck",
+            data: {"userEmail": $("#teacherEmail").val()},
+            dataType: 'text',
+            success: function(result){
+                $("#emailCheck").text(result);
+                if(result.trim() == "사용가능한 이메일입니다.") {
+                    $("#emailCheck").css("color", "green");
+                    $("#registerButton").prop("disabled", false); // 버튼 활성화
+                } else {
+                    $("#emailCheck").css("color", "red");
+                    $("#registerButton").prop("disabled", true); // 버튼 비활성화
+                }
+            },
+            error:function(){
+                $("#emailCheck").text("서버 오류 발생").css("color", "red");
+                $("#registerButton").prop("disabled", true); // 버튼 비활성화
+            }
+        });
+    });
+
+    // 아이디 중복 확인
+    $("#teacherId").on("change keyup", function(){
+        $.ajax({
+            type: 'post',
+            url: "/login/userIdCheck",
+            data: {"userId": $("#teacherId").val()},
+            dataType: 'text',
+            success: function(result){
+                $("#idCheck").text(result);
+                if(result.trim() == "사용가능한 아이디입니다.") {
+                    $("#idCheck").css("color", "green");
+                    $("#registerButton").prop("disabled", false); // 버튼 활성화
+                } else {
+                    $("#idCheck").css("color", "red");
+                    $("#registerButton").prop("disabled", true); // 버튼 비활성화
+                }
+            },
+            error:function(){
+                $("#idCheck").text("서버 오류 발생").css("color", "red");
+                $("#registerButton").prop("disabled", true); // 버튼 비활성화
+            }
+        });
+    });
 });
 </script>
 </head>
 <body>
-<form action="teacherRegist" method="post" th:object="${teacherCommand}">
-교육자번호 :       <input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}"/>
+<form action="teacherRegist" method="post" th:object="${teacherCommand}" enctype="multipart/form-data">
+교육자번호 :       <input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}" readonly="readonly"/>
                 <span style="color:red">자동 부여</span><br />
 교육자아이디 :      <input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}"/>     
                 <span id='idCheck'></span><br />
@@ -55,11 +70,11 @@ $(function(){
                 <span style="color:red" th:if="${#fields.hasErrors('teacherPwCon')}" th:errors="*{teacherPwCon}"></span><br />
 교육자명 :         <input type="text" name="teacherName" th:value="${teacherCommand.teacherName}"/>         
                 <span style="color:red" th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}"></span><br />
-교육자주소 : 		<input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherPost}"/>
+교육자주소 : 		<input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherPost}" readonly="readonly"/>
                 <button type="button" onclick="execDaumPostcode();">우편번호검색</button>
                 <span style="color:red" th:if="${#fields.hasErrors('teacherAddr')}" th:errors="*{teacherAddr}"></span><br />
 상세주소 : 		<input type="text" name="teacherAddrDetail" th:value="${teacherCommand.teacherAddrDetail}"/><br />
-우편번호 : 		<input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" /><br />
+우편번호 : 		<input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" readonly="readonly" /><br />
 휴대폰 : 		    <input type="tel" name="teacherPhone1" th:value="${teacherCommand.teacherPhone1}"/>        
                  <span style="color:red" th:if="${#fields.hasErrors('teacherPhone1')}" th:errors="*{teacherPhone1}"></span><br />
 일반전화 : 		<input type="tel" name="teacherPhone2" th:value="${teacherCommand.teacherPhone2}"/><br />
@@ -67,7 +82,8 @@ $(function(){
 교육자이메일 : 		<input type="email" name="teacherEmail" id="teacherEmail" th:value="${teacherCommand.teacherEmail}"/>            
                 <span id="emailCheck"></span>
 				<span style="color:red" th:if="${#fields.hasErrors('teacherEmail')}" th:errors="*{teacherEmail}"></span><br />
-<input type="submit" value="교육자등록" />
+프로필사진 : 			<input type="file" name="teacherImage" multiple="multiple" />
+<input type="submit" id=registerButton value="교육자등록" />
 </form>
 </body>
 </html>
