@@ -17,6 +17,7 @@ public class BoardDTO {
 	String writeNum;
 	String boardName;
 	String boardContents;
+	String boardCategory;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date boardDate;
 }

@@ -20,6 +20,8 @@ public class BoardWriteService {
 		dto.setBoardName(boardCommand.getBoardName());
 		dto.setClassNum(boardCommand.getClassNum());
 		dto.setWriteNum(boardCommand.getWriteNum());
+		dto.setBoardCategory(boardCommand.getBoardCategory());
+		
 		if (boardCommand.getTeacherNum() == null) {
 		    dto.setTeacherNum("");
 		}else {

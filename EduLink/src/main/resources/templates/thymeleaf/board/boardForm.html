@@ -25,6 +25,9 @@
       </div>
       <div class="px-4 py-8">
         <form class="grid form-type-1" action="boardWrite" method="post" th:object="${boardCommand}">
+			<div class="form-control">
+            <input type="hidden" name="boardCategory" th:value="${session.auth.grade == 'teacher'} ? 'Class' : 'Question'">	
+          </div>
           <div class="form-control">
             <label class="label">
               <span class="label-text">글번호</span>
@@ -56,6 +59,7 @@
             <input type="text" name="boardName" th:value="${boardCommand.boardName}" class="input input-bordered">
           </div>
           <div class="form-control">
+
             <label class="label">
               <span class="label-text">내용</span>
             </label>

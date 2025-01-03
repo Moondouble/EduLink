@@ -15,6 +15,7 @@ public class BoardCommand {
 	String writeNum;
 	String boardName;
 	String boardContents;
+	String boardCategory;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date boardDate;
 	

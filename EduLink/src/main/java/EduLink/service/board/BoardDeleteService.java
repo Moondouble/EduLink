@@ -11,6 +11,7 @@ public class BoardDeleteService {
 	@Autowired
 	BoardMapper boardMapper;
 	public void execute(String boardNum) {
+		
 		boardMapper.boardDelete(boardNum);
 		
 	}
