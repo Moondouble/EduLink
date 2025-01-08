@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import EduLink.command.TeacherCommand;
 import EduLink.service.AutoNumService;
@@ -22,71 +23,82 @@ import EduLink.service.teacher.TeacherWriteService;
 @Controller
 @RequestMapping("teacher")
 public class TeacherController {
-	@Autowired
-	TeacherWriteService teacherWriteService;
-	@Autowired
-	TeacherListService teacherListService;
-	@Autowired
-	TeacherDetailService teacherDetailService;
-	@Autowired
-	AutoNumService autoNumService;
-	@Autowired
-	TeacherUpdateService teacherUpdateService;
-	@Autowired
-	TeacherDeleteService teacherDeleteService;
-	@Autowired
-	IdcheckService idcheckService;
-	@GetMapping("teacherWrite")
-	public String teacherWrite(Model model) {
-		String autoNum = autoNumService.execute("teacher_", "teacher_num", 9, "teacher");
-		TeacherCommand  teacherCommand = new TeacherCommand();
-		teacherCommand.setTeacherNum(autoNum);
-		model.addAttribute("teacherCommand", teacherCommand);
-		return "thymeleaf/teacher/teacherForm";
-	}
-	@PostMapping("teacherRegist")
-	public String teacherRegist(@Validated TeacherCommand teacherCommand
-			, BindingResult result) {
-		if(result.hasErrors()) {
-			return "thymeleaf/teacher/teacherForm";
-		}
-		if(!teacherCommand.isTeacherPwEqualTeacherPwCon()) {
-			result.rejectValue("teacherPwCon", "teacherCommand.teacherPwCon"
-					, "비밀번호가 일치하지 않습니다.");
-			return "thymeleaf/teacher/teacherForm";
-		}
-		String teacherid = teacherCommand.getTeacherId();
-		if(idcheckService.execute(teacherid) != null) {
-			System.out.println("아이디 중복");
-			return "thymeleaf/student/studentForm";
-		}
-		
-		teacherWriteService.execute(teacherCommand);
-		return "redirect:/";
-	}
-	@GetMapping("teacherList")
-	public String teacherList(Model model) {
-		teacherListService.execute(model);
-		return "thymeleaf/teacher/teacherList";
-	}
-	@GetMapping("teacherDetail")
-	public String teacherDetail(@RequestParam("teacherNum") String teacherNum, Model model) {
-		teacherDetailService.execute(teacherNum, model);
-		return "thymeleaf/teacher/teacherInfo";
-	}
-	@GetMapping("teacherUpdate")
-	public String teacherUpdate(@RequestParam("teacherNum") String teacherNum, Model model) {
-		teacherDetailService.execute(teacherNum, model);
-		return "thymeleaf/teacher/teacherModify";
-	}
-	@PostMapping("teacherModify")
-	public String teacherModify(TeacherCommand teacherCommand) {
-		teacherUpdateService.execute(teacherCommand);
-		return "redirect:teacherDetail?teacherNum="+teacherCommand.getTeacherNum();
-	}
-	@GetMapping("teacherDelete")
-	public String teacherDelete(@RequestParam("teacherNum") String teacherNum) {
-		teacherDeleteService.execute(teacherNum);
-		return "redirect:/";
-	}
+
+    @Autowired
+    TeacherWriteService teacherWriteService;
+
+    @Autowired
+    TeacherListService teacherListService;
+
+    @Autowired
+    TeacherDetailService teacherDetailService;
+
+    @Autowired
+    AutoNumService autoNumService;
+
+    @Autowired
+    TeacherUpdateService teacherUpdateService;
+
+    @Autowired
+    TeacherDeleteService teacherDeleteService;
+
+    @Autowired
+    IdcheckService idcheckService;
+
+    @GetMapping("teacherWrite")
+    public String teacherWrite(Model model) {
+        String autoNum = autoNumService.execute("teacher_", "teacher_num", 9, "teacher");
+        TeacherCommand teacherCommand = new TeacherCommand();
+        teacherCommand.setTeacherNum(autoNum);
+        model.addAttribute("teacherCommand", teacherCommand);
+        return "thymeleaf/teacher/teacherForm";
+    }
+
+    @PostMapping("teacherRegist")
+    public String teacherRegist(
+            @Validated TeacherCommand teacherCommand,
+            BindingResult result,
+            @RequestParam("teacherImage") MultipartFile teacherImageFile,
+            Model model) {
+        if (result.hasErrors()) {
+            return "thymeleaf/teacher/teacherForm";
+        }
+
+        if (!teacherCommand.isTeacherPwEqualTeacherPwCon()) {
+            result.rejectValue("teacherPwCon", "teacherCommand.teacherPwCon", "비밀번호가 일치하지 않습니다.");
+            return "thymeleaf/teacher/teacherForm";
+        }
+        teacherWriteService.execute(teacherCommand, teacherImageFile);
+        return "redirect:/teacher/teacherList";
+    }
+
+    @GetMapping("teacherList")
+    public String teacherList(Model model) {
+        teacherListService.execute(model);
+        return "thymeleaf/teacher/teacherList";
+    }
+
+    @GetMapping("teacherDetail")
+    public String teacherDetail(@RequestParam("teacherNum") String teacherNum, Model model) {
+        teacherDetailService.execute(teacherNum, model);
+        return "thymeleaf/teacher/teacherInfo";
+    }
+
+    @GetMapping("teacherUpdate")
+    public String teacherUpdate(@RequestParam("teacherNum") String teacherNum, Model model) {
+        teacherDetailService.execute(teacherNum, model);
+        return "thymeleaf/teacher/teacherModify";
+    }
+
+    @PostMapping("teacherModify")
+    public String teacherModify(TeacherCommand teacherCommand) {
+        teacherUpdateService.execute(teacherCommand);
+        return "redirect:teacherDetail?teacherNum=" + teacherCommand.getTeacherNum();
+    }
+
+    @GetMapping("teacherDelete")
+    public String teacherDelete(@RequestParam("teacherNum") String teacherNum) {
+        teacherDeleteService.execute(teacherNum);
+        return "redirect:/";
+    }
 }

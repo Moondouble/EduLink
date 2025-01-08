@@ -64,6 +64,7 @@ public class BoardController {
 	}
 	@PostMapping("boardWrite")
 	public String boardWrite2(BoardCommand boardCommand) {
+		  System.out.println("boardCategory: " + boardCommand.getBoardCategory());
 		boardWriteService.execute(boardCommand);
 		return "redirect:boardList?classNum=" + boardCommand.getClassNum();
 	}
@@ -84,11 +85,14 @@ public class BoardController {
 		return "redirect:boardDetail?boardNum="+boardCommand.getBoardNum();
 	}
 	@GetMapping("boardDelete")
-	public String boardDelete(@RequestParam("boardNum") String boardNum, BoardCommand boardCommand) {
+	public String boardDelete(@RequestParam("classNum")String classNum,@RequestParam("boardNum") String boardNum) {
 		boardDeleteService.execute(boardNum);
-		return "redirect:boardList?classNum= " + boardCommand.getClassNum();
+		return "redirect:boardList?classNum=" + classNum;
 	}
-	
+    @GetMapping("stockChart")
+    public String stockChart() {
+    	return "thymeleaf/board/stockChart";
+    }
 	
 	
 }

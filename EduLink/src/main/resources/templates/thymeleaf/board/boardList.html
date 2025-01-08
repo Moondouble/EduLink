@@ -2,250 +2,172 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>게시글 목록</title>
 <style>
-  * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Nanum Brush Script', cursive;
-        }
+html {
+    font-family: "Noto Sans KR", sans-serif;
+}
 
-        body {
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: #f0f3fa;
-            margin: 0;
-            padding: 0;
-        }
+body, ul, li, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 
-        .wrapper {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            height: 100%;
-            width: 50%;
-            background: #D5DEEF;
-            transition: all 0.6s ease-in-out;
-            z-index: 1;
-        }
+.con {
+    margin: 0 auto;
+    max-width: 950px;
+    text-align: center;
+}
 
-        #active:checked~.wrapper {
-            right: 0;
-        }
+.page-title {
+    margin-bottom: 20px;
+}
 
-        .menu-btn {
-            position: absolute;
-            z-index: 2;
-            right: 10px;
-            top: 10px;
-            height: 50px;
-            width: 50px;
-            text-align: center;
-            line-height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-        }
+.page-title h3 {
+    font-size: 28px;
+    color: #333333;
+    font-weight: 400;
+    text-align: center;
+}
 
-        .menu-btn span,
-        .menu-btn:before,
-        .menu-btn:after {
-            content: "";
-            position: absolute;
-            top: calc(50% - 1px);
-            left: 30%;
-            width: 40%;
-            border-bottom: 2px solid #000;
-            transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
+section.notice {
+  padding: 80px 0;
+}
 
-        .menu-btn:before {
-            transform: translateY(-8px);
-        }
+.page-title {
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+}
 
-        .menu-btn:after {
-            transform: translateY(8px);
-        }
+#board-search .search-window {
+  padding: 15px 0;
+  background-color: #f9f7f9;
+}
+#board-search .search-window .search-wrap {
+  position: relative;
+/*   padding-right: 124px; */
+  margin: 0 auto;
+  width: 80%;
+  max-width: 564px;
+}
+#board-search .search-window .search-wrap input {
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+#board-search .search-window .search-wrap input:focus {
+  border-color: #333;
+  outline: 0;
+  border-width: 1px;
+}
+#board-search .search-window .search-wrap .btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 108px;
+  padding: 0;
+  font-size: 16px;
+}
 
-        .close {
-            z-index: 1;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            transition: background .6s;
-        }
+.board-table {
+    font-size: 13px;
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    margin-top: 20px;
+}
 
-        /* closing animation */
-        #active:checked+.menu-btn span {
-            transform: scaleX(0);
-        }
+.board-table th, .board-table td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid lightgray;
+}
 
-        #active:checked+.menu-btn:before {
-            transform: rotate(45deg);
-            border-color: #fff;
-        }
+.board-table th {
+    background-color: #f9f9f9;
+}
 
-        #active:checked+.menu-btn:after {
-            transform: rotate(-45deg);
-            border-color: #fff;
-        }
+.board-table th:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-        .wrapper ul {
-            position: absolute;
-            top: 60%;
-            left: 50%;
-            height: 90%;
-            transform: translate(-50%, -50%);
-            list-style: none;
-            text-align: center;
-        }
+.board-table a {
+    color: #333;
+    text-decoration: none;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
 
-        .wrapper ul li {
-            height: 10%;
-            margin: 15px 0;
-        }
-
-        .wrapper ul li a {
-            width: 150px;
-            text-decoration: none;
-            font-size: 30px;
-            font-weight: 500;
-            padding: 5px 30px;
-            color: #000;
-            border-radius: 50px;
-            position: absolute;
-            line-height: 50px;
-            margin: 5px 30px;
-            opacity: 0;
-            transition: all 0.3s ease;
-            transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-
-        .wrapper ul li a:after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 100%;
-            left: 0;
-            top: 0;
-            transform: scaleY(0);
-            z-index: -1;
-            transition: transform 0.3s ease;
-        }
-
-        .wrapper ul li a:hover:after {
-            transform: scaleY(1);
-        }
-
-        .wrapper ul li a:hover {
-            background: #ffffff;
-        }
-
-        input[type="checkbox"] {
-            display: none;
-        }
-
-        #active:checked~.wrapper ul li a {
-            opacity: 1;
-        }
-
-        .wrapper ul li a {
-            transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
-            transform: translateX(100px);
-        }
-
-        #active:checked~.wrapper ul li a {
-            transform: none;
-            transition-timing-function: ease, cubic-bezier(.1, 1.3, .3, 1);
-            transition-delay: .6s;
-            transform: translateX(-100px);
-        }
-
-        .container {
-            width: 100%;
-            height: 600px;
-            padding: 20px;
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
-        }
-
-        th {
-            background: #B1C9EF;
-            font-weight: bold;
-            overflow: hidden;
-        }
-
-        tr:nth-child(even) {
-            background: #D5DEEF;
-        }
-
-        #write-btn {
-            padding: 10px;
-            font-size: 18px;
-            color: black;
-            font-weight: bold;
-            background-color: #b8b8b8;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        #write-btn:hover {
-            background-color: black;
-            color: #fff;
-        }
-
-        .desc {
-            width: 100%;
-            height: 150px;
-            position: relative;
-            background: #B1C9EF;
-        }
-
-        hr {
-            width: 90%;
-            margin: 0 auto;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 40px;
-            height: 150px;
-            line-height: 150px;
-        }
-
-
+.board-table a:hover {
+    text-decoration: underline;
+}
 </style>
-<title>Insert title here</title>
 </head>
 <body>
-게시글 목록<br>
-강의번호 : [[${classroomCommand.classNum }]]<br />
-<table border=1>
-<tr><td>번호</td><td>제목</td><td>작성자</td><td>내용</td></tr>
-<tr th:each="dto : ${list}">
-<td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a></td>
-<td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardName}]]</a></td>
-<td>[[${dto.studentNum != null ? dto.studentNum : dto.teacherNum}]]</td>
-<td>[[${dto.boardContents}]]</a></td></tr>
-</table>
-<a th:href="|boardWrite?classNum=${classroomCommand.classNum}|">글작성</a>
+<section class="notice">
+  <div class="page-title">
+        <div class="container">
+            <h3>게시글 목록</h3>
+        </div>
+    </div>
+
+    <!-- board seach area -->
+    <div id="board-search">
+        <div class="container">
+            <div class="search-window">
+                <form action="">
+                    <div class="search-wrap">
+                        
+                        <input id="search" type="search" name="" placeholder="검색어를 입력해주세요." value="">
+                        <button type="submit" class="btn btn-dark">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- board list area -->
+    <div id="board-list">
+        <div class="con">
+            <table class="board-table">
+                <thead>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">작성자</th>
+                        <th scope="col">내용</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dto : ${list}">
+                        <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardNum}]]</a></td>
+                        <td><a th:href="|boardDetail?boardNum=${dto.boardNum}|">[[${dto.boardName}]]</a></td>
+                        <td>[[${dto.studentNum != null ? dto.studentNum : dto.teacherNum}]]</td>
+                        <td>[[${dto.boardContents}]]</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="con">
+        <a class="btn btn-dark" th:href="|boardWrite?classNum=${classroomCommand.classNum}|">게시글 등록</a>
+    </div>
+</section>
 </body>
 </html>

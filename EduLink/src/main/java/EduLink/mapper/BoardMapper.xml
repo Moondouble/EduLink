@@ -9,12 +9,12 @@ BOARD_NUM as boardNum, CLASS_NUM as classNum, STUDENT_NUM as studentNum, TEACHER
 </sql>
 
 <insert id="boardInsert" parameterType="boardDTO">
-insert into board(BOARD_NUM, CLASS_NUM, STUDENT_NUM, TEACHER_NUM, BOARD_NAME, BOARD_CONTENTS, BOARD_DATE)
-values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{boardName}, #{boardContents}, sysdate)
+insert into board(BOARD_NUM, CLASS_NUM, STUDENT_NUM, TEACHER_NUM, BOARD_NAME, BOARD_CONTENTS, BOARD_DATE, BOARD_CATEGORY)
+values(#{boardNum}, #{classNum}, #{studentNum}, #{teacherNum}, #{boardName}, #{boardContents}, sysdate,#{boardCategory})
 </insert>
 
 <select id="boardSelectAll" parameterType="string" resultType="boardDTO">
-select BOARD_NUM as boardNum, BOARD_NAME as boardName, STUDENT_NUM as studentNum, teacher_num as teacherNum, BOARD_CONTENTS as boardContents
+select BOARD_NUM as boardNum, BOARD_NAME as boardName, STUDENT_NUM as studentNum, teacher_num as teacherNum, BOARD_CONTENTS as boardContents, BOARD_CATEGORY as boardCategory
 from board
 where class_num = #{classNum}
 order by board_num asc
@@ -24,6 +24,12 @@ order by board_num asc
      select <include refid="boardColumnsBase" />
      from board
      where board_num = #{boardNum}
+</select>
+
+<select id="boardSelectQuestion" parameterType="string" resultType="boardDTO">
+     select <include refid="boardColumnsBase" />
+     from board
+     where board_num = #{boardNum} AND board_category = 'Question'
 </select>
 
 <update id="boardUpdate" parameterType="boardDTO">
@@ -36,5 +42,7 @@ where board_num = #{boardNum}
 <delete id="boardDelete" parameterType="string">
 delete from board where board_num = #{boardNum}
 </delete>
+
+
 
 </mapper>

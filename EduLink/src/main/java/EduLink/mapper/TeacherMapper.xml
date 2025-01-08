@@ -8,7 +8,7 @@
     , TEACHER_EMAIL_CONF as teacherEmailConf, TEACHER_REGIST as teacherRegist, TEACHER_PW as teacherPw
     ,TEACHER_ADDR as teacherAddr, TEACHER_ADDR_DETAIL as teacherAddrDetail, TEACHER_JUMIN as teacherJumin
     ,TEACHER_POST as teacherPost, TEACHER_PHONE1 as teacherPhone1, TEACHER_PHONE2 as teacherPhone2
-    ,TEACHER_IMAGE as teacherImage
+    ,TEACHER_IMAGE as teacherImage, TEACHER_STORE_IMAGE as teacherStoreImage
 </sql>
 <insert id="teacherInsert" parameterType="teacherDTO">
     insert into teacher (
@@ -16,14 +16,14 @@
         ,TEACHER_EMAIL_CONF, TEACHER_REGIST, TEACHER_PW
         ,TEACHER_ADDR, TEACHER_ADDR_DETAIL, TEACHER_JUMIN
         ,TEACHER_POST, TEACHER_PHONE1, TEACHER_PHONE2
-        ,TEACHER_IMAGE
+        ,TEACHER_IMAGE, TEACHER_STORE_IMAGE
     )
     values (
         #{teacherNum}, #{teacherId}, #{teacherName}, #{teacherEmail}
         ,null, sysdate, #{teacherPw}
         ,#{teacherAddr}, #{teacherAddrDetail}, #{teacherJumin}
         ,#{teacherPost}, #{teacherPhone1}, #{teacherPhone2}
-        ,null
+        ,#{teacherImage},#{teacherStoreImage}
     )
 </insert>
 <select id="teacherSelectAll" resultType="teacherDTO">
@@ -45,7 +45,8 @@ set  TEACHER_NAME = #{teacherName}
     ,TEACHER_POST = #{teacherPost}
     ,TEACHER_PHONE1 = #{teacherPhone1}
     ,TEACHER_PHONE2 = #{teacherPhone2} 
-    ,TEACHER_IMAGE = null 
+    ,TEACHER_IMAGE = #{teacherImage}
+    ,TEACHER_STORE_IMAGE = #{teacherStoreImage}
 where TEACHER_NUM = #{teacherNum}
 </update>
 <delete id="teacherDelete" parameterType="string">

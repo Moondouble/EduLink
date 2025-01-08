@@ -2,22 +2,85 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>게시판 생성</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- daisyui 불러오기 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@0.14.4/dist/full.css">
+
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-게시글등록 페이지입니다.<br />
-<form action="boardWrite" method="post" th:object="${boardCommand}">
-글번호 : 	<input type="text" name="boardNum" th:value="${boardCommand.boardNum}"/>자동부여<br />
-강의번호 : 	<input type="text" name="classNum" th:value="${classroomCommand.classNum}" /><br />
-<div th:if="${session.auth.grade == 'student'}">
-작성자 :		<input type="text" name="studentNum" th:value="${session.auth.userNum}"/><br />
-</div>
-<div th:if="${session.auth.grade == 'teacher'}">
-작성자 :		<input type="text" name="teacherNum" th:value="${session.auth.userNum}"/><br />
-</div>
+<div class="section-board-make">
+  <div class="container mx-auto">
+    <div class="card bordered shadow-lg item-bt-1-not-last-child">
+      <div class="card-title">
+        <a href="javascript:history.back();" class="cursor-pointer">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+        <span>게시글 생성</span>
+      </div>
+      <div class="px-4 py-8">
+        <form class="grid form-type-1" action="boardWrite" method="post" th:object="${boardCommand}">
+			<div class="form-control">
+            <input type="hidden" name="boardCategory" th:value="${session.auth.grade == 'teacher'} ? 'Class' : 'Question'">	
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">글번호</span>
+            </label>
+            <input type="text" name="boardNum" th:value="${boardCommand.boardNum}" placeholder="자동부여" class="input input-bordered">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의번호</span>
+            </label>
+            <input type="text" name="classNum" th:value="${classroomCommand.classNum}" class="input input-bordered">
+          </div>
+          <div th:if="${session.auth.grade == 'student'}" class="form-control">
+            <label class="label">
+              <span class="label-text">작성자 (학생)</span>
+            </label>
+            <input type="text" name="studentNum" th:value="${session.auth.userNum}" class="input input-bordered">
+          </div>
+          <div th:if="${session.auth.grade == 'teacher'}" class="form-control">
+            <label class="label">
+              <span class="label-text">작성자 (교사)</span>
+            </label>
+            <input type="text" name="teacherNum" th:value="${session.auth.userNum}" class="input input-bordered">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">제목</span>
+            </label>
+            <input type="text" name="boardName" th:value="${boardCommand.boardName}" class="input input-bordered">
+          </div>
+          <div class="form-control">
 
-제목 : 		<input type="text" name="boardName" th:value="${boardCommand.boardName}"/><br />
-내용 :		<textarea rows="5" cols="60" name="boardContents"></textarea><br />
-<input type="submit" value="게시글등록" />
+            <label class="label">
+              <span class="label-text">내용</span>
+            </label>
+            <textarea rows="5" cols="60" name="boardContents" class="textarea textarea-bordered"></textarea>
+          </div>
+          <div class="mt-4 btn-wrap gap-1">
+            <button type="submit" class="btn btn-primary btn-sm mb-1">
+              <span><i class="fas fa-save"></i></span>
+              &nbsp;
+              <span>생성</span>
+            </button>
+            <a href="/" class="btn btn-secondary btn-sm mb-1">
+              <span><i class="fas fa-list"></i></span>
+              &nbsp;
+              <span>리스트로 돌아가기</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
