@@ -17,5 +17,5 @@ public class ClassroomCommand
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date classEndDate;
 	Integer classWeek;
-
+	Integer classroomPrice;
 }
