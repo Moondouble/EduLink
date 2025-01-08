@@ -29,7 +29,7 @@ order by board_num asc
 <select id="boardSelectQuestion" parameterType="string" resultType="boardDTO">
      select <include refid="boardColumnsBase" />
      from board
-     where board_num = #{boardNum} AND board_category = 'Question'
+     where class_num = #{classNum} AND board_category = 'Question'
 </select>
 
 <update id="boardUpdate" parameterType="boardDTO">

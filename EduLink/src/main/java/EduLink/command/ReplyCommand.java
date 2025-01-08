@@ -1,14 +1,10 @@
-package EduLink.domain;
+package EduLink.command;
 
 import java.util.Date;
 
-import org.apache.ibatis.type.Alias;
-
 import lombok.Data;
-
 @Data
-@Alias("replyDTO")
-public class ReplyDTO
+public class ReplyCommand
 {
 	String replyNum;
 	String boardNum;

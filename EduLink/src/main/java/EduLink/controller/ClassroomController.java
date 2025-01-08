@@ -12,8 +12,8 @@ import EduLink.command.BoardCommand;
 import EduLink.command.ClassroomCommand;
 import EduLink.domain.AuthInfoDTO;
 import EduLink.domain.ClassroomDTO;
-import EduLink.domain.TeacherDTO;
 import EduLink.service.AutoNumService;
+import EduLink.service.board.BoardListService;
 import EduLink.service.classroom.ClassroomDeleteService;
 import EduLink.service.classroom.ClassroomDetailService;
 import EduLink.service.classroom.ClassroomListService;
@@ -41,6 +41,8 @@ public class ClassroomController
 	ClassroomDeleteService classroomDeleteService;
 	@Autowired
 	TeacherDetailService teacherDetailService;
+	@Autowired
+	BoardListService boardListService;
 	@GetMapping("classList")
 	public String List(Model model) {
 		classroomListService.execute(model);
@@ -79,6 +81,9 @@ public class ClassroomController
 		System.out.println(teacherNum);
 		teacherDetailService.execute(teacherNum, model);
 		//이 아래로 강의 질문 불러오기
+		boardListService.question(classNum,model);
+		
+		//여기까지
 		return "thymeleaf/class/classInfo";
 	}
 	

@@ -13,5 +13,6 @@ public interface BoardMapper {
 	public BoardDTO boardSelectOne(String boardNum);
 	public void boardUpdate(BoardDTO dto);
 	public void boardDelete(String boardNum);
+	public List<BoardDTO> boardSelectQuestion(String classNum);
 	
 }
