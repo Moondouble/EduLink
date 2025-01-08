@@ -89,7 +89,10 @@ public class BoardController {
 		boardDeleteService.execute(boardNum);
 		return "redirect:boardList?classNum=" + classNum;
 	}
-	
+    @GetMapping("stockChart")
+    public String stockChart() {
+    	return "thymeleaf/board/stockChart";
+    }
 	
 	
 }
