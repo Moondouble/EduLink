@@ -22,6 +22,7 @@ public void execute(ClassroomCommand classroomCommand) {
 	dto.setClassStartDate(classroomCommand.getClassStartDate());
 	dto.setClassEndDate(classroomCommand.getClassEndDate());
 	dto.setClassWeek(classroomCommand.getClassWeek());
+	dto.setClassroomPrice(classroomCommand.getClassroomPrice());
 	classroomMapper.classroomInsert(dto);
 }
 }

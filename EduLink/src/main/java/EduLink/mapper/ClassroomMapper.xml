@@ -11,6 +11,7 @@ CLASS_NUM as classNum
 ,CLASS_START_DATE as classStartDate
 ,CLASS_END_DATE as classEndDate           
 ,CLASS_WEEK as classWeek
+,classroom_price as classroomPrice
 </sql>
 
 <select id="classSelectAll">
@@ -23,8 +24,8 @@ where class_Num = #{classNum}
 
 <insert id="classroomInsert" parameterType="classroomDTO">
 Insert into classroom 
-(CLASS_NUM ,TEACHER_NUM ,CLASS_NAME,CLASS_CONTENTS ,CLASS_START_DATE, CLASS_END_DATE)
-values (#{classNum},#{teacherNum},#{className},#{classContents},#{classStartDate},#{classEndDate})
+(CLASS_NUM ,TEACHER_NUM ,CLASS_NAME,CLASS_CONTENTS ,CLASS_START_DATE, CLASS_END_DATE, classroom_price)
+values (#{classNum},#{teacherNum},#{className},#{classContents},#{classStartDate},#{classEndDate}, #{classroomPrice})
 </insert>
 
 <update id="classUpdate" parameterType="classroomDTO">
@@ -35,6 +36,7 @@ set TEACHER_NUM = #{teacherNum}
 	,CLASS_START_DATE = #{classStartDate}
 	,CLASS_END_DATE = #{classEndDate}
 	,CLASS_WEEK = #{classWeek}
+	,classroom_price = #{classroomPrice}
 where class_num = #{classNum}
 </update>
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.MemberMyMapper">
+<!-- 컬럼명이 dto에 있는 멤버필드 명과 같아야 자동으로 dto에 값이 저장된다. -->
+<!--  컬럼을 반복적으로 사용할 수 있으므로 정의 해놓고 사용하면 편합니다. -->
+<sql id="studentBaseColumns">
+	  student_num studentNum, student_name studentName, student_id studentId, student_pw studentPw, student_email studentEmail
+	, student_email_conf studentEmailConf, student_regist studentRegist, student_birth studentBirth, student_jumin studentJumin
+	, student_addr studentAddr, student_addr_detail studentAddrDetail, student_post studentPost, student_phone1 studentPhone1
+	, student_phone2 studentPhone2, student_image studentImage
+</sql>
+<select id="studentInfo" parameterType="string" resultType="studentDTO">
+select <include refid="studentBaseColumns" /> <!-- 정의한 컬럼을 불러올 수 있습니다. -->
+from student 
+where student_num = #{studentNum} 
+</select>
+</mapper>

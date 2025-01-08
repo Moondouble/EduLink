@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.CartMapper">
+
+<!-- 장바구니에 있으면 update를 하고 없으면 insert를 할 수 있게 merge를 사용하겠습니다. -->
+<insert id="cartInsert" parameterType="cartDTO"  >
+merge into cart c
+using (select class_num from classroom where class_num = #{classNum}) cn
+on (c.class_num = cn.class_num and c.student_num = #{studentNum})
+WHEN MATCHED THEN
+update set
+cart_qty = cart_qty + #{cartQty}
+WHEN not MATCHED THEN
+insert (cart_num, student_num, class_num, CART_DATE)
+values(cart_seq.NEXTVAL, #{studentNum},#{classNum},sysdate)
+</insert>
+
+<resultMap type="cartGoodsDTO" id="CartListResultMap">
+	<result column="total_price" jdbcType="BIGINT"  property="totalPrice"/> <!-- 일반 속성부터 적어줘야 한다. -->
+	<association property="classroomDTO" javaType="classroomDTO">
+		<id column="class_num" jdbcType="VARCHAR" property="classNum" />
+		<id column="teacher_num" jdbcType="VARCHAR" property="teacherNum" />
+		<result column="class_name" jdbcType="VARCHAR" property="className" />
+		<result column="class_contents" jdbcType="VARCHAR" property="classContents" />
+		<result column="class_start_date" jdbcType="DATE" property="classStartDate" />
+		<result column="class_end_date" jdbcType="DATE" property="classEndDate" />
+		<result column="class_week" jdbcType="BIGINT" property="classWeek" />
+		<result column="classroom_price" jdbcType="BIGINT" property="classroomPrice" />
+	</association>
+	<association property="cartDTO" javaType="cartDTO"><!-- cart에 대한 타입을 정의 해줘야 합니다. -->
+		<!-- cart는 map이 없으므로 직접 적어준다. -->
+		<id column="cart_num" jdbcType="VARCHAR" property="cartNum"/>
+		<id column="student_num" jdbcType="VARCHAR" property="studentNum"/>
+		<result column="class_num" jdbcType="VARCHAR" property="classNum"/>
+		<result column="cart_qty" jdbcType="BIGINT" property="cartQty"/>
+		<result column="cart_date" jdbcType="DATE" property="cartDate"/>
+	</association>
+</resultMap>
+
+<select id="cartList" parameterType="string" resultType="CartListResultMap">
+select c.class_num, class_name, classroom_price <!-- 상품정보 --> 
+	   , CART_QTY, CART_DATE, student_num 	<!-- 장바구니 정보 -->
+	   , classroom_price * CART_QTY total_price<!-- 각 상품별 수량에 따른 금액 -->
+from cart c, classroom cr
+
+</select>
+<select id="sumPrice" parameterType="string" resultType="integer">
+	select sum(classroom_price * CART_QTY) 
+	from classroom cr, cart c
+	where cr.class_num = c.class_num and student_num = #{studentNum}
+	group by student_num <!-- 합계이므로 group by를 해준다. -->
+</select>
+
+<delete id="classNumsDelete" parameterType="hashmap">
+	delete from cart
+	where student_num = #{studentNum}
+	and class_num in
+	<foreach collection="classNums" item="classNum" close=")" open="(" index="index" separator=",">
+	 	#{classNum}
+	</foreach>
+</delete>
+
+<delete id="classNumDelete" >
+	delete from cart
+	where class_num = #{classNum} and student_num = #{studentNum}
+</delete>
+
+</mapper>
