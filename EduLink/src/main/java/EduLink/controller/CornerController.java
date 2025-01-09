@@ -52,7 +52,6 @@ public class CornerController {
 	}
 	
 	@GetMapping("cartAdd")
-	// 비동기식이므로 ajax에 값을 전달하기 위해서는 ResTAPI 또는 @ResponseBody를 사용해야한다.
 	@ResponseBody
 	public String cartAdd(
 			@RequestParam(value="classNum") String classNum,

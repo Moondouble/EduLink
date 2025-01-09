@@ -19,6 +19,7 @@ import EduLink.service.teacher.TeacherDetailService;
 import EduLink.service.teacher.TeacherListService;
 import EduLink.service.teacher.TeacherUpdateService;
 import EduLink.service.teacher.TeacherWriteService;
+import EduLink.service.teacher.TeachersDeleteService;
 
 @Controller
 @RequestMapping("teacher")
@@ -44,6 +45,17 @@ public class TeacherController {
 
     @Autowired
     IdcheckService idcheckService;
+    
+    @Autowired
+    TeachersDeleteService teachersDeleteService;
+    
+    @PostMapping("teachersDelete")
+    public String teachersDelete(
+    		@RequestParam(value="teacherDels") String teacherDels []) {
+    	teachersDeleteService.execute(teacherDels);
+    	return "redirect:teacherList";
+    }
+    
 
     @GetMapping("teacherWrite")
     public String teacherWrite(Model model) {
@@ -73,8 +85,11 @@ public class TeacherController {
     }
 
     @GetMapping("teacherList")
-    public String teacherList(Model model) {
-        teacherListService.execute(model);
+    public String teacherList(
+    		@RequestParam(value="page", required = false, defaultValue = "1") int page,
+    		@RequestParam(value="searchWord" , required=false) String searchWord,
+    		Model model) {
+        teacherListService.execute(searchWord, page, model);
         return "thymeleaf/teacher/teacherList";
     }
 

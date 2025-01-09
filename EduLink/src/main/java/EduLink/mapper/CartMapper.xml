@@ -43,7 +43,7 @@ values(cart_seq.NEXTVAL, #{studentNum},#{classNum},sysdate)
 select c.class_num, class_name, classroom_price <!-- 상품정보 --> 
 	   ,CART_QTY , CART_DATE, student_num 	<!-- 장바구니 정보 -->
 	   , classroom_price * CART_QTY total_price<!-- 각 상품별 수량에 따른 금액 -->
-from cart c, classroom cr
+from cart c, classroom cr where student_num =#{studentNum}
 
 </select>
 <select id="sumPrice" parameterType="string" resultType="integer">
