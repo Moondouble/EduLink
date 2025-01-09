@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 	
+	"-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.PurchaseMapper">
+<select id="selectNum" resultType="string">
+select concat(to_char(sysdate, 'yyyyMMdd'), COALESCE(max(to_number(substr(purchase_num,9))),0 ) +1)
+from PURCHASE
+where substr(PURCHASE_NUM, 1, 8) = to_char(sysdate, 'yyyyMMdd') <!-- 오늘날짜에서만 가져오기 -->
+</select>
+
+
+<insert id="purchaseInsert" parameterType="purchaseDTO">
+insert into purchase(purchase_num,purchase_date,purchase_price, message,purchase_status,student_num)
+values(#{purchaseNum},sysdate,#{purchasePrice},#{message},#{purchaseStatus},#{studentNum})
+</insert>
+<insert id="purchaseListInsert" parameterType="purchaseListDTO">
+insert into purchase_List(class_num, purchase_num, purchase_qty, total_price)
+select c.class_num, #{purchaseNum}, cart_qty , classroom_price * cart_qty
+from classroom cr , cart c
+where cr.class_num = c.class_num and student_num = #{studentNum}
+and cr.class_num in 
+<foreach collection="classNums" item="classNum" close=")" open="(" index="index" separator=",">
+ 	#{classNum}
+</foreach>
+</insert>
+<resultMap type="purchaseDTO" id="purchaseResultMap">
+	<!-- 생성자 -->
+	<constructor>
+			<idArg column="purchase_Num" javaType="string" />
+			<arg column="purchase_Date" javaType="java.util.Date"/>
+			<arg column="purchase_Price" javaType="integer"/>
+			<arg column="message" javaType="string"/>
+			<arg column="purchase_Status" javaType="string"/>
+			<arg column="student_num" javaType="string"/>
+	</constructor>
+</resultMap>
+<select id="purchaseSelect" parameterType="string" resultMap="purchaseResultMap">
+select  PURCHASE_NUM, PURCHASE_date, PURCHASE_PRICE, message, purchase_Status, student_num
+from purchase
+where purchase_num = #{purchaseNum}
+</select>
+<select id="purchaseClassCount" parameterType="string" resultType="integer">
+	select count(*) from purchase_list 
+	where purchase_num = #{purchaseNum}
+</select>
+<select id="firstClass" parameterType="string" resultType="string">
+	select class_name from classroom
+	where class_num = ( select class_num from (				
+				select ROW_NUMBER() over(order by class_num ) rn , class_num from purchase_list
+				where purchase_num = #{purchaseNum} 
+				) sub 
+				where rn = 1
+	)
+</select>
+<insert id="paymentInsert" parameterType="paymentDTO">
+insert into payment(purchase_num,confirm_number,card_num, tid, total_price, result_message, pay_method
+					, appldate, appltime, purchase_name)
+values(#{purchaseNum},#{confirmNumber},#{cardNum},#{tid},#{totalPrice},#{resultMessage}
+	  ,#{payMethod},#{applDate},#{applTime},#{purchaseName})
+</insert>
+
+<update id="purchaseStatusUpdate" parameterType="string">
+update purchase
+set purchase_status = #{status}
+where purchase_num = #{purchaseNum}
+</update>
+
+
+</mapper>

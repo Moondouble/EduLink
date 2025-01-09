@@ -17,4 +17,6 @@ public interface CartMapper {
 	public Integer sumPrice(String studentNum);
 	public int classNumsDelete(Map<String, Object> condition);
 	public int classNumDelete(@Param("classNum") String classNum, @Param("studentNum") String studentNum);
+	
+	public int cartGoodsDeletes(CartDTO dto);
 }
