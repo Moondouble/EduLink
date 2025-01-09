@@ -1,7 +1,5 @@
 package EduLink.controller;
 
-import java.io.PrintWriter;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import EduLink.command.StudentCommand;
 import EduLink.service.AutoNumService;
@@ -20,7 +19,7 @@ import EduLink.service.student.StudentDetailService;
 import EduLink.service.student.StudentListService;
 import EduLink.service.student.StudentUpdateService;
 import EduLink.service.student.StudentWriteService;
-import jakarta.servlet.http.HttpServletResponse;
+import EduLink.service.student.StudentsDeleteService;
 
 @Controller
 @RequestMapping("student")
@@ -39,9 +38,23 @@ public class StudentController {
    StudentDeleteService studentDeleteService;
    @Autowired
    IdcheckService idcheckService;
+   @Autowired
+   StudentsDeleteService studentsDeleteService;
+   
+   
+   @PostMapping("studentsDelete")
+   public String studentsDelete(
+   		@RequestParam(value="studentDels") String studentDels []) {
+	studentsDeleteService.execute(studentDels);
+   	return "redirect:studentList";
+   }
+   
    @GetMapping("studentList")
-   public String studentList(Model model) {
-      studentListService.execute(model);
+   public String studentList(
+		   @RequestParam(value="page", required = false, defaultValue = "1") int page,
+   		   @RequestParam(value="searchWord" , required=false) String searchWord,
+   		   Model model) {
+      studentListService.execute(searchWord, page, model);
       return "thymeleaf/student/studentList";
    }
    @GetMapping("studentWrite")
@@ -54,7 +67,8 @@ public class StudentController {
    }
    @PostMapping("studentRegist")
    public String studentRegist(@Validated StudentCommand studentCommand
-         , BindingResult result) {
+         ,@RequestParam("studentImage") MultipartFile studentImageFile,
+         BindingResult result) {
       if(result.hasErrors()) {
          return "thymeleaf/student/studentForm";
       }

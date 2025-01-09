@@ -1,3 +1,4 @@
+
 package EduLink.service.purchase;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,3 +55,5 @@ public class ClassOrderService {
 		return purchaseNum;
 	}
 }
+
+
