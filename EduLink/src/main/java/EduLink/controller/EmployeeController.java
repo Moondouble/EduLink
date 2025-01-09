@@ -13,6 +13,8 @@ import EduLink.service.AutoNumService;
 import EduLink.service.employee.EmployeeDeleteService;
 import EduLink.service.employee.EmployeeListService;
 import EduLink.service.employee.EmployeeWriteService;
+import EduLink.service.employee.EmployeesDeleteService;
+import EduLink.service.teacher.TeachersDeleteService;
 
 @Controller
 @RequestMapping("employee")
@@ -26,9 +28,23 @@ public class EmployeeController {
 	@Autowired
 	EmployeeDeleteService employeeDeleteService;
 	
+	@Autowired
+	EmployeesDeleteService employeesDeleteService;
+	
+	@PostMapping("empsDelete")
+    public String empsDelete(
+    		@RequestParam(value="empDels") String empDels []) {
+    	employeesDeleteService.execute(empDels);
+    	return "redirect:empList";
+    }
+
+	
 	@GetMapping("empList")
-	public String empList(Model model) {
-		employeeListService.execute(model);
+	public String empList(
+			@RequestParam(value="page", required = false, defaultValue = "1") int page,
+    		@RequestParam(value="searchWord" , required=false) String searchWord,
+			Model model) {
+		employeeListService.execute(searchWord, page, model);
 		return "thymeleaf/employee/empList";
 	}
 	

@@ -2,34 +2,82 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>empList.html</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
 <script type="text/javascript">
-function removeCheck() {
-	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-	     return true;
-	 }else{   //취소
-	     return false;
-	 }
-}
+$(function(){
+    // 스크립트를 이용하여 체크박스를 하나 이상 선택하도록 처리
+    $("#frm").submit(function(){
+        if($("input:checkbox[name=empDels]:checked").length < 1){
+            alert("하나 이상 선택하세요.");
+            return false;
+        }
+    });
+    // 모든 체크박스를 선택/해제
+    $("#checkBoxs").click(function(){
+        if($("#checkBoxs").prop("checked")){
+            $("input:checkbox[name=empDels]").prop("checked", true);
+        } else {
+            $("input:checkbox[name=empDels]").prop("checked", false);
+        }
+    });
+    // 개별 체크박스 상태에 따라 전체 선택 박스 체크 처리
+    $("input:checkbox[name=empDels]").click(function(){
+        var total = $("input:checkbox[name=empDels]").length;
+        var checked = $("input:checkbox[name=empDels]:checked").length;
+        $("#checkBoxs").prop("checked", total === checked);
+    });
+});
 </script>
 </head>
 <body>
-관리자목록<br>
-<table border=1>
-<tr><td>번호</td><td>아이디</td><td>이름</td><td>삭제하기</td></tr>
-<tr th:each="dto : ${list}">
-<td>[[${dto.empNum}]]</td>
-<td>[[${dto.empId}]]</td>
-<td>[[${dto.empName}]]</td>
-<td>
-	<form action="empDelete" method="get" onsubmit="return removeCheck();">
-    	<!-- Hidden field to send empNum -->
-        <input type="hidden" name="empNum" th:value="${dto.empNum}" />
-        <button type="submit">삭제하기</button>
-     </form>
-</td></tr>
+관리자 목록<br />
+<a href="empWrite">관리자 아이디 생성</a><br />
+<table border="1" width="600">
+    <!-- 관리자 검색 -->
+    <form action="empList" method="get">
+        <tr>
+            <td colspan="4">검색:
+                <input type="search" name="searchWord" size="60" th:value="${searchWord}" />
+                <input type="submit" value="검색" />
+            </td>
+        </tr>
+    </form>
+    <!-- 체크한 관리자를 삭제 -->
+    <form action="empsDelete" method="post" id="frm">
+        <tr>
+            <td>번호</td>
+            <td>아이디</td>
+            <td>이름</td>
+            <td>
+                <input type="checkbox" id="checkBoxs" />
+                <input type="submit" value="삭제" />
+            </td>
+        </tr>
+        <!-- 관리자 목록 출력 -->
+        <tr th:each="dto:${list}">
+            <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empNum}]]</a></td>
+            <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empId}]]</a></td>
+            <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empName}]]</a></td>
+            <td><input type="checkbox" name="empDels" th:value="${dto.empNum}" /></td>
+        </tr>
+        <!-- 페이지 네비게이션 -->
+        <tr align="center">
+            <td colspan="4">
+                <th:block th:if="${page <= 1}">[이전]</th:block>
+                <th:block th:if="${page > 1}">
+                    <a th:href="@{empList(page=${page - 1},searchWord=${searchWord})}">[이전]</a>
+                </th:block>
+                <th:block th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                    <a th:href="@{empList(page=${i},searchWord=${searchWord})}">[[${i}]]</a>
+                </th:block>
+                <th:block th:if="${page >= maxPage}">[다음]</th:block>
+                <th:block th:if="${page < maxPage}">
+                    <a th:href="@{empList(page=${page + 1},searchWord=${searchWord})}">[다음]</a>
+                </th:block>
+            </td>
+        </tr>
+    </form>
 </table>
-<a href="empWrite">관리자아이디생성</a>
 </body>
 </html>
