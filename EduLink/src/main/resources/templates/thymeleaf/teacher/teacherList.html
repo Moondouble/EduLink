@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>teacherList.html</title>
+    <meta charset="UTF-8">
+    <title>teacherList.html</title>
+    <style>
+        * { margin: 0; padding: 0; }
+        a { text-decoration: none; }
+        table caption { height: 0; visibility: hidden; }
+        .inner_cont { width: 1230px; padding-left: 15px; padding-right: 15px; margin: 0 auto; margin-top: 20px; }
+        .borad_list_tbl table { width: 100%; border-collapse: collapse; border-spacing: 0; border-top: 2px solid #7d5d2c; }
+        .borad_list_tbl thead th { padding: 14px 0 13px; border-bottom: 1px solid #555; background: #fff; text-align: center; font-size: 14px; font-weight: 400; color: #333; }
+        .borad_list_tbl tbody td { padding: 14px 0; border-bottom: 1px solid #e1e1e1; background: #fff; font-size: 14px; color: #555; text-align: center; }
+        .btn_detail { display: inline-block; min-width: 92px; padding: 6px 8px; border: 1px solid #999; border-radius: 1px; background: #fff; text-align: center; font-size: 13px; color: #555; margin-top: 5px; }
+        .btn_detail.on { border-color: #1c2747; color: #1c2747; background: #ddd; }
+    </style>
 </head>
 <body>
-교육자 목록<br>
-<table border=1>
-<tr><td>번호</td><td>아이디</td><td>이름</td></tr>
-<tr th:each="dto : ${list}">
-<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherNum}]]</a></td>
-<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherId}]]</a></td>
-<td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherName}]]</a></td></tr>
-</table>
+    <div class="inner_cont">
+        <div class="borad_list_tbl">
+            <table>
+                <caption>교육자 목록</caption>
+                <colgroup>
+                    <col width="120"><col width="180"><col width="180"><col width="120">
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th scope="col">번호</th>
+                        <th scope="col">아이디</th>
+                        <th scope="col">이름</th>
+                        <th scope="col">보기</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dto : ${list}">
+                        <td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherNum}]]</a></td>
+                        <td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherId}]]</a></td>
+                        <td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|">[[${dto.teacherName}]]</a></td>
+                        <td><a th:href="|teacherDetail?teacherNum=${dto.teacherNum}|" class="btn_detail">보기</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="post_btns">
+            <a href="teacherWrite" class="btn_detail">교육자가입</a>
+        </div>
+    </div>
 
-<a href="teacherWrite">회원가입</a>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btn_detail').on('click', function () {
+                $(this).addClass('on');
+            });
+        });
+    </script>
 </body>
+</html>

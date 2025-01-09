@@ -2,7 +2,7 @@ package EduLink.domain.vo;
 
 import java.nio.charset.StandardCharsets;
 
-import org.apache.mina.codec.IoBuffer;
+import org.apache.mina.core.buffer.IoBuffer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
