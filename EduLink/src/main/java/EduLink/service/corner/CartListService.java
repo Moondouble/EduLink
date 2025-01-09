@@ -1,5 +1,6 @@
 package EduLink.service.corner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,13 @@ public class CartListService {
 	public void execute(Model model, HttpSession session) {
 		AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");
 		StudentDTO stuDto = memberMyMapper.studentInfo(auth.getUserNum());
+		String studentNum = stuDto.getStudentNum();
 		// 상품정보와 장바구니 정보를 같이 가져와야 한다.
 		// 상품 한개가 아니라 여러개 이므로 list로 받아와야 할 것입니다. // 여기도 사용하므로 오류 발생, null넣어줍니다 
-		List<CartGoodsDTO> list = cartMapper.cartList(stuDto.getStudentNum(), null);
+		List<CartGoodsDTO> list = new ArrayList<CartGoodsDTO>();
+		list = cartMapper.cartList(studentNum, null);
 		// 장바구니에 있는 상품전체의 합계금액을 가지고 오겠습니다.
-		Integer sumPrice = cartMapper.sumPrice(stuDto.getStudentNum());
+		Integer sumPrice = cartMapper.sumPrice(studentNum);
 		model.addAttribute("list", list);
 		model.addAttribute("sumPrice", sumPrice);
 		System.out.println("list.size() : " + list.size());
