@@ -26,10 +26,34 @@
         ,#{teacherImage},#{teacherStoreImage}
     )
 </insert>
-<select id="teacherSelectAll" resultType="teacherDTO">
-    select <include refid="teacherColumnsBase" />
-    from teacher
+<select id="teacherSelectAll" resultType="teacherDTO" parameterType="startEndPageDTO">
+select * from (
+	select ROW_NUMBER() over (order by TEACHER_NUM) as rn,
+	       <include refid="teacherColumnsBase" />
+	from teacher
+	<where>
+		<!-- searchWord에 값이 없으므로 값이 있을 때만 사용하게 조건을 준다. -->
+		<if test="searchWord != null">
+		<!-- 검색 데이터가 일부만 사용할 수 있으므로 like을 사용하고 여러 컬럼을 검사하도록 한다. -->
+			TEACHER_NAME like '%' || #{searchWord} || '%'
+			or TEACHER_ID like '%' || #{searchWord} || '%'
+			or TEACHER_NUM like '%' || #{searchWord} ||'%'
+		</if>
+	</where>
+) sub1
+where rn between #{startRow} and #{endRow}
 </select>
+<select id="teacherCount" parameterType="string" resultType="integer"> 
+    select count(*) from teacher
+    <if test='searchWord != null'>
+        <where>
+        TEACHER_NAME like '%' || #{searchWord} || '%'
+			or TEACHER_ID like '%' || #{searchWord} || '%'
+			or TEACHER_NUM like '%' || #{searchWord} ||'%'
+        </where>  
+    </if>
+</select>
+
 <select id="teacherSelectOne" parameterType="string" resultType="teacherDTO">
      select <include refid="teacherColumnsBase" />
      from teacher
@@ -51,5 +75,12 @@ where TEACHER_NUM = #{teacherNum}
 </update>
 <delete id="teacherDelete" parameterType="string">
 delete from teacher where teacher_num = #{teacherNum}
+</delete>
+<delete id="teachersDelete" parameterType="string">
+delete from teacher
+where teacher_num in
+<foreach collection="teachersNum" item="teacherNum" open="(" close=")" index="index" separator=",">
+    #{teacherNum}
+</foreach>
 </delete>
 </mapper>
