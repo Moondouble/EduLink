@@ -25,7 +25,7 @@ public class IniPayReqService {
 		// 이니시스에서 메일정보를 필요로 합니다.
 		String buyeremail = authInfo.getUserEmail();
 		// 구매 상품 갯수를  가지고 오겠습니다. 구매 이름에 활용
-		int cnt = purchaseMapper.purchaseGoodsCount(purchaseNum);
+		int cnt = purchaseMapper.purchaseClassCount(purchaseNum);
 		// 구매한 상품중 하나의 이름만 가져와서 구매이름으로 사용합니다.
 		String classNum = purchaseMapper.firstGoods(purchaseNum);
 		// 두개를 이용해서 구매이름을 만듭니다.

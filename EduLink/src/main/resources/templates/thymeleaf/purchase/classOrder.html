@@ -24,8 +24,13 @@
 <input type="hidden" name="classNums" th:value="${classNums}" />
 <table width="700"  align="center" >
 <tr><td>
+	<table width="350">
+		<tr><td>주문메세지</td>
+			<td><input type="text" name="message" /></td></tr>
+	</table>
+</td><td>
 	<table width="300">
-		<tr><th colspan=2>2.결제금액</th></tr>
+		<tr><th colspan=2>3.결제금액</th></tr>
 		<tr><td align="left">상품금액 : </td><td align = "right">[[${sumTotalPrice}]] 원</td></tr>
 		<tr><td align="left">총 결제 금액 : </td><td align = "right">[[${sumPrice}]] 원</td></tr>
 		<tr><td align="center" colspan=2><input type="submit" value="결제하기"/></td></tr>

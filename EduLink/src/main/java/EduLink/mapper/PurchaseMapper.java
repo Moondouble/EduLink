@@ -13,7 +13,7 @@ public interface PurchaseMapper {
 	public Integer purchaseInsert(PurchaseDTO dto);
 	public int purchaseListInsert(PurchaseListDTO dto);
 	public PurchaseDTO purchaseSelect(String purchaseNum);
-	public int purchaseGoodsCount(String purchaseNum);
+	public int purchaseClassCount(String purchaseNum);
 	public String firstGoods(String purchaseNum);
 	public int paymentInsert(PaymentDTO dto);
 	public int purchaseStatusUpdate(@Param("status") String status,
