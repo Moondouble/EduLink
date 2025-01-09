@@ -17,7 +17,7 @@ public class ClassCartDelService {
 	CartMapper cartMapper;
 	public void execute(String classNum , HttpSession session) {
 		AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");
-		StudentDTO dto = memberMyMapper.studentInfo(auth.getUserId());
+		StudentDTO dto = memberMyMapper.studentInfo(auth.getUserNum());
 		cartMapper.classNumDelete(classNum, dto.getStudentNum());
 	}
 }

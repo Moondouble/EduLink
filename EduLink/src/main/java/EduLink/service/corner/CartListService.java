@@ -30,5 +30,6 @@ public class CartListService {
 		model.addAttribute("list", list);
 		model.addAttribute("sumPrice", sumPrice);
 		System.out.println("list.size() : " + list.size());
+		System.out.println("Cart List: " + list);
 	}
 }
