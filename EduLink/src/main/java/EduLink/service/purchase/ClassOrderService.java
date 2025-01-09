@@ -9,6 +9,7 @@ import EduLink.domain.AuthInfoDTO;
 import EduLink.domain.StudentDTO;
 import EduLink.mapper.CartMapper;
 import EduLink.mapper.MemberMyMapper;
+import EduLink.mapper.PurchaseMapper;
 import jakarta.servlet.http.HttpSession;
 
 @Service
