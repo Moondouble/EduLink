@@ -20,30 +20,39 @@ values(cart_seq.NEXTVAL, #{studentNum},#{classNum},sysdate)
 <resultMap type="cartGoodsDTO" id="CartListResultMap">
 	<result column="total_price" jdbcType="BIGINT"  property="totalPrice"/> <!-- 일반 속성부터 적어줘야 한다. -->
 	<association property="classroomDTO" javaType="classroomDTO">
-		<id column="class_num" jdbcType="VARCHAR" property="classNum" />
-		<id column="teacher_num" jdbcType="VARCHAR" property="teacherNum" />
-		<result column="class_name" jdbcType="VARCHAR" property="className" />
-		<result column="class_contents" jdbcType="VARCHAR" property="classContents" />
-		<result column="class_start_date" jdbcType="DATE" property="classStartDate" />
-		<result column="class_end_date" jdbcType="DATE" property="classEndDate" />
-		<result column="class_week" jdbcType="BIGINT" property="classWeek" />
-		<result column="classroom_price" jdbcType="BIGINT" property="classroomPrice" />
+		<id column="class_num" 				jdbcType="VARCHAR" property="classNum" />
+		<result column="teacher_num" 		jdbcType="VARCHAR" property="teacherNum" />
+		<result column="class_name" 		jdbcType="VARCHAR" property="className" />
+		<result column="class_contents" 	jdbcType="VARCHAR" property="classContents" />
+		<result column="class_start_date" 	jdbcType="DATE"    property="classStartDate" />
+		<result column="class_end_date" 	jdbcType="DATE"    property="classEndDate" />
+		<result column="class_week"			jdbcType="BIGINT" property="classWeek" />
+		<result column="classroom_price" 	jdbcType="BIGINT" property="classroomPrice" />
 	</association>
 	<association property="cartDTO" javaType="cartDTO"><!-- cart에 대한 타입을 정의 해줘야 합니다. -->
 		<!-- cart는 map이 없으므로 직접 적어준다. -->
-		<id column="cart_num" jdbcType="VARCHAR" property="cartNum"/>
-		<id column="student_num" jdbcType="VARCHAR" property="studentNum"/>
-		<result column="class_num" jdbcType="VARCHAR" property="classNum"/>
-		<result column="cart_qty" jdbcType="BIGINT" property="cartQty"/>
-		<result column="cart_date" jdbcType="DATE" property="cartDate"/>
+		<id column="cart_num" 		 jdbcType="VARCHAR" property="cartNum"/>
+		<result column="student_num" jdbcType="VARCHAR" property="studentNum"/>
+		<result column="class_num"   jdbcType="VARCHAR" property="classNum"/>
+		<result column="cart_qty"    jdbcType="BIGINT"  property="cartQty"/>
+		<result column="cart_date"   jdbcType="DATE"    property="cartDate"/>
 	</association>
 </resultMap>
 
 <select id="cartList" parameterType="string" resultMap="CartListResultMap">
-select c.class_num, class_name, classroom_price <!-- 상품정보 --> 
+select cr.class_num, class_name, classroom_price <!-- 상품정보 --> 
 	   ,CART_QTY , CART_DATE, student_num 	<!-- 장바구니 정보 -->
 	   , classroom_price * CART_QTY total_price<!-- 각 상품별 수량에 따른 금액 -->
-from cart c, classroom cr where student_num =#{studentNum}
+from cart c, classroom cr
+<trim prefix="where" prefixOverrides="AND | OR"> <!-- where절에 만약 AND 나 OR가 있다면 삭제  -->
+c.class_num = cr.class_num and student_num = #{studentNum}
+	<if test="classNums != null">
+		and cr.class_num in 
+		<foreach collection="classNums" item="classNum" close=")" index="index" open="(" separator=",">
+			#{classNum}
+		</foreach>
+	</if>
+</trim>
 
 </select>
 <select id="sumPrice" parameterType="string" resultType="integer">

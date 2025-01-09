@@ -33,15 +33,15 @@ function del(classNum){
 </script>
 </head>
 <body>
+<form action="/purchase/classBuy" method="post" >
 <table width="800" align="center" >
 <tr><td><input type="checkbox" id="checkBoxs" checked="checked"/></td>
-	<td>제품명</td><td>수량</td><td>합계금액</td>
+	<td>제품명</td><td>합계금액</td>
 	<td><input type="button"  value="선택 상품 삭제" onclick="del1();"/></td>
 </tr>
-<tr th:each="dto: ${list}">
+<tr th:each="dto: ${list}">	
 	<td><input type="checkbox" name="nums" checked="checked" th:value="${dto.classroomDTO.classNum}"/></td>
 	<td>[[${dto.classroomDTO.className}]]</td>
-	<td>- <span th:id="${dto.classroomDTO.classNum}">[[${dto.cartDTO.cartQty}]]</span> + </td>
 	<td><span th:id="${'t_' + dto.classroomDTO.classNum}" class="totalPrice">[[${dto.totalPrice}]]</span></td>
 	<td><input type="button" value="삭제" th:attr="onclick=|del('${dto.classroomDTO.classNum}');|"/></td>
 </tr>

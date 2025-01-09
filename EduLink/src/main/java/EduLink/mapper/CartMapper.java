@@ -13,7 +13,7 @@ import EduLink.domain.CartGoodsDTO;
 public interface CartMapper {
 	public int cartInsert(CartDTO dto); 	
 	public List<CartGoodsDTO> cartList(@Param("studentNum") String studentNum, 
-			   @Param("classNum") String [] nums);
+			   					       @Param("classNums") String [] nums);
 	public Integer sumPrice(String studentNum);
 	public int classNumsDelete(Map<String, Object> condition);
 	public int classNumDelete(@Param("classNum") String classNum, @Param("studentNum") String studentNum);
