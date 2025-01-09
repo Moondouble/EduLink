@@ -9,5 +9,6 @@ import lombok.Data;
 public class StartEndPageDTO {
 	int startRow;
 	int endRow;
+	String classNum;
 	String searchWord;
 }
