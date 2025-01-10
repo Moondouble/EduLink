@@ -140,6 +140,7 @@ public class IniPayReturnService {
 					if(i >= 1) {
 						purchaseMapper.purchaseStatusUpdate("결제완료", dto.getPurchaseNum());
 					}
+
 					// 이니시스결제 후  session이 만료됩니다.. 추가 
 					PurchaseDTO pDto = purchaseMapper.purchaseSelect(resultMap.get("MOID"));
 					StudentDTO stuDto = studentMapper.studentSelectOne(pDto.getStudentNum());
