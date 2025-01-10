@@ -14,7 +14,7 @@ public interface PurchaseMapper {
 	public int purchaseListInsert(PurchaseListDTO dto);
 	public PurchaseDTO purchaseSelect(String purchaseNum);
 	public int purchaseClassCount(String purchaseNum);
-	public String firstGoods(String purchaseNum);
+	public String firstClass(String purchaseNum);
 	public int paymentInsert(PaymentDTO dto);
 	public int purchaseStatusUpdate(@Param("status") String status,
 			@Param("purchaseNum") String purchaseNum);

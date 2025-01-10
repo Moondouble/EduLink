@@ -29,8 +29,8 @@ public class PurchaseController {
 	@Autowired
 	IniPayReturnService iniPayReturnService;
 
-	@PostMapping("INIstpay_pc_return")
-	public String payReturn (HttpServletRequest request, HttpSession session, Model model) {
+	@PostMapping("INIstdpay_pc_return")
+	public String payReturn(HttpServletRequest request,HttpSession session, Model model) {
 		iniPayReturnService.execute(request, session, model);
 		return "thymeleaf/purchase/buyfinished";
 	}
