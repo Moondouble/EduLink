@@ -22,7 +22,7 @@
 				<option value="select2">문의2</option>
 				<option value="select3">문의3</option>
 			</select><br />
-내용 :        <textarea rows="5" cols="60" name="inquireContents" ></textarea><br />
+내용 :        <textarea rows="5" cols="60" name="inquireContents" th:value="${inquireCommand.inquireContents}" ></textarea><br />
 
 <input type="submit" value="문의등록" />
 </form>

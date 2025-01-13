@@ -246,7 +246,7 @@ $(function() {
           <td>[[${dto.inquireNum}]]</td>
           <td>[[${dto.inquireCategory}]]</td>
           <td><a th:href="|inquireDetail?inquireNum=${dto.inquireNum}|">[[${dto.inquireName}]]</a></td>
-          <td>[[${dto.empNum != null ? dto.empNum : (dto.studentNum != null ? dto.studentNum : (dto.teacherNum != null ? dto.teacherNum : '없음'))}]]</td>
+          <td>[[${dto.empNum != null ? dto.empNum : (dto.studentNum != null ? dto.studentNum : (dto.teacherNum != null ? dto.teacherNum : (dto.inquireWriter != null ? dto.inquireWriter : '없음')))}]]</td>
           <td>[[${#dates.format(dto.inquireDate, 'yyyy-MM-dd')}]]</td>
         </tr>
       </tbody>

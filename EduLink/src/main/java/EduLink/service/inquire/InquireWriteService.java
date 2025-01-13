@@ -22,6 +22,7 @@ public class InquireWriteService {
 		dto.setInquireName(inquireCommand.getInquireName());
 		dto.setInquireNum(inquireCommand.getInquireNum());
 		dto.setStudentNum(inquireCommand.getStudentNum());
+		dto.setInquireEmail(inquireCommand.getInquireEmail());
 		if (inquireCommand.getTeacherNum() == null) {
 		    dto.setTeacherNum("");
 		}else {
@@ -36,6 +37,11 @@ public class InquireWriteService {
 		    dto.setEmpNum("");
 		}else {
 			dto.setEmpNum(inquireCommand.getEmpNum());
+		}
+		if (inquireCommand.getInquireWriter() == null) {
+			dto.setInquireWriter("");
+		}else {
+			dto.setInquireWriter(inquireCommand.getInquireWriter());
 		}
 		
 		inquireMapper.inquireInsert(dto);
