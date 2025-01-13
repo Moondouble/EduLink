@@ -20,4 +20,6 @@ public class BoardDTO {
 	String boardCategory;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date boardDate;
+	String boardVideo;
+	String boardStoreVideo;
 }

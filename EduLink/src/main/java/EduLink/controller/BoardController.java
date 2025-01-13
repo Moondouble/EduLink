@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import EduLink.command.BoardCommand;
 import EduLink.domain.AuthInfoDTO;
@@ -63,9 +64,10 @@ public class BoardController {
 		return "thymeleaf/board/boardForm";
 	}
 	@PostMapping("boardWrite")
-	public String boardWrite2(BoardCommand boardCommand) {
+	public String boardWrite2(BoardCommand boardCommand
+			,@RequestParam("boardVideo") MultipartFile boardVideo) {
 		  System.out.println("boardCategory: " + boardCommand.getBoardCategory());
-		boardWriteService.execute(boardCommand);
+		boardWriteService.execute(boardCommand,boardVideo);
 		return "redirect:boardList?classNum=" + boardCommand.getClassNum();
 	}
 	@RequestMapping("boardDetail")

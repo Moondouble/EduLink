@@ -80,9 +80,9 @@ public class ClassroomController
 		String teacherNum = classroomCommand.getTeacherNum();
 		System.out.println(teacherNum);
 		teacherDetailService.execute(teacherNum, model);
-		//이 아래로 강의 질문 불러오기
+		//이 아래로 강의/질문 불러오기
+		boardListService.classSelect(classNum, model);
 		boardListService.question(classNum,model);
-		
 		//여기까지
 		return "thymeleaf/class/classInfo";
 	}
