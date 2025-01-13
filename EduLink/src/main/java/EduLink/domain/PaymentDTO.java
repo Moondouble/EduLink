@@ -11,7 +11,7 @@ public class PaymentDTO {
 	String confirmNumber;
 	String cardNum;
 	String tid;
-	String totalPrice;
+	String total_Price;
 	String resultMessage;
 	String payMethod;
 	String applDate;
