@@ -204,15 +204,18 @@
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">상담문의</h3>
-			<form action="/action_page.php" target="_blank">
-				<input class="w3-input w3-border" type="text" placeholder="이름"
-					required name="Name"> <input
-					class="w3-input w3-section w3-border" type="text" placeholder="이메일"
-					required name="Email"> <input
-					class="w3-input w3-section w3-border" type="text" placeholder="제목"
-					required name="Subject"> <input
-					class="w3-input w3-section w3-border" type="text" placeholder="설명"
-					required name="Comment">
+			<form action="/inquire/inquireRegist" method="post" th:object="${inquireCommand}" target="_blank">
+				<input type="hidden" name="inquireNum" th:value="${inquireCommand.inquireNum}" readonly="readonly"/>
+				<input class="w3-input w3-border" type="text" placeholder="이름"	name="inquireWriter" th:value="${inquireCommand.inquireWriter}">
+				<input class="w3-input w3-section w3-border" type="email" placeholder="이메일" name="inquireEmail" th:value="${inquireCommand.inquireEmail}">
+				<input class="w3-input w3-section w3-border" type="text" placeholder="제목" name="inquireName" th:value="${inquireCommand.inquireName}">
+				<input class="w3-input w3-section w3-border" type="text" placeholder="설명" name="inquireContents">
+				<select name="inquireCategory" class="w3-input w3-section w3-border">
+					<option value="none">카테고리</option>
+					<option value="select1">문의1</option>
+					<option value="select2">문의2</option>
+					<option value="select3">문의3</option>
+				</select>
 				<p>
 					- 처리현황이 “답변 중”으로 표시된 문의사항은 24시간 내에 답변을 드립니다. (단 주말, 휴일 및 요금 부과기간
 					제외)<br /> - 상담문의가 급증할 경우, 답변처리가 다소 지연될 수 있음을 양해 바랍니다.<br /> -

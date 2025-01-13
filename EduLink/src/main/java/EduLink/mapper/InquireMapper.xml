@@ -5,16 +5,18 @@
 <mapper namespace="EduLink.mapper.InquireMapper">
 <sql id="inquireColumnsBase">
     inquire_num as inquireNum, student_num as studentNum, emp_num as empNum, teacher_num as teacherNum,
+    inquire_writer as inquireWriter, inquire_email as inquireEmail,
     inquire_name as inquireName, inquire_category as inquireCategory, inquire_date as inquireDate,
     inquire_answer as inquireAnswer, inquire_answer_date as inquireAnswerDate, inquire_contents as inquireContents
 </sql>
 
 <insert id="inquireInsert" parameterType="inquireDTO">
 	insert into inquire (
-		inquire_num, student_num, emp_num, teacher_num, inquire_name, inquire_category, inquire_contents, inquire_date
+		inquire_num, student_num, emp_num, teacher_num, inquire_writer, inquire_email
+		, inquire_name, inquire_category, inquire_contents, inquire_date
 		)
     values (
-        #{inquireNum}, #{studentNum}, #{empNum}, #{teacherNum},
+        #{inquireNum}, #{studentNum}, #{empNum}, #{teacherNum}, #{inquireWriter}, #{inquireEmail},
         #{inquireName}, #{inquireCategory}, #{inquireContents}, sysdate
     )
 </insert>

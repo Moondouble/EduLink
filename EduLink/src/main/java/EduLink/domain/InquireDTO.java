@@ -22,5 +22,7 @@ public class InquireDTO {
 	String inquireAnswer;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date inquireAnswerDate;
+	String inquireEmail;
+	String inquireWriter;
 	
 }

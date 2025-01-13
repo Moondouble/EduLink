@@ -20,6 +20,8 @@ public class InquireCommand {
 	String inquireAnswer;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	Date inquireAnswerDate;
+	String inquireEmail;
+	String inquireWriter;
 	
 	String writer;
 }
