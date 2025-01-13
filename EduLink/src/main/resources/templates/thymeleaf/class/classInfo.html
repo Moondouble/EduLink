@@ -108,6 +108,23 @@ h1 {
 	flex: 2; /* 제목을 더 넓게 */
 }
 
+.question-writer {
+	font-weight: bold;
+	color: #333;
+	flex: 2; /* 제목을 더 넓게 */
+}
+
+.question-title {
+	color: #333;
+	flex: 2; /* 제목을 더 넓게 */
+}
+
+.question-contents {
+	font-size: 1.2rem;
+	color: #555;
+	flex: 2; /* 시간 텍스트 균형 맞춤 */
+}
+
 .lecture-time {
 	font-size: 1.2rem;
 	color: #555;
@@ -151,28 +168,28 @@ h1 {
 
 /* table 디자인 개선 */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
 }
 
 table th, table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-    font-size: 1.4rem;
-    word-break: break-word; /* 긴 텍스트를 줄바꿈 */
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+	font-size: 1.4rem;
+	word-break: break-word; /* 긴 텍스트를 줄바꿈 */
 }
 
 table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+	background-color: #f4f4f4;
+	font-weight: bold;
 }
 
 td {
-    overflow: hidden;
-    text-overflow: ellipsis; /* 말줄임 표시 */
-    max-width: 200px;
+	overflow: hidden;
+	text-overflow: ellipsis; /* 말줄임 표시 */
+	max-width: 200px;
 }
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
@@ -180,7 +197,7 @@ td {
 $(function(){
 	$("#cartBtn").click(function(){
 		//장바구니에 담으려면 누구의 것인지 알기 위해서는 먼저 로그인이되어 있어야 하므로 로그인이 안되어 있다면 로그인화면이 뜨게 합니다.
-		if([[${session.auth == null}]]){ // auth라는 로그인인증 seesion이 없다면
+		if([[session.auth == null]]){ // auth라는 로그인인증 seesion이 없다면
 			window.open("/login/loginPage","login","width=315, height=200,top = 100, left=100");
 		}else{
 			// ajax를 사용해서 비동기식으로 전달하겠습니다.
@@ -256,60 +273,42 @@ $(function(){
 			<div id="tab2" class="tabs__content">
 				<ul class="lecture-list">
 					<li>
-						<!-- th:each 사용하기 --> <span class="lecture-title">오리엔테이션</span> <span>강의
-							시간: 16:18</span>
+						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> 
+						<span>강의 내용</span>
 						<div class="links">
-							<a
-								href="https://www.youtube.com/embed/pp1dcrAgN0o?si=f04S_EkMvLFMSCrI">스트리밍</a>
-							<a href="#">다운로드</a>
+							<span>강의 영상</span>
 						</div>
 					</li>
-					<li><span class="lecture-title">01강</span> <span>강의 시간:
-							64:44</span>
+					<li th:each="cdto : ${clist}"><span class="lecture-title">[[${cdto.boardName}]]</span>
+						<span th:if="${cdto.boardContents != null}"
+						th:title="${cdto.boardContents}"
+						th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
+						<span th:unless="${cdto.boardContents != null}">내용 없음</span>
 						<div class="links">
-							<a href="#">스트리밍</a> <a href="#">다운로드</a>
-						</div></li>
-					<li><span class="lecture-title">02강</span> <span>강의 시간:
-							61:54</span>
-						<div class="links">
-							<a href="#">스트리밍</a> <a href="#">다운로드</a>
-						</div></li>
-					<li><span class="lecture-title">03강</span> <span>강의 시간:
-							62:05</span>
-						<div class="links">
-							<a href="#">스트리밍</a> <a href="#">다운로드</a>
-						</div></li>
-					<li><span class="lecture-title">04강</span> <span>강의 시간:
-							68:33</span>
-						<div class="links">
-							<a href="#">스트리밍</a> <a href="#">다운로드</a>
-						</div></li>
-					<li><span class="lecture-title">05강</span> <span>강의 시간:
-							68:09</span>
-						<div class="links">
-							<a href="#">스트리밍</a> <a href="#">다운로드</a>
+							<a th:href="|/video/${cdto.classNum}/${cdto.boardStoreVideo}|" target="_blank">영상 바로가기</a>
 						</div></li>
 				</ul>
+
 			</div>
 			<div id="tab3" class="tabs__content">
 				<!-- board table의 board_category="question"과 reply 테이블을 이용해서 QnA 기능 작성 -->
+				<ul class="lecture-list">
+					<li>
+						<!-- th:each 사용하기 --> <span class="question-writer">작성자</span> <span
+						class="question-title">제목</span> <span class="question-title">내용</span>
+					</li>
+					<li th:each="qdto : ${qlist}"><span class="question-writer"><a
+							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.studentNum}]]</a></span>
+						<span class="question-title"><a
+							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.boardName}]]</a></span>
 
-				<table>
-					<tr>
-						<th>작성자</th>
-						<th>제목</th>
-						<th>내용</th>
-					</tr>
-					<tr th:each="dto : ${qlist}">
-						<td>[[${dto.studentNum}]]</td>
-						<td>[[${dto.boardName}]]</td>
-						<td th:if="${dto.boardContents != null}"
-							th:title="${dto.boardContents}"
-							th:text="${dto.boardContents.length() > 20 ? #strings.substring(dto.boardContents, 0, 20) + '...' : dto.boardContents}">
-						</td>
-						<td th:unless="${dto.boardContents != null}">내용 없음</td>
-					</tr>
-				</table>
+						<span class="question-contents"
+						th:if="${qdto.boardContents != null}"> <a
+							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|"
+							th:title="${qdto.boardContents}"
+							th:text="${qdto.boardContents.length() > 10 ? #strings.substring(qdto.boardContents, 0, 10) + '...' : qdto.boardContents}"></a>
+					</span>
+				</ul>
 			</div>
 		</div>
 	</div>

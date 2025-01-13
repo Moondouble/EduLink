@@ -44,7 +44,17 @@ public class TeacherWriteService {
 URL resource = getClass().getClassLoader().getResource("static/upload");
 System.out.println("resource : " + resource);
 String fileDir = resource.getFile();
-
+//경로 없는 경우 경로 추가
+File directory = new File(fileDir);
+if (!directory.exists()) {
+    boolean isDirCreated = directory.mkdirs(); // 폴더 생성
+    if (isDirCreated) {
+        System.out.println("Directory created: " + fileDir);
+    } else {
+        System.out.println("Failed to create directory: " + fileDir);
+        throw new RuntimeException("Failed to create directory for file storage.");
+    }
+}
 // 메인이미지 처리
 MultipartFile mf = teacherCommand.getTeacherImage(); // teacherCommand에서 teacherImage 가져오기
 String originalFile = mf.getOriginalFilename();

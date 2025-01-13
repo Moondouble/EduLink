@@ -24,7 +24,7 @@
         <span>게시글 생성</span>
       </div>
       <div class="px-4 py-8">
-        <form class="grid form-type-1" action="boardWrite" method="post" th:object="${boardCommand}">
+        <form class="grid form-type-1" action="boardWrite" method="post" th:object="${boardCommand}" enctype="multipart/form-data">
 			<div class="form-control">
             <input type="hidden" name="boardCategory" th:value="${session.auth.grade == 'teacher'} ? 'Class' : 'Question'">	
           </div>
@@ -65,6 +65,12 @@
             </label>
             <textarea rows="5" cols="60" name="boardContents" class="textarea textarea-bordered"></textarea>
           </div>
+           <div th:if="${session.auth.grade == 'teacher'}" class="form-control">
+           <label class="label">
+              <span class="label-text">작성자 (교사)</span>
+            </label>
+            <input type="file" name="boardVideo" multiple="multiple" />
+           </div>
           <div class="mt-4 btn-wrap gap-1">
             <button type="submit" class="btn btn-primary btn-sm mb-1">
               <span><i class="fas fa-save"></i></span>

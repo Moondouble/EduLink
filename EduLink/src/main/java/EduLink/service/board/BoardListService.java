@@ -24,7 +24,12 @@ public class BoardListService {
 	public void question(String classNum,Model model) {
 		List<BoardDTO> qlist = boardMapper.boardSelectQuestion(classNum);
 		model.addAttribute("qlist", qlist);
-		for (BoardDTO dto : qlist) {
+		
+	}
+	public void classSelect(String classNum,Model model) {
+		List<BoardDTO> clist = boardMapper.boardSelectClass(classNum);
+		model.addAttribute("clist", clist);
+		for (BoardDTO dto : clist) {
 		    System.out.println("BoardNum: " + dto.getBoardNum());
 		    System.out.println("TeacherNum: " + dto.getTeacherNum());
 		    System.out.println("StudentNum: " + dto.getStudentNum());

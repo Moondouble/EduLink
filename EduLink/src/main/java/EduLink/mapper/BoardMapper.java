@@ -14,5 +14,5 @@ public interface BoardMapper {
 	public void boardUpdate(BoardDTO dto);
 	public void boardDelete(String boardNum);
 	public List<BoardDTO> boardSelectQuestion(String classNum);
-	
+	public List<BoardDTO> boardSelectClass(String classNum);
 }
