@@ -7,7 +7,7 @@
 <body>
 강의 정보 수정 페이지입니다.<br />
 <form action="classModify" method="post" th:object="${classroomCommand}"><!-- dto -->
-학생번호 : <input type="text" th:field="*{classNum}" name="classNum"><br />
+강의번호 : <input type="text" th:field="*{classNum}" name="classNum"><br />
 강사번호 : <input type="text" name="teacherNum" th:field="*{teacherNum}"/><br />
 강의명 : <input type="text" name="className" th:field="*{className}"/><br />
 강의내용 : <textarea name="classContents" th:field="*{classContents}"/><br />
@@ -15,7 +15,8 @@
 		th:value="${#dates.format(classroomCommand.classStartDate,'yyyy-MM-dd')}" /><br />
 강의종료일 : <input type="date" name="classEndDate" 
 		th:value="${#dates.format(classroomCommand.classEndDate,'yyyy-MM-dd')}" /><br />
-강의회차 : <input type="text" name="classWeek" id="classWeek" th:field="*{classWeek}"/>
+강의회차 : <input type="number" name="classWeek" th:field="*{classWeek}"/><br />
+강의가격 : <input type="number" name="classroomPrice" th:field="*{classroomPrice}" /><br />
 <input type="submit" value="수정 완료" /> 
 </body>
 </html>
