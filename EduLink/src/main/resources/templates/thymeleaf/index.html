@@ -112,19 +112,35 @@
   <!-- About Section -->
   <div class="w3-container w3-padding-32" id="about">
     <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">선생님</h3>
-  </div>
+</div>
 
-  <div class="w3-row-padding w3-grayscale"><!-- th:each="list : ${dto}" 추가(dto 추가된 이후) -->
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/static/upload/cha.png" alt="강사이미지" style="width:100%"><!-- img를 dto.teacherImage로 변경 -->
-      <h3>차은우</h3><!-- 강사 이름으로 변경 -->
-      <p class="w3-opacity">주식의 이해</p><!-- 교육자가 강의하는 강의의 강의 과목으로 변경 -->
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">
-         <a href="/class/classList" style="text-decoration: none; color: inherit;">보기</a></button></p><!-- 강의목록으로 이동 -->
+<div class="w3-row-padding w3-grayscale" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <!-- 첫 번째 강사 카드 -->
+    <div class="w3-col" style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);">
+        <img src="/static/upload/cha.png" alt="강사이미지" style="width:100%; height: 300px; object-fit: cover;">
+        <h3>차은우</h3>
+        <p class="w3-opacity">주식의 이해</p>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+        <p>
+            <button class="w3-button w3-light-grey w3-block">
+                <a href="/class/classList" style="text-decoration: none; color: inherit;">보기</a>
+            </button>
+        </p>
     </div>
 
-  </div>
+    <!-- 두 번째 강사 카드 -->
+    <div class="w3-col" style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);">
+        <img src="/static/upload/jae.png" alt="강사이미지" style="width:100%; height: 300px; object-fit: cover;">
+        <h3>정재현</h3>
+        <p class="w3-opacity">수학의 정석</p>
+        <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
+        <p>
+            <button class="w3-button w3-light-grey w3-block">
+                <a href="/class/classList" style="text-decoration: none; color: inherit;">보기</a>
+            </button>
+        </p>
+    </div>
+</div>
 
   <!-- Contact Section 다 날리죠? -->
   <div class="w3-container w3-padding-32" id="contact">
