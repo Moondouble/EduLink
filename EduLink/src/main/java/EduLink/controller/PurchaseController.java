@@ -13,6 +13,8 @@ import EduLink.service.IniPayReqService;
 import EduLink.service.purchase.ClassBuyService;
 import EduLink.service.purchase.ClassOrderService;
 import EduLink.service.purchase.IniPayReturnService;
+import EduLink.service.purchase.OrderProcessListService;
+import EduLink.service.purchase.PaymentDeleteService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -28,7 +30,25 @@ public class PurchaseController {
 	IniPayReqService iniPayReqService;
 	@Autowired
 	IniPayReturnService iniPayReturnService;
+	@Autowired
+	OrderProcessListService orderProcessListService;
+	@Autowired
+	PaymentDeleteService paymentDeleteService;
 
+	@RequestMapping("paymentDel")
+	public String paymentDel(
+			@RequestParam("purchaseNum") String purchaseNum) {
+		paymentDeleteService.execute(purchaseNum);
+		return "redirect:orderList";
+	}
+	
+	@RequestMapping("orderList")
+	public String orderList(HttpSession session, Model model) {
+		orderProcessListService.execute(session, model);
+		return "thymeleaf/purchase/orderList";
+	}
+	
+	
 	@PostMapping("INIstdpay_pc_return")
 	public String payReturn(HttpServletRequest request,HttpSession session, Model model) {
 		iniPayReturnService.execute(request, session, model);

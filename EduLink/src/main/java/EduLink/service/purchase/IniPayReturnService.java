@@ -134,7 +134,7 @@ public class IniPayReturnService {
 					dto.setPurchaseNum(resultMap.get("MOID"));
 					dto.setResultMessage(resultMap.get("resultMsg"));
 					dto.setTid(resultMap.get("tid"));
-					dto.setTotalPrice(resultMap.get("TotPrice"));
+					dto.setTotal_Price(resultMap.get("TotPrice"));
 					int i = purchaseMapper.paymentInsert(dto);
 					// 결제완료로 구매상태를 변경합니다.
 					if(i >= 1) {
@@ -148,7 +148,7 @@ public class IniPayReturnService {
 					session.setAttribute("auth", auth);
 					// html에 전달될 내용 model에 저장
 					model.addAttribute("userId", auth.getUserId());
-					model.addAttribute("price", dto.getTotalPrice());
+					model.addAttribute("price", dto.getTotal_Price());
 					/////
 					
 				} catch (Exception ex) {
