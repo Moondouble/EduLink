@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import EduLink.command.BoardCommand;
+import EduLink.command.ReplyCommand;
 import EduLink.domain.AuthInfoDTO;
-import EduLink.domain.ClassroomDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.board.BoardDeleteService;
 import EduLink.service.board.BoardDetailService;
@@ -19,6 +19,8 @@ import EduLink.service.board.BoardListService;
 import EduLink.service.board.BoardUpdateService;
 import EduLink.service.board.BoardWriteService;
 import EduLink.service.classroom.ClassroomDetailService;
+import EduLink.service.reply.ReplyDetailService;
+import EduLink.service.reply.ReplyWriteService;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -38,7 +40,10 @@ public class BoardController {
 	BoardDeleteService boardDeleteService;
 	@Autowired
 	ClassroomDetailService classroomDetailService;
-	
+	@Autowired
+	ReplyWriteService replyWriteService;
+	@Autowired
+	ReplyDetailService replyDetailService;
 	@RequestMapping("boardList")
 	public String boardList(@RequestParam("classNum") String classNum, Model model) {
 		boardListService.execute(classNum, model);
@@ -73,6 +78,7 @@ public class BoardController {
 	@RequestMapping("boardDetail")
 	public String boardDetail(@RequestParam("boardNum") String boardNum, Model model) {
 		boardDetailService.execute(boardNum, model);
+		replyDetailService.execute(boardNum,model);
 		return "thymeleaf/board/boardInfo";
 	}
 	@RequestMapping("boardUpdate")
@@ -86,7 +92,7 @@ public class BoardController {
 		System.out.println("boardNum: " + boardCommand.getBoardNum());
 		return "redirect:boardDetail?boardNum="+boardCommand.getBoardNum();
 	}
-	@GetMapping("boardDelete")
+	@GetMapping("boardDelete")	
 	public String boardDelete(@RequestParam("classNum")String classNum,@RequestParam("boardNum") String boardNum) {
 		boardDeleteService.execute(boardNum);
 		return "redirect:boardList?classNum=" + classNum;
@@ -95,6 +101,13 @@ public class BoardController {
     public String stockChart() {
     	return "thymeleaf/board/stockChart";
     }
+    @PostMapping("replyWrite")
+    public String replyWrite(ReplyCommand replyCommand,Model model) {
+    	String autoNum = autoNumService.execute("reply_", "reply_num", 7,"reply");
+    	replyWriteService.execute(replyCommand,model,autoNum);
+    	return "redirect:boardDetail?boardNum="+replyCommand.getBoardNum();
+    }
+    //여기부터 수정/삭제
 	
 	
 }

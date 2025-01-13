@@ -3,4 +3,21 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="EduLink.mapper.ReplyMapper">
+    <sql id="replyBaseColumns">
+        reply_num as replyNum, board_num as boardNum,teacher_num as teacherNum,
+        reply_contents as replyContents, reply_date as replyDate
+    </sql>
+
+    <!--  -->
+    <insert id="replyInsert">
+        insert into reply
+        (reply_num, board_num, teacher_num, reply_contents, reply_date)
+        values (#{replyNum}, #{boardNum}, #{teacherNum}, #{replyContents}, sysdate)
+    </insert>
+    
+    <select id="replySelectboard" parameterType="String" resultType="replyDTO">
+    	select <include refid="replyBaseColumns"></include> from reply
+    	where board_num = #{boardNum} order by reply_num asc
+    
+    </select>
 </mapper>
