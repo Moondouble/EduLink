@@ -76,4 +76,13 @@ c.class_num = cr.class_num and student_num = #{studentNum}
 	where class_num = #{classNum} and student_num = #{studentNum}
 </delete>
 
+<delete id="cartGoodsDeletes" parameterType="cartDTO">
+delete from cart 
+where class_num in <foreach collection="classNums" item="classNum" close=")" open="("
+					separator="," index="index">
+						#{classNum}
+					</foreach>
+and student_num = #{studentNum}
+</delete>
+
 </mapper>

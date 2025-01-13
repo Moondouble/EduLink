@@ -11,8 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("myPage")
-public class MyPageController
-{
+public class MyPageController{
 	@Autowired
 	MyPageService myPageService;
 	@GetMapping("profile")

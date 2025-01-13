@@ -2,34 +2,247 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>empListt.html</title>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-function removeCheck() {
-	 if (confirm("정말 삭제하시겠습니까??") == true){    //확인
-	     return true;
-	 }else{   //취소
-	     return false;
-	 }
+<style>
+/* CSS Styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
+section.notice {
+  padding: 80px 0;
+}
+.page-title {
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+}
+#board-search .search-window {
+  padding: 15px 0;
+  background-color: #f9f7f9;
+}
+#board-search .search-window .search-wrap {
+  position: relative;
+  margin: 0 auto;
+  width: 80%;
+  max-width: 564px;
+}
+#board-search .search-window .search-wrap input {
+  height: 40px;
+  width: 100%;
+  font-size: 14px;
+  padding: 7px 14px;
+  border: 1px solid #ccc;
+}
+#board-search .search-window .search-wrap input:focus {
+  border-color: #333;
+  outline: 0;
+  border-width: 1px;
+}
+#board-search .search-window .search-wrap .btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 108px;
+  padding: 0;
+  font-size: 16px;
+}
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+.board-table th {
+  text-align: center;
+}
+.board-table .th-num {
+  width: 100px;
+  text-align: center;
+}
+.board-table .th-date {
+  width: 200px;
+}
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+.board-table tbody th p {
+  display: none;
+}
+.btn {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 15px;
+  font-weight: 400;
+  background: transparent;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  text-transform: uppercase;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.btn-dark {
+  background: #555;
+  color: #fff;
+}
+.btn-dark:hover, .btn-dark:focus {
+  background: #373737;
+  border-color: #373737;
+  color: #fff;
+}
+/* reset */
+* {
+  list-style: none;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.container {
+  width: 1100px;
+  margin: 0 auto;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+    // 스크립트를 이용하여 체크박스를 하나 이상 선택하도록 처리
+    $("#frm").submit(function(){
+        if($("input:checkbox[name=empDels]:checked").length < 1){
+            alert("하나 이상 선택하세요.");
+            return false;
+        }
+    });
+    // 모든 체크박스를 선택/해제
+    $("#checkBoxs").click(function(){
+        if($("#checkBoxs").prop("checked")){
+            $("input:checkbox[name=empDels]").prop("checked", true);
+        } else {
+            $("input:checkbox[name=empDels]").prop("checked", false);
+        }
+    });
+    // 개별 체크박스 상태에 따라 전체 선택 박스 체크 처리
+    $("input:checkbox[name=empDels]").click(function(){
+        var total = $("input:checkbox[name=empDels]").length;
+        var checked = $("input:checkbox[name=empDels]:checked").length;
+        $("#checkBoxs").prop("checked", total === checked);
+    });
+});
 </script>
 </head>
 <body>
-관리자목록<br>
-<table border=1>
-<tr><td>번호</td><td>아이디</td><td>이름</td><td>삭제하기</td></tr>
-<tr th:each="dto : ${list}">
-<td>[[${dto.empNum}]]</td>
-<td>[[${dto.empId}]]</td>
-<td>[[${dto.empName}]]</td>
-<td>
-	<form action="empDelete" method="get" onsubmit="return removeCheck();">
-    	<!-- Hidden field to send empNum -->
-        <input type="hidden" name="empNum" th:value="${dto.empNum}" />
-        <button type="submit">삭제하기</button>
-     </form>
-</td></tr>
-</table>
-<a href="empWrite">관리자아이디생성</a>
+<div class="container">
+    <section class="notice">
+        <div class="page-title">
+            <h3>관리자 목록</h3>
+        </div>
+        <a href="empWrite" class="btn btn-dark">관리자 아이디 생성</a><br /><br />
+        <table class="board-table" border="1" width="600">
+            <!-- 관리자 검색 -->
+            <form action="empList" method="get">
+                <tr>
+                    <td colspan="4">
+                        <div id="board-search">
+                            <div class="search-window">
+                                <div class="search-wrap">
+                                    <input type="search" name="searchWord" size="60" th:value="${searchWord}" placeholder="검색어를 입력하세요"/>
+                                    <button type="submit" class="btn btn-dark">검색</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </form>
+            <!-- 체크한 관리자를 삭제 -->
+            <form action="empsDelete" method="post" id="frm">
+                <tr>
+                    <td>번호</td>
+                    <td>아이디</td>
+                    <td>이름</td>
+                    <td>
+                        <input type="checkbox" id="checkBoxs"/>
+                        <input type="submit" value="삭제" class="btn btn-dark"/>
+                    </td>
+                </tr>
+                <!-- 관리자 목록 출력 -->
+                <tr th:each="dto:${list}">
+                    <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empNum}]]</a></td>
+                    <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empId}]]</a></td>
+                    <td><a th:href="|empDetail?empNum=${dto.empNum}|">[[${dto.empName}]]</a></td>
+                    <td><input type="checkbox" name="empDels" th:value="${dto.empNum}" /></td>
+                </tr>
+                <!-- 페이지 네비게이션 -->
+                <tr align="center">
+                    <td colspan="4">
+                        <th:block th:if="${page <= 1}">[이전]</th:block>
+                        <th:block th:if="${page > 1}">
+                            <a th:href="@{empList(page=${page - 1},searchWord=${searchWord})}">[이전]</a>
+                        </th:block>
+                        <th:block th:each="i : ${#numbers.sequence(startPage, endPage)}">
+                            <a th:href="@{empList(page=${i},searchWord=${searchWord})}">[[${i}]]</a>
+                        </th:block>
+                        <th:block th:if="${page >= maxPage}">[다음]</th:block>
+                        <th:block th:if="${page < maxPage}">
+                            <a th:href="@{empList(page=${page + 1},searchWord=${searchWord})}">[다음]</a>
+                        </th:block>
+                    </td>
+                </tr>
+            </form>
+        </table>
+    </section>
+</div>
 </body>
 </html>
