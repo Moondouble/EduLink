@@ -8,7 +8,7 @@
     STUDENT_EMAIL as studentEmail, STUDENT_EMAIL_CONF as studentEmailConf, STUDENT_REGIST as studentRegist,
     STUDENT_BIRTH as studentBirth, STUDENT_JUMIN as studentJumin, STUDENT_ADDR as studentAddr,
     STUDENT_ADDR_DETAIL as studentAddrDetail, STUDENT_POST as studentPost, STUDENT_PHONE1 as studentPhone1,
-    STUDENT_PHONE2 as studentPhone2, STUDENT_IMAGE as studentImage
+    STUDENT_PHONE2 as studentPhone2, STUDENT_IMAGE as studentImage, STUDENT_STORE_IMAGE as studentStoreImage
 </sql>
 
 <insert id="studentInsert" parameterType="studentDTO">

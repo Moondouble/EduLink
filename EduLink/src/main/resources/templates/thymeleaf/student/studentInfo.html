@@ -6,6 +6,8 @@
 </head>
 <body>
 회원상세페이지입니다.<br />
+이미지 경로 : [[${studentCommand.studentStoreImage}]]<br />
+이미지 : <img alt="이미지를 불러올 수 없습니다" th:src="|/static/upload/${studentCommand.studentStoreImage}|"><br />
 회원번호 : [[${studentCommand.studentNum }]]<br />
 이름 : [[${studentCommand.studentName }]]<br />
 아이디 : [[${studentCommand.studentId }]]<br />
