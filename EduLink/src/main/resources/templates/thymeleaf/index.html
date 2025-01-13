@@ -11,12 +11,16 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    <a href="#home" class="w3-bar-item w3-button"><b>BR</b> Architects</a>
-    <!-- Float links to the right. Hide them on small screens -->
+    <!-- 로고 및 홈 링크 -->
+    <a href="#home" class="w3-bar-item w3-button"><b>EduLink</b>에듀링크</a>
+    
+    <!-- 우측 네비게이션 링크 -->
     <div class="w3-right w3-hide-small">
-      <a href="#projects" class="w3-bar-item w3-button">Projects</a>
-      <a href="#about" class="w3-bar-item w3-button">About</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <a th:if="${session.auth == null}" href="/login/loginPage" class="w3-bar-item w3-button">로그인</a>
+      <a th:if="${session.auth != null}" href="login/logout" class="w3-bar-item w3-button">로그아웃</a>
+      <a href="/class/classList" class="w3-bar-item w3-button">강좌</a>
+      <a href="#about" class="w3-bar-item w3-button">선생님</a>
+      <a href="#contact" class="w3-bar-item w3-button">문의</a>
     </div>
   </div>
 </div>
@@ -25,13 +29,13 @@
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
   <img class="w3-image" src="/w3images/architect.jpg" alt="Architecture" width="1500" height="800">
   <div class="w3-display-middle w3-margin-top w3-center">
-    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>BR</b></span> <span class="w3-hide-small w3-text-light-grey">Architects</span></h1>
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>EduLink </b></span> <span class="w3-hide-small w3-text-light-grey">a</span></h1>
   </div>
 </header>
 
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
-<H1>INDEX</H1>
+<H1>카테고리</H1>
 
 <a href="/teacher/teacherList">교육자 목록</a><br />
 <a href="/employee/empList">관리자아이디리스트</a><br />
@@ -53,19 +57,19 @@
 
   <!-- Project Section -->
   <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">과목 </h3>
   </div>
 
   <div class="w3-row-padding">
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Summer House</div>
+        <div class="w3-display-topleft w3-black w3-padding">주식의 이해</div>
         <img src="/w3images/house5.jpg" alt="House" style="width:100%">
       </div>
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Brick House</div>
+        <div class="w3-display-topleft w3-black w3-padding">수학의 정석</div>
         <img src="/w3images/house2.jpg" alt="House" style="width:100%">
       </div>
     </div>
@@ -145,13 +149,13 @@
 
   <!-- Contact Section 다 날리죠? -->
   <div class="w3-container w3-padding-32" id="contact">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
-    <p>Lets get in touch and talk about your next project.</p>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">문의</h3>
+    <p>상담 문의는 여기서 남겨주세요.</p>
     <form action="/action_page.php" target="_blank">
-      <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+      <input class="w3-input w3-border" type="text" placeholder="이름" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="이메일" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="제목" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="설명" required name="Comment">
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> SEND MESSAGE
       </button>
