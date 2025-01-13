@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>W3.CSS Template</title>
+<title>Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,12 +11,16 @@
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-white w3-wide w3-padding w3-card">
-    <a href="#home" class="w3-bar-item w3-button"><b>BR</b> Architects</a>
-    <!-- Float links to the right. Hide them on small screens -->
+    <!-- 로고 및 홈 링크 -->
+    <a href="#home" class="w3-bar-item w3-button"><b>EduLink</b> 에듀링크</a>
+    
+    <!-- 우측 네비게이션 링크 -->
     <div class="w3-right w3-hide-small">
-      <a href="#projects" class="w3-bar-item w3-button">Projects</a>
-      <a href="#about" class="w3-bar-item w3-button">About</a>
-      <a href="#contact" class="w3-bar-item w3-button">Contact</a>
+      <a th:if="${session.auth == null}" href="/login/loginPage" class="w3-bar-item w3-button">로그인</a>
+      <a th:if="${session.auth != null}" href="login/logout" class="w3-bar-item w3-button">로그아웃</a>
+      <a href="/class/classList" class="w3-bar-item w3-button">강좌</a>
+      <a href="#about" class="w3-bar-item w3-button">선생님</a>
+      <a href="#contact" class="w3-bar-item w3-button">문의</a>
     </div>
   </div>
 </div>
@@ -25,19 +29,20 @@
 <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
   <img class="w3-image" src="/w3images/architect.jpg" alt="Architecture" width="1500" height="800">
   <div class="w3-display-middle w3-margin-top w3-center">
-    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>BR</b></span> <span class="w3-hide-small w3-text-light-grey">Architects</span></h1>
+    <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>EduLink </b></span> <span class="w3-hide-small w3-text-light-grey">a</span></h1>
   </div>
 </header>
 
 <!-- Page content -->
 <div class="w3-content w3-padding" style="max-width:1564px">
-<H1>INDEX</H1>
+<H1>카테고리</H1>
 
 <a href="/teacher/teacherList">교육자 목록</a><br />
 <a href="/employee/empList">관리자아이디리스트</a><br />
 <a href="/class/classList">강의목록</a><br />
 <a href="/inquire/inquireList">문의</a><br />
 <a href="/corner/cartList">장바구니목록</a><br />
+<a href="/purchase/orderList">주문목록</a><br />
 <a href="/board/stockChart">스톡</a>
 <div th:if="${session.auth == null}">
     <a href="/login/loginPage">로그인</a>
@@ -52,19 +57,19 @@
 
   <!-- Project Section -->
   <div class="w3-container w3-padding-32" id="projects">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Projects</h3>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">과목 </h3>
   </div>
 
   <div class="w3-row-padding">
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Summer House</div>
+        <div class="w3-display-topleft w3-black w3-padding">주식의 이해</div>
         <img src="/w3images/house5.jpg" alt="House" style="width:100%">
       </div>
     </div>
     <div class="w3-col l3 m6 w3-margin-bottom">
       <div class="w3-display-container">
-        <div class="w3-display-topleft w3-black w3-padding">Brick House</div>
+        <div class="w3-display-topleft w3-black w3-padding">수학의 정석</div>
         <img src="/w3images/house2.jpg" alt="House" style="width:100%">
       </div>
     </div>
@@ -111,31 +116,46 @@
 
   <!-- About Section -->
   <div class="w3-container w3-padding-32" id="about">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">강사진</h3>
-    <p>강사진 소개문구
-    </p>
-  </div>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">선생님</h3>
+</div>
 
-  <div class="w3-row-padding w3-grayscale"><!-- th:each="list : ${dto}" 추가(dto 추가된 이후) -->
-    <div class="w3-col l3 m6 w3-margin-bottom">
-      <img src="/w3images/team2.jpg" alt="강사이미지" style="width:100%"><!-- img를 dto.teacherImage로 변경 -->
-      <h3>강사이름</h3><!-- 강사 이름으로 변경 -->
-      <p class="w3-opacity">CEO & Founder</p><!-- 교육자가 강의하는 강의의 강의 과목으로 변경 -->
-      <p>Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.</p>
-      <p><button class="w3-button w3-light-grey w3-block">Contact</button></p><!-- 강의목록으로 이동 -->
+<div class="w3-row-padding" style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <!-- 1 번째 강사 카드 -->
+    <div class="w3-col" style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);">
+        <img src="/static/upload/cha.png" alt="강사이미지" style="width:100%; height: 300px; object-fit: cover;">
+        <h3>차은우</h3>
+        <p class="w3-opacity">주식의 이해</p>
+        <p>본 강좌는 주식 시장에 첫발을 내딛는 이들을 위한 완벽한 입문 강의입니다. 차은우 선생님은 명확하고 친근한 강의 스타일로, 주식의 기본 개념부터 실질적인 투자 전략까지 알기 쉽게 설명합니다.</p>
+        <p>
+            <button class="w3-button w3-light-grey w3-block">
+                <a href="/class/classList" style="text-decoration: none; color: inherit;">보기</a>
+            </button>
+        </p>
     </div>
 
-  </div>
+    <!-- 두 번째 강사 카드 -->
+    <div class="w3-col" style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);">
+        <img src="/static/upload/jae.jpg" alt="강사이미지" style="width:100%; height: 300px; object-fit: cover;">
+        <h3>정재현</h3>
+        <p class="w3-opacity">수학의 정석</p>
+        <p>본 강좌는 수학의 기초를 이해하고, 실생활 문제를 해결할 수 있는 수학적 사고력을 키우기 위한 강의입니다. 정재현 선생님은 쉽고 재미있게 수학을 설명하며, 이론과 실습을 병행하여 학생들이 개념을 완전히 이해할 수 있도록 돕습니다.</p>
+        <p>
+            <button class="w3-button w3-light-grey w3-block">
+                <a href="/class/classList" style="text-decoration: none; color: inherit;">보기</a>
+            </button>
+        </p>
+    </div>
+</div>
 
   <!-- Contact Section 다 날리죠? -->
   <div class="w3-container w3-padding-32" id="contact">
-    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Contact</h3>
-    <p>Lets get in touch and talk about your next project.</p>
+    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">문의</h3>
+    <p>상담 문의는 여기서 남겨주세요.</p>
     <form action="/action_page.php" target="_blank">
-      <input class="w3-input w3-border" type="text" placeholder="Name" required name="Name">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Email" required name="Email">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Subject" required name="Subject">
-      <input class="w3-input w3-section w3-border" type="text" placeholder="Comment" required name="Comment">
+      <input class="w3-input w3-border" type="text" placeholder="이름" required name="Name">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="이메일" required name="Email">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="제목" required name="Subject">
+      <input class="w3-input w3-section w3-border" type="text" placeholder="설명" required name="Comment">
       <button class="w3-button w3-black w3-section" type="submit">
         <i class="fa fa-paper-plane"></i> SEND MESSAGE
       </button>

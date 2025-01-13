@@ -15,7 +15,7 @@ insert into purchase(purchase_num,purchase_date,purchase_price, message,purchase
 values(#{purchaseNum},sysdate,#{purchasePrice},#{message},#{purchaseStatus},#{studentNum})
 </insert>
 <insert id="purchaseListInsert" parameterType="purchaseListDTO">
-insert into purchase_List(class_num, purchase_num, purchase_qty, total_price)
+insert into purchase_List(class_num, purchase_num, purchase_qty, totalprice)
 select c.class_num, #{purchaseNum}, cart_qty , classroom_price * cart_qty
 from classroom cr , cart c
 where cr.class_num = c.class_num and student_num = #{studentNum}
@@ -27,11 +27,11 @@ and cr.class_num in
 <resultMap type="purchaseDTO" id="purchaseResultMap">
 	<!-- 생성자 -->
 	<constructor>
-			<idArg column="purchase_Num" javaType="string" />
-			<arg column="purchase_Date" javaType="java.util.Date"/>
-			<arg column="purchase_Price" javaType="integer"/>
+			<idArg column="purchase_num" javaType="string" />
+			<arg column="purchase_date" javaType="java.util.Date"/>
+			<arg column="purchase_price" javaType="integer"/>
 			<arg column="message" javaType="string"/>
-			<arg column="purchase_Status" javaType="string"/>
+			<arg column="purchase_status" javaType="string"/>
 			<arg column="student_num" javaType="string"/>
 	</constructor>
 </resultMap>
@@ -56,7 +56,7 @@ where purchase_num = #{purchaseNum}
 <insert id="paymentInsert" parameterType="paymentDTO">
 insert into payment(purchase_num,confirm_number,card_num, tid, total_price, result_message, pay_method
 					, appldate, appltime, purchase_name)
-values(#{purchaseNum},#{confirmNumber},#{cardNum},#{tid},#{totalPrice},#{resultMessage}
+values(#{purchaseNum},#{confirmNumber},#{cardNum},#{tid},#{total_Price},#{resultMessage}
 	  ,#{payMethod},#{applDate},#{applTime},#{purchaseName})
 </insert>
 
@@ -65,6 +65,61 @@ update purchase
 set purchase_status = #{status}
 where purchase_num = #{purchaseNum}
 </update>
+<!-- 여기서 설명해야 하는 것은 객체내에 개체를 받을 때는 association이고 
+                          객체내에서 list로 받을 때는 collection으로 받아야 한다 -->
+<resultMap type="orderListDTO" id="orderListResultMap">
+	<association property="purchaseDTO" javaType="purchaseDTO" resultMap="purchaseResultMap"/>
+	<association property="paymentDTO" javaType="paymentDTO"><!-- resultMap이 없어 직접정의 -->
+		<!-- setter 사용 -->
+		<id column="confirm_number" jdbcType="VARCHAR" property="confirmNumber"/>
+		<result column="purchase_num" jdbcType="VARCHAR" property="purchaseNum"/>
+		<result column="card_num" jdbcType="VARCHAR" property="cardNum"/>
+		<result column="total_price" jdbcType="VARCHAR" property="total_Price"/>
+		<result column="pay_method" jdbcType="VARCHAR" property="payMethod"/>
+		<result column="appldate" jdbcType="VARCHAR" property="applDate"/>
+		<result column="appltime" jdbcType="VARCHAR" property="applTime"/>
+	</association>
+	<!-- list로 받을 때는 collection을 사용해야 한다. -->
+	<collection property="purchaseListClassDTOs" ofType="purchaseListClassDTO">
+		<association property="purchaseListDTO" javaType="purchaseListDTO">
+			<result column="purchase_qty" jdbcType="BIGINT" property="purchaseQty"/>
+			<result column="totalprice" jdbcType="BIGINT" property="totalPrice"/>
+		</association>
+		<association property="classroomDTO" javaType="classroomDTO"><!-- resultMap이 없으므로 작성해야합니다. -->
+			<id column="class_num" jdbcType="VARCHAR" property="classNum"/>
+			<result column="teacher_num" jdbcType="VARCHAR" property="teacherNum"/>
+			<result column="class_name" jdbcType="VARCHAR" property="className"/>
+			<result column="class_contents" jdbcType="VARCHAR" property="classContents"/>
+			<result column="class_start_date" jdbcType="DATE" property="classStartDate"/>
+			<result column="class_end_date" jdbcType="DATE" property="classEndDate"/>
+			<result column="class_week" jdbcType="BIGINT" property="classWeek"/>
+			<result column="classroom_price" jdbcType="BIGINT" property="classroomPrice"/>
+		</association>
+	</collection>
+</resultMap>
+<!-- 여기에 후기를 추가하면 됩니다. -->
+<select id="orderList" parameterType="string" resultMap="orderListResultMap">
+	select 	  p.PURCHASE_NUM, PURCHASE_date, PURCHASE_PRICE, message, purchase_Status, p.student_num
+	 		  , CONFIRM_NUMBER, appltime , pay_method, total_price, appldate, card_num
+	 		  , purchase_qty, totalprice
+	 		  , cr.class_num, class_name, classroom_price, class_contents
+	from purchase p left outer join payment pm <!-- 결제할 때 취소를 하면 구매정보는 있지만 결제는 없을 수 있다. 구매내역을 확인하 수 있어야 한다.-->
+	on p.PURCHASE_NUM = pm.PURCHASE_NUM join purchase_list pl
+	on p.PURCHASE_NUM = pl.PURCHASE_NUM join classroom cr
+	on pl.class_num = cr.class_num <!-- 배송정보는 없어도 구매정보는 출력되야 합니다. -->
+	<where>
+		<if test="studentNum != null"> <!--  null이 전달되므로 null이 아닐때 실행 -->
+			p.student_num = #{studentNum}
+		</if>
+		<if test="purchaseNum != null">
+		 	p.purchase_Num = #{purchaseNum}
+		</if>
+	</where>
+</select>
 
+<delete id="paymentDelete" parameterType="string">
+	delete from payment
+	where purchase_num = #{purchaseNum}
+</delete>
 
 </mapper>

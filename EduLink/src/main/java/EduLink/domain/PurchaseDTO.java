@@ -19,4 +19,5 @@ public class PurchaseDTO {
 	String message; //
 	String purchaseStatus; //
 	String studentNum;
+	
 }
