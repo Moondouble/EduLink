@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Template</title>
+<title>Template`</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -17,12 +17,12 @@
 			<!-- 우측 네비게이션 링크 -->
 			<div class="w3-right w3-hide-small">
 				<a th:if="${session.auth == null}" href="/login/loginPage"
-					class="w3-bar-item w3-button">로그인</a> <a
-					th:if="${session.auth != null}" href="login/logout"
-					class="w3-bar-item w3-button">로그아웃</a> <a href="/class/classList"
-					class="w3-bar-item w3-button">강좌</a> <a href="#about"
-					class="w3-bar-item w3-button">선생님</a> <a href="#contact"
-					class="w3-bar-item w3-button">문의</a>
+					class="w3-bar-item w3-button">로그인</a> 
+				<a th:if="${session.auth != null}" href="login/logout"
+					class="w3-bar-item w3-button">로그아웃</a> 
+				<a href="/class/classList" class="w3-bar-item w3-button">강좌</a> 
+				<a href="#about" class="w3-bar-item w3-button">선생님</a> 
+				<a href="#contact" class="w3-bar-item w3-button">문의</a>
 			</div>
 		</div>
 	</div>
@@ -39,7 +39,8 @@
 			</h1>
 		</div>
 	</header>
-
+	<br />
+	<br />
 	<!-- Page content -->
 	<div class="w3-content w3-padding" style="max-width: 1564px">
 		<H1>카테고리</H1>
@@ -53,12 +54,21 @@
 		<div th:if="${session.auth == null}">
 			<a href="/login/loginPage">로그인</a>
 		</div>
-
+		
 
 		<div th:if="${session.auth != null}">
 			<a href="/student/studentList">학생 목록</a><br /> <a
 				href="/myPage/profile">마이페이지</a><br /> <a href="login/logout">로그아웃</a>
 		</div>
+		
+		
+		<!-- Project Section -->
+		<div class="w3-container w3-padding-32" id="projects">
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크 캐스트
+			</h3>
+		</div>
+
+
 
 		<!-- Project Section -->
 		<div class="w3-container w3-padding-32" id="projects">
@@ -189,7 +199,10 @@
 				<img src="/static/upload/bae.png" alt="강사이미지"
 					style="width: 100%; height: 300px; object-fit: cover;">
 				<h3>배수지</h3>
-				<p class="w3-opacity">점수로 직결되는 수능 실전 영어</p>
+				점수로 직결되는 수능 실전 영어
+				</p>
+				
+				
 				<p>본 강좌는 수능 영어의 기본기를 탄탄히 다지면서 실전에서 바로 써먹을 수 있는 독해와 문제 풀이 스킬을 키우는 데 초점이 맞춰져 있는 강의입니다.
 				 배수지 선생님은 생소한 영어 지문도 술술 읽히게 만드는 꿀팁과 센스 넘치는 설명으로 학생들 사이에서 '믿보강'(믿고 보는 강의)으로 불리고 있습니다.</p>
 				<p>
