@@ -5,91 +5,119 @@
 <title>게시판 상세 페이지</title>
 <style>
 html {
-    font-family: "Noto Sans KR", sans-serif;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 body, ul, li, h1, h2, h3, h4, h5, h6 {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 .con {
-    margin: 0 auto;
-    max-width: 950px;
+	margin: 0 auto;
+	max-width: 950px;
 }
 
 .article-detail {
-    border: 2px solid lightgray;
-    padding: 20px;
-    box-sizing: border-box;
+	border: 2px solid lightgray;
+	padding: 20px;
+	box-sizing: border-box;
 }
 
-.article-detail > table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+.article-detail>table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
 }
 
-.article-detail > table th, .article-detail > table td {
-    border: 1px solid lightgray;
-    padding: 10px;
-    text-align: left;
+.article-detail>table th, .article-detail>table td {
+	border: 1px solid lightgray;
+	padding: 10px;
+	text-align: left;
 }
 
-.article-detail > table tr.article-title > td {
-    font-weight: bold;
-    font-size: 1.2rem;
-    text-align: center;
+.article-detail>table tr.article-title>td {
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
 }
 
-.article-detail > .article-writer span {
-    font-size: 1rem;
+.article-detail>.article-writer span {
+	font-size: 1rem;
 }
 
 .text-align-center {
-    text-align: center;
+	text-align: center;
 }
 
 .text-align-center a {
-    margin: 0 10px;
-    text-decoration: none;
-    color: blue;
+	margin: 0 10px;
+	text-decoration: none;
+	color: blue;
 }
 
 .text-align-center a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 </style>
 </head>
 <body>
-    <h1 class="con">게시글 상세보기</h1>
-    <section class="article-detail con">
-        <table>
-            <tbody>
-                <tr class="article-title">
-                    <th>제목</th>
-                    <td colspan="3">[[${boardCommand.boardName}]]</td>
-                </tr>
-                <tr>
-                    <th>강의번호</th>
-                    <td>[[${boardCommand.classNum}]]</td>
-                    <th>작성자</th>
-                    <td>
-                        <span th:if="${boardCommand.studentNum != null}">[[${boardCommand.studentNum}]] (학생)</span>
-                        <span th:if="${boardCommand.teacherNum != null}">[[${boardCommand.teacherNum}]] (교육자)</span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">[[${boardCommand.boardContents}]]</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="text-align-center">
-            <a th:href="|boardUpdate?boardNum=${boardCommand.boardNum}|">수정</a>
-            | <a th:href="|boardDelete?boardNum=${boardCommand.boardNum}&classNum=${boardCommand.classNum}|">삭제</a>
-            | <a th:href="|boardList?classNum=${boardCommand.classNum}|">글목록</a>
-        </div>
-    </section>
+	<h1 class="con">게시글 상세보기</h1>
+	<section class="article-detail con">
+		<table>
+			<tbody>
+				<tr class="article-title">
+					<th>제목</th>
+					<td colspan="3">[[${boardCommand.boardName}]]</td>
+				</tr>
+				<tr>
+					<th>강의번호</th>
+					<td>[[${boardCommand.classNum}]]</td>
+					<th>작성자</th>
+					<td><span th:if="${boardCommand.studentNum != null}">[[${boardCommand.studentNum}]]
+							(학생)</span> <span th:if="${boardCommand.teacherNum != null}">[[${boardCommand.teacherNum}]]
+							(교육자)</span></td>
+				</tr>
+				<tr>
+					<td colspan="4">[[${boardCommand.boardContents}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<table th:if="${session.auth.grade == 'teacher'}">
+			<form action="replyWrite" method="post" th:object="${replyCommand}">
+			<input type="hidden" name="boardNum" th:value="${boardCommand.boardNum}">
+			<tbody>
+				<tr class="article-title">
+					<th colspan="4">답글</th>
+				</tr>
+				<tr th:each="dto : ${list}">
+				<td>[[${dto.teacherNum}]]<br /><span>[[${dto.replyDate}]]</span></td>
+				<td colspan="3">[[${dto.replyContents}]]<br />
+				<span th:if="${session.auth.userNum} == ${dto.teacherNum}">
+					<a href="#">수정하기</a><a href="#">삭제하기</a>
+				</span></td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td colspan="3"><input type="text" name="TeacherNum"
+						th:value="${session.auth.userNum}" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>댓글</td>
+					<td colspan="3"><textarea rows="4" cols="110"
+							name="replyContents" title="댓글을 작성해주세요"></textarea></td>
+				</tr>
+				<tr><td colspan="4"><input type="submit" value="답글달기" style="align-items: right;"></td></tr>
+			</tbody>
+			</form>
+		</table>
+		<div class="text-align-center">
+			<a th:href="|boardUpdate?boardNum=${boardCommand.boardNum}|">수정</a> |
+			<a
+				th:href="|boardDelete?boardNum=${boardCommand.boardNum}&classNum=${boardCommand.classNum}|">삭제</a>
+			| <a th:href="|boardList?classNum=${boardCommand.classNum}|">글목록</a>
+		</div>
+	</section>
 </body>
 </html>
