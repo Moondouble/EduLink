@@ -43,9 +43,14 @@ public class ClassroomController
 	TeacherDetailService teacherDetailService;
 	@Autowired
 	BoardListService boardListService;
+	
 	@GetMapping("classList")
-	public String List(Model model) {
-		classroomListService.execute(model);
+	public String List(@RequestParam(required = false) String teacherNum, Model model) {
+		if (teacherNum != null && !teacherNum.isEmpty()) {
+	        classroomListService.executeByTeacherNum(model, teacherNum);
+	    } else {
+	        classroomListService.execute(model);
+	    }
 		return "thymeleaf/class/classList";
 	}
 	@GetMapping("classWrite")

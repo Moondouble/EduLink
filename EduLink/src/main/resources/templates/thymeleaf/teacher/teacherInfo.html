@@ -16,6 +16,9 @@
 일반전화 : [[${teacherCommand.teacherPhone2 }]]<br />
 등록일 : [[${#dates.format(teacherCommand.teacherRegist ,'yyyy-MM-dd')}]]<br />
 이메일 : [[${teacherCommand.teacherEmail }]]<br />
+강의 :   <tr th:each="dto:${list}" th:if="${dto.teacherNum == teacherCommand.teacherNum}">
+			<a th:href="|../class/classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a>
+		</tr><br />
 <a th:href="|teacherUpdate?teacherNum=${teacherCommand.teacherNum}|">교육자 수정</a> | 
 <a th:href="|teacherDelete?teacherNum=${teacherCommand.teacherNum}|">교육자 강제 탈퇴</a> |
 <a href="teacherList">교육자 목록</a>

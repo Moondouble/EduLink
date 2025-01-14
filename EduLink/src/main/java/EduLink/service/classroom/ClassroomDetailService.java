@@ -8,12 +8,12 @@ import EduLink.domain.ClassroomDTO;
 import EduLink.mapper.ClassroomMapper;
 
 @Service
-public class ClassroomDetailService
-{
+public class ClassroomDetailService {
 	@Autowired
 	ClassroomMapper classroomMapper;
-public void execute(String classNum,Model model) {
-	ClassroomDTO dto = classroomMapper.classSelectOne(classNum);
-	model.addAttribute("classroomCommand", dto);
-}
+
+	public void execute(String classNum, Model model) {
+		ClassroomDTO dto = classroomMapper.classSelectOne(classNum);
+		model.addAttribute("classroomCommand", dto);
+	}
 }

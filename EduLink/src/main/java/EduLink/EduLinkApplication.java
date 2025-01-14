@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import EduLink.command.InquireCommand;
 import EduLink.domain.AuthInfoDTO;
 import EduLink.service.AutoNumService;
+import EduLink.service.classroom.ClassroomListService;
+import EduLink.service.teacher.TeacherDetailService;
+import EduLink.service.teacher.TeacherListService;
 import jakarta.servlet.http.HttpSession;
 
 @SpringBootApplication
@@ -22,7 +25,10 @@ public class EduLinkApplication {
 
     @Autowired
     AutoNumService autoNumService;
-    
+    @Autowired
+    TeacherListService teacherListService;
+    @Autowired
+    ClassroomListService classroomListService;
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
     	String autoNum = autoNumService.execute("inquire_", "inquire_num", 9, "inquire");
@@ -36,6 +42,8 @@ public class EduLinkApplication {
 			auth.getGrade();
 			System.out.println("로그인 되었습니다: " + auth.getGrade());
 		}
+
+		classroomListService.execute(model);
 		
         return "thymeleaf/index";
     }

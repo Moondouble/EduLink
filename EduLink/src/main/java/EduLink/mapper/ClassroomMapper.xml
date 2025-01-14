@@ -14,8 +14,38 @@ CLASS_NUM as classNum
 ,classroom_price as classroomPrice
 </sql>
 
-<select id="classSelectAll">
-select <include refid="classroomColumnBase"></include> from classroom order by class_num asc
+<resultMap type="classroomDTO" id="classroomListResultMap">
+   <id column="class_num" jdbcType="VARCHAR" property="classNum" />
+   <result column="teacher_num" jdbcType="VARCHAR" property="teacherNum"/>
+   <result column="class_name" jdbcType="VARCHAR" property="className"/>
+   <result column="class_contents" jdbcType="VARCHAR" property="classContents"/>
+   <result column="class_start_date" jdbcType="DATE" property="classStartDate"/>
+   <result column="class_end_date" jdbcType="DATE" property="classEndDate"/>
+   <result column="class_week" jdbcType="BIGINT" property="classWeek"/>
+   <result column="classroom_price" jdbcType="BIGINT" property="classroomPrice"/>
+   <association property="teacherDTO" javaType="teacherDTO"><!-- resultMap이 없어 직접정의 -->
+      <!-- setter 사용 -->
+      <id column="teacher_num" jdbcType="VARCHAR" property="teacherNum"/>
+      <result column="teacher_name" jdbcType="VARCHAR" property="teacherName"/>
+      <result column="teacher_image" jdbcType="VARCHAR" property="teacherImage"/>
+      <result column="teacher_store_image" jdbcType="VARCHAR" property="teacherStoreImage"/>
+   </association>
+</resultMap>
+
+<select id="selectByTeacher" resultType="classroomDTO">
+select <include refid="classroomColumnBase" />
+from classroom 
+where teacher_num = #{teacherNum}
+order by class_num asc
+</select>
+
+<select id="classSelectAll" parameterType="string" resultMap="classroomListResultMap">
+select class_num, c.teacher_num, class_name, class_contents, class_start_date, class_end_date, class_week
+   			, classroom_price
+   			, teacher_name, teacher_image, teacher_store_image
+from classroom c join teacher t
+on c.teacher_num = t.teacher_num
+order by class_num asc
 </select>
 <select id="classSelectOne">
 select <include refid="classroomColumnBase"></include> from classroom

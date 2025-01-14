@@ -25,4 +25,6 @@ public class ClassroomDTO {
 	Date classEndDate;
 	Integer classWeek;
 	Integer classroomPrice;
+	
+	TeacherDTO teacherDTO;
 }

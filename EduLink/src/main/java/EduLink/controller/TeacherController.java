@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import EduLink.command.TeacherCommand;
 import EduLink.service.AutoNumService;
 import EduLink.service.IdcheckService;
+import EduLink.service.classroom.ClassroomListService;
 import EduLink.service.teacher.TeacherDeleteService;
 import EduLink.service.teacher.TeacherDetailService;
 import EduLink.service.teacher.TeacherListService;
@@ -92,10 +93,13 @@ public class TeacherController {
         teacherListService.execute(searchWord, page, model);
         return "thymeleaf/teacher/teacherList";
     }
-
+    
+    @Autowired
+    ClassroomListService classroomListService;
     @GetMapping("teacherDetail")
     public String teacherDetail(@RequestParam("teacherNum") String teacherNum, Model model) {
         teacherDetailService.execute(teacherNum, model);
+        classroomListService.execute(model);
         return "thymeleaf/teacher/teacherInfo";
     }
 

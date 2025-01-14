@@ -31,7 +31,7 @@ public class TeacherListService {
 		startEndPageService.execute(page, count, model, list, this.searchWord);
 		
 		
-		//model.addAttribute("list", list);
+		model.addAttribute("teacherList", list);
 	}
 }
 
