@@ -30,6 +30,13 @@ public class EduLinkApplication {
 		inquireCommand.setInquireNum(autoNum);
 		model.addAttribute("inquireCommand", inquireCommand);
 		
+		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
+		model.addAttribute("auth", auth);
+		if (auth != null) { 
+			auth.getGrade();
+			System.out.println("로그인 되었습니다: " + auth.getGrade());
+		}
+		
         return "thymeleaf/index";
     }
 }
