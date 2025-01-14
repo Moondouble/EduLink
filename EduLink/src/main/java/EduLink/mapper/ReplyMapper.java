@@ -11,4 +11,6 @@ public interface ReplyMapper
 {
 	public void replyInsert(ReplyDTO dto);
 	public List<ReplyDTO> replySelectboard(String boardNum);
+	public void replyUpdate(ReplyDTO dto);
+	public void replyDelete(String replyNum);
 }

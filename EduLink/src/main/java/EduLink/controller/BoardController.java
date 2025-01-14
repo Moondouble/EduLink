@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +20,9 @@ import EduLink.service.board.BoardListService;
 import EduLink.service.board.BoardUpdateService;
 import EduLink.service.board.BoardWriteService;
 import EduLink.service.classroom.ClassroomDetailService;
+import EduLink.service.reply.ReplyDeleteService;
 import EduLink.service.reply.ReplyDetailService;
+import EduLink.service.reply.ReplyUpdateService;
 import EduLink.service.reply.ReplyWriteService;
 import jakarta.servlet.http.HttpSession;
 
@@ -44,6 +47,10 @@ public class BoardController {
 	ReplyWriteService replyWriteService;
 	@Autowired
 	ReplyDetailService replyDetailService;
+	@Autowired
+	ReplyUpdateService replyUpdateService;
+	@Autowired
+	ReplyDeleteService replyDeleteService;
 	@RequestMapping("boardList")
 	public String boardList(@RequestParam("classNum") String classNum, Model model) {
 		boardListService.execute(classNum, model);
@@ -107,7 +114,15 @@ public class BoardController {
     	replyWriteService.execute(replyCommand,model,autoNum);
     	return "redirect:boardDetail?boardNum="+replyCommand.getBoardNum();
     }
-    //여기부터 수정/삭제
-	
+	@PostMapping("replyUpdate")
+	public String replyUpdate(@RequestBody ReplyCommand replyCommand,Model model) {
+		replyUpdateService.execute(replyCommand,model);
+		return "redirect:boardDetail?boardNum="+replyCommand.getBoardNum();
+	}
+	@GetMapping("replyDelete")
+	public String replyDelete(@RequestParam("replyNum")String replyNum,@RequestParam("boardNum")String boardNum) {
+		replyDeleteService.execute(replyNum);
+		return "redirect:boardDetail?boardNum="+boardNum;
+	}
 	
 }
