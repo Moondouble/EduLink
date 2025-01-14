@@ -117,9 +117,84 @@ em {
 	transition: all 0.5s;
 	padding-left: 20px; /* 오른쪽으로 이동 */
 }
+
+.kakao-event .event-main {
+  display: flex;  /* 가로로 배치 */
+  justify-content: flex-start;  /* 왼쪽 정렬 */
+  gap: 20px;  /* 요소 간 간격 */
+}
+
+.kakao-event .event-main > div {
+  flex: 1;  /* div들의 크기 균등 배치 */
+}
+
+.kakao-event .event-main iframe {
+  width: 100%; /* iframe 크기를 부모 div에 맞게 설정 */
+  height: 470px; /* 영상 높이를 400px로 설정 */
+}
+.kakao-event .event-main > div > div {
+  display: flex;
+  flex-direction: column;  /* 텍스트는 세로로 정렬 */
+  align-items: center;  /* 세로 가운데 정렬 */
+  justify-content: center;
+}
+
+.kakao-event .event-main > div > div > div {
+  margin-top: 10px;
+}
+
+.kakao-event .event-main section {
+  display: flex;  /* 가로 배치 */
+  align-items: center;  /* 세로로 가운데 정렬 */
+  gap: 15px;  /* 이미지와 텍스트 간 간격 */
+  margin-bottom: 30px;  /* 섹션 간 간격을 넓힘 */
+}
+
+.kakao-event .event-main section img {
+  width: 240px; /* 이미지 크기 설정 */
+  height: auto;
+}
+
+.kakao-event .event-main section > div {
+  display: flex;
+  flex-direction: column;  /* 텍스트를 세로로 정렬 */
+}
+
+.kakao-event .event-main section p {
+  margin: 5px 0;
+}
+
+.kakao-event .event-main section small {
+  font-size: 14px;
+  color: #666;
+}
+
+
+
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+window.addEventListener("load", function() {
+	  const eventSections = document.querySelectorAll('.kakao-event .event-main section');
+
+	  eventSections.forEach(section => {
+	    section.addEventListener('mouseover', function() {
+	      this.querySelector('img').style.transform = "scale(1.1)";
+	    });
+
+	    section.addEventListener('mouseout', function() {
+	      this.querySelector('img').style.transform = "scale(1)";
+	    });
+	  });
+	});
+
+
+
+
+
+
+</script>
 <script>
 	$(function() {
 		var tab_Btn = $(".tab_btn > ul > li");
@@ -217,34 +292,85 @@ em {
 
 
 		<!-- 에듀링크 캐스트 -->
+		
+		<!-- 에듀링크 캐스트 -->
 		<div class="w3-container w3-padding-32" id="projects">
-			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크
-				캐스트</h3>
-			<section
-				style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-				<!-- YouTube Video Embed -->
-				<iframe
-					src="https://www.youtube.com/embed/Csjgmc2HdKE?si=9Bd_VexLS_VOE5r1"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-
-				<!-- Local Videos -->
-				<iframe
-					src="https://www.youtube.com/embed/kal1rdLV29I?si=x-cL-4Ow_BkWofn1"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-				<iframe
-					src="https://www.youtube.com/embed/_CewHR0iCHY?si=J272XiHi_gLDRj9x"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-			</section>
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크 캐스트
+			</h3>
 		</div>
+		
+		<article class="kakao-event pc-widths pc-margins">
+
+
+		<div class="event-title">
+
+			
+			<div>
+				
+				<div>
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+
+		</div>
+
+
+		<div class="event-main">
+			<div>
+				<iframe src="https://www.youtube.com/embed/Csjgmc2HdKE?si=XGLRqvQ0pawPYI_i"></iframe>
+
+				
+			</div>
+			<div>
+				<section>
+					<div> <img src="/static/upload/image2.png">
+					</div>
+					<div>
+						<div>
+							<p>이벤트</p>
+						</div>
+						<div>
+							<p>열공하고 있는 수강생이라면 수강평을 남겨주세요!</p>
+							<small>2025.01.09 ~ 01.27</small>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div> <img src="/static/upload/image3.png">
+					</div>
+					<div>
+						<div>
+							<p>이벤트</p>
+						</div>
+						<div>
+							<p>새해맞이 세일 페스타</p>
+							<small>2025.01.10 ~ 01.31</small>
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div> <img src="/static/upload/image1.png">
+					</div>
+					<div>
+						<div>
+							<p>이벤트</p>
+						</div>
+						<div>
+							<p>2026 강의 신규 오픈!</p>
+							<small>2025.01.09 ~ 01.27</small>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+
+
+	</article>
 
 		<!-- 과목 -->
 		<div class="w3-container w3-padding-32" id="projects">
