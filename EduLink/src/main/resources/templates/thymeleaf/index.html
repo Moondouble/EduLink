@@ -111,6 +111,12 @@ em {
 .tab_menu a:hover {
 	color: orangered;
 }
+
+.tab_menu {
+	display: block;
+	transition: all 0.5s;
+	padding-left: 20px; /* 오른쪽으로 이동 */
+}
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -257,14 +263,13 @@ em {
 			</div>
 			<div class="w3-col l3 m6 w3-margin-bottom">
 				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Renovated</div>
+					<div class="w3-display-topleft w3-black w3-padding">있는 그대로의 수능 국어</div>
 					<img src="/w3images/house3.jpg" alt="House" style="width: 100%">
 				</div>
 			</div>
 			<div class="w3-col l3 m6 w3-margin-bottom">
 				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Barn
-						House</div>
+					<div class="w3-display-topleft w3-black w3-padding">점수로 직결되는 수능 실전 영어</div>
 					<img src="/w3images/house4.jpg" alt="House" style="width: 100%">
 				</div>
 			</div>
@@ -387,7 +392,7 @@ em {
 			<div class="tab_btn">
 				<ul>
 					<li class="active"><a href="#">공지사항</a></li>
-					<li><a href="#">자유게시판</a></li>
+					<li><a href="#">후기</a></li>
 				</ul>
 				<a href="#" class="more">더보기</a>
 			</div>
@@ -403,19 +408,20 @@ em {
 							href="#">[2020-08-31]</a></span></li>
 				</ul>
 				<ul>
-					<li><em><a href="#">자유게시판 테스트입니다. 자유게시판 테스트입니다.</a></em> <span><a
+					<li><em><a href="#">후기 테스트입니다. 후기 테스트입니다.</a></em> <span><a
 							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">자유게시판 테스트입니다. 자유게시판 테스트입니다.</a></em> <span><a
+					<li><em><a href="#">후기 테스트입니다. 후기 테스트입니다.</a></em> <span><a
 							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">자유게시판 테스트입니다. 자유게시판 테스트입니다.</a></em> <span><a
+					<li><em><a href="#">후기 테스트입니다. 후기 테스트입니다.</a></em> <span><a
 							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">자유게시판 테스트입니다. 자유게시판 테스트입니다.</a></em> <span><a
+					<li><em><a href="#">후기 테스트입니다. 후기 테스트입니다.</a></em> <span><a
 							href="#">[2020-08-31]</a></span></li>
 				</ul>
 			</div>
 		</div>
-
-
+		
+		<!--  광고 이미지 -->
+		
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">상담문의</h3>
