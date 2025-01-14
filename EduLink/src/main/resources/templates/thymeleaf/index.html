@@ -17,12 +17,12 @@
 			<!-- 우측 네비게이션 링크 -->
 			<div class="w3-right w3-hide-small">
 				<a th:if="${session.auth == null}" href="/login/loginPage"
-					class="w3-bar-item w3-button">로그인</a> 
-				<a th:if="${session.auth != null}" href="login/logout"
-					class="w3-bar-item w3-button">로그아웃</a> 
-				<a href="/class/classList" class="w3-bar-item w3-button">강좌</a> 
-				<a href="#about" class="w3-bar-item w3-button">선생님</a> 
-				<a href="#contact" class="w3-bar-item w3-button">문의</a>
+					class="w3-bar-item w3-button">로그인</a> <a
+					th:if="${session.auth != null}" href="login/logout"
+					class="w3-bar-item w3-button">로그아웃</a> <a href="/class/classList"
+					class="w3-bar-item w3-button">강좌</a> <a href="#about"
+					class="w3-bar-item w3-button">선생님</a> <a href="#contact"
+					class="w3-bar-item w3-button">문의</a>
 			</div>
 		</div>
 	</div>
@@ -54,28 +54,47 @@
 		<div th:if="${session.auth == null}">
 			<a href="/login/loginPage">로그인</a>
 		</div>
-		
+
 
 		<div th:if="${session.auth != null}">
 			<a href="/student/studentList">학생 목록</a><br /> <a
 				href="/myPage/profile">마이페이지</a><br /> <a href="login/logout">로그아웃</a>
 		</div>
-		
-		
+
+
 		<!-- Project Section -->
 		<div class="w3-container w3-padding-32" id="projects">
-			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크 캐스트
-			</h3>
-			
-			<section>
-            <video src="https://www.youtube.com/embed/vgDUglVhRj4?si=EM7TBO0bpNwLv9Wp" width="33%" poster="img/go.jpg" controls></video>
-            <video src="video/html.m4v" width="33%" poster="img/webdev.png" controls></video>
-            <video src="video/maths.mp4" width="33%" poster="img/maths.jpg" controls></video>
-        </section>
-        <section>
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크
+				캐스트</h3>
+			<section
+				style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+				<!-- YouTube Video Embed -->
+				<iframe
+					src="https://www.youtube.com/embed/Csjgmc2HdKE?si=9Bd_VexLS_VOE5r1"
+					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen> </iframe>
+
+				<!-- Local Videos -->
+				<iframe
+					src="https://www.youtube.com/embed/kal1rdLV29I?si=x-cL-4Ow_BkWofn1"
+					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen> </iframe>
+				<iframe
+					src="https://www.youtube.com/embed/_CewHR0iCHY?si=J272XiHi_gLDRj9x"
+					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
+					frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+					allowfullscreen> </iframe>
+			</section>
 		</div>
-		
-		
+
+
+
+
 
 
 
@@ -210,10 +229,11 @@
 				<h3>배수지</h3>
 				점수로 직결되는 수능 실전 영어
 				</p>
-				
-				
-				<p>본 강좌는 수능 영어의 기본기를 탄탄히 다지면서 실전에서 바로 써먹을 수 있는 독해와 문제 풀이 스킬을 키우는 데 초점이 맞춰져 있는 강의입니다.
-				 배수지 선생님은 생소한 영어 지문도 술술 읽히게 만드는 꿀팁과 센스 넘치는 설명으로 학생들 사이에서 '믿보강'(믿고 보는 강의)으로 불리고 있습니다.</p>
+
+
+				<p>본 강좌는 수능 영어의 기본기를 탄탄히 다지면서 실전에서 바로 써먹을 수 있는 독해와 문제 풀이 스킬을 키우는
+					데 초점이 맞춰져 있는 강의입니다. 배수지 선생님은 생소한 영어 지문도 술술 읽히게 만드는 꿀팁과 센스 넘치는 설명으로
+					학생들 사이에서 '믿보강'(믿고 보는 강의)으로 불리고 있습니다.</p>
 				<p>
 					<button class="w3-button w3-light-grey w3-block">
 						<a href="/class/classList"
@@ -226,13 +246,20 @@
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">상담문의</h3>
-			<form action="/inquire/inquireRegist" method="post" th:object="${inquireCommand}" target="_blank">
-				<input type="hidden" name="inquireNum" th:value="${inquireCommand.inquireNum}" readonly="readonly"/>
-				<input class="w3-input w3-border" type="text" placeholder="이름"	name="inquireWriter" th:value="${inquireCommand.inquireWriter}">
-				<input class="w3-input w3-section w3-border" type="email" placeholder="이메일" name="inquireEmail" th:value="${inquireCommand.inquireEmail}">
-				<input class="w3-input w3-section w3-border" type="text" placeholder="제목" name="inquireName" th:value="${inquireCommand.inquireName}">
-				<input class="w3-input w3-section w3-border" type="text" placeholder="설명" name="inquireContents">
-				<select name="inquireCategory" class="w3-input w3-section w3-border">
+			<form action="/inquire/inquireRegist" method="post"
+				th:object="${inquireCommand}" target="_blank">
+				<input type="hidden" name="inquireNum"
+					th:value="${inquireCommand.inquireNum}" readonly="readonly" /> <input
+					class="w3-input w3-border" type="text" placeholder="이름"
+					name="inquireWriter" th:value="${inquireCommand.inquireWriter}">
+				<input class="w3-input w3-section w3-border" type="email"
+					placeholder="이메일" name="inquireEmail"
+					th:value="${inquireCommand.inquireEmail}"> <input
+					class="w3-input w3-section w3-border" type="text" placeholder="제목"
+					name="inquireName" th:value="${inquireCommand.inquireName}">
+				<input class="w3-input w3-section w3-border" type="text"
+					placeholder="설명" name="inquireContents"> <select
+					name="inquireCategory" class="w3-input w3-section w3-border">
 					<option value="none">카테고리</option>
 					<option value="select1">문의1</option>
 					<option value="select2">문의2</option>
