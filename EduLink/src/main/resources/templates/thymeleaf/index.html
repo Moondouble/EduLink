@@ -395,7 +395,7 @@ window.addEventListener("load", function() {
         <table>
             <tbody>
                 <tr th:each="dto : ${list}">
-                    <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
+                    <td><a th:href="|class/classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
                 </tr>
             </tbody>
         </table>
