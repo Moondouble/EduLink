@@ -78,7 +78,7 @@ public class BoardController {
 	}
 	@PostMapping("boardWrite")
 	public String boardWrite2(BoardCommand boardCommand
-			,@RequestParam("boardVideo") MultipartFile boardVideo) {
+			, @RequestParam(value = "boardVideo", required = false) MultipartFile boardVideo) {
 		  System.out.println("boardCategory: " + boardCommand.getBoardCategory());
 		boardWriteService.execute(boardCommand,boardVideo);
 		return "redirect:boardList?classNum=" + boardCommand.getClassNum();

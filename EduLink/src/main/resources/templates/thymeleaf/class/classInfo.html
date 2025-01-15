@@ -128,8 +128,8 @@ h1 {
 .lecture-time {
 	font-size: 1.2rem;
 	color: #555;
-	flex: 1; /* 시간 텍스트 균형 맞춤 */
-	text-align: center;
+	flex: 2; /* 시간 텍스트 균형 맞춤 */
+
 }
 
 .links {
@@ -269,11 +269,11 @@ $(function(){
 
 		<div class="tabs">
 			<div class="tabs__menu">
-				<div class="tabs__menu-item" data-tab="tab1">강좌 소개</div>
+				<div class="tabs__menu-item on" data-tab="tab1">강좌 소개</div>
 				<div class="tabs__menu-item" data-tab="tab2">강의 목록</div>
 				<div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
 			</div>
-			<div id="tab1" class="tabs__content">
+			<div id="tab1" class="tabs__content on">
 				[[${classroomCommand.classContents}]]</div>
 			<div id="tab2" class="tabs__content">
 				<ul class="lecture-list">
@@ -289,9 +289,16 @@ $(function(){
 						th:title="${cdto.boardContents}"
 						th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
 						<span th:unless="${cdto.boardContents != null}">내용 없음</span>
-						<div class="links">
+						<div class="links" th:if="${cdto.boardStoreVideo != null}">
 							<a th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|" onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상 바로가기</a>
-						</div></li>
+						</div>
+						<div class="links" th:if="${cdto.boardStoreVideo == null}">
+							영상 없음
+						</div>
+						</li>
+						<li th:if="${#lists.size(clist) == 0}" style="color:red;">
+						<span>강의 내용이 존재하지 않습니다</span>
+						</li>
 				</ul>
 
 			</div>
@@ -313,6 +320,10 @@ $(function(){
 							th:title="${qdto.boardContents}"
 							th:text="${qdto.boardContents.length() > 10 ? #strings.substring(qdto.boardContents, 0, 10) + '...' : qdto.boardContents}"></a>
 					</span>
+					</li>
+					<li th:if="${#lists.size(qlist) == 0}" style="color:red;">
+						<span>질문 내용이 존재하지 않습니다</span>
+						</li>
 				</ul>
 			</div>
 		</div>

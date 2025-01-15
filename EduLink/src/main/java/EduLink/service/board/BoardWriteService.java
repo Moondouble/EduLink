@@ -30,26 +30,36 @@ public class BoardWriteService {
         dto.setTeacherNum(boardCommand.getTeacherNum() == null ? "" : boardCommand.getTeacherNum());
         dto.setStudentNum(boardCommand.getStudentNum() == null ? "" : boardCommand.getStudentNum());
 
+        // 학생이 작성한 경우 boardVideo를 null로 처리
+        if (boardCommand.getStudentNum() != null && !boardCommand.getStudentNum().isEmpty()) {
+            boardVideo = null;  // 학생이 작성하면 boardVideo를 null로 설정
+        }
+
         URL resource = getClass().getClassLoader().getResource("static/upload/video/");
         String classDir = resource.getFile() + boardCommand.getClassNum();
-        
 
         // 파일 저장
-        MultipartFile mf = boardCommand.getBoardVideo();
-		String originalFile = mf.getOriginalFilename();
-		String extension = originalFile.substring(originalFile.lastIndexOf("."));
-		String storeName = UUID.randomUUID().toString().replace("-", "");
-		String storeFileName = storeName + extension;
-		createDirectory(classDir);
-		File file = new File(classDir + "/" + storeFileName);
-		try {
-			mf.transferTo(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-        // DTO에 파일 정보 저장
-        dto.setBoardVideo(boardCommand.getBoardVideo() == null ? "" : boardVideo.getOriginalFilename());
-        dto.setBoardStoreVideo(boardCommand.getBoardStoreVideo() == null ? "" :storeFileName);
+        if (boardVideo != null) {
+            MultipartFile mf = boardVideo;
+            String originalFile = mf.getOriginalFilename();
+            String extension = originalFile.substring(originalFile.lastIndexOf("."));
+            String storeName = UUID.randomUUID().toString().replace("-", "");
+            String storeFileName = storeName + extension;
+            createDirectory(classDir);
+            File file = new File(classDir + "/" + storeFileName);
+            try {
+                mf.transferTo(file);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // DTO에 파일 정보 저장
+            dto.setBoardVideo(boardVideo.getOriginalFilename());
+            dto.setBoardStoreVideo(storeFileName);
+        } else {
+            // 학생인 경우 video 관련 필드를 빈 값으로 처리
+            dto.setBoardVideo("");
+            dto.setBoardStoreVideo("");
+        }
 
         // 데이터베이스에 삽입
         boardMapper.boardInsert(dto);
@@ -64,6 +74,4 @@ public class BoardWriteService {
             }
         }
     }
-
-
 }
