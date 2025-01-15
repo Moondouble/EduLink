@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import EduLink.command.BoardCommand;
 import EduLink.command.ReplyCommand;
 import EduLink.domain.AuthInfoDTO;
+import EduLink.domain.ReplyDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.board.BoardDeleteService;
 import EduLink.service.board.BoardDetailService;
@@ -115,9 +116,11 @@ public class BoardController {
     	return "redirect:boardDetail?boardNum="+replyCommand.getBoardNum();
     }
 	@PostMapping("replyUpdate")
-	public String replyUpdate(@RequestBody ReplyCommand replyCommand,Model model) {
+	public String replyUpdate(@ModelAttribute ReplyCommand replyCommand,Model model) {
+		
+		String boardNum = replyCommand.getBoardNum();
 		replyUpdateService.execute(replyCommand,model);
-		return "redirect:boardDetail?boardNum="+replyCommand.getBoardNum();
+		 return "redirect:boardDetail?boardNum=" + boardNum;
 	}
 	@GetMapping("replyDelete")
 	public String replyDelete(@RequestParam("replyNum")String replyNum,@RequestParam("boardNum")String boardNum) {

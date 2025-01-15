@@ -14,6 +14,7 @@ public class ReplyUpdateService {
 	ReplyMapper replyMapper;
 	public void execute(ReplyCommand replyCommand,Model model) {
 		ReplyDTO dto = new ReplyDTO();
+		dto.setReplyNum(replyCommand.getReplyNum());
 		dto.setReplyContents(replyCommand.getReplyContents());
 		replyMapper.replyUpdate(dto);
 		

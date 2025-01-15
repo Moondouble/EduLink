@@ -48,8 +48,8 @@ public class BoardWriteService {
 			e.printStackTrace();
 		}
         // DTO에 파일 정보 저장
-        dto.setBoardVideo(boardVideo.getOriginalFilename());
-        dto.setBoardStoreVideo(storeFileName);
+        dto.setBoardVideo(boardCommand.getBoardVideo() == null ? "" : boardVideo.getOriginalFilename());
+        dto.setBoardStoreVideo(boardCommand.getBoardStoreVideo() == null ? "" :storeFileName);
 
         // 데이터베이스에 삽입
         boardMapper.boardInsert(dto);
