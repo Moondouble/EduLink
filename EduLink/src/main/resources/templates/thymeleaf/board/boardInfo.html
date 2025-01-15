@@ -56,54 +56,39 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 	text-decoration: none;
 	color: blue;
 }
-.edit-box textarea {
-	width: 100%;
-	resize: none;
-}
 
-.edit-box button {
-	margin-top: 10px;
-	background-color: blue;
-	color: white;
-	border: none;
-	padding: 5px 10px;
-	cursor: pointer;
-}
-
-.edit-box button:hover {
-	background-color: darkblue;
-}
 .text-align-center a:hover {
 	text-decoration: underline;
 }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
 $(document).ready(function() {
     // 댓글 수정 버튼 클릭 시
-    $(document).on('click', '.edit-reply-btn', function(e) {
+    $(document).on('click', 'a:contains("수정하기")', function(e) {
         e.preventDefault();
-        const replyId = $(this).data('id'); // 댓글 ID
-        const replyElement = $(`#reply-${replyId}`);
+        const replyNum = $(this).closest('tr').find('td').eq(1).text().trim(); // 댓글 번호
+        const replyElement = $(this).closest('tr').find('td').eq(2); // 댓글 내용이 있는 td
         const currentContent = replyElement.text().trim();
 
         // 수정 창 삽입
         const editBoxHtml = `
             <div class="edit-box">
                 <textarea rows="4">${currentContent}</textarea>
-                <button class="save-reply-btn" data-id="${replyId}">저장</button>
-                <button class="cancel-reply-btn" data-id="${replyId}" data-content="${currentContent}">취소</button>
+                <button class="save-reply-btn" data-num="${replyNum}">저장</button>
+                <button class="cancel-reply-btn" data-num="${replyNum}" data-content="${currentContent}">취소</button>
             </div>
         `;
-        replyElement.html(editBoxHtml);
+        replyElement.html(editBoxHtml); // 댓글 내용 수정창으로 교체
     });
 
     // 댓글 저장 버튼 클릭 시
     $(document).on('click', '.save-reply-btn', function(e) {
         e.preventDefault();
-        const replyId = $(this).data('id'); // 댓글 ID
-        const replyElement = $(`#reply-${replyId}`);
-        const updatedContent = replyElement.find('textarea').val();
+        const replyNum = $(this).data('num'); // 댓글 번호
+        const replyElement = $(this).closest('tr').find('td').eq(2); // 댓글 내용이 있는 td
+        const updatedContent = replyElement.find('textarea').val(); // 수정된 내용
 
         // AJAX 요청으로 서버에 수정된 댓글 전송
         $.ajax({
@@ -111,8 +96,8 @@ $(document).ready(function() {
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({
-                replyId: replyId,
-                replyContents: updatedContent
+                replyNum: replyNum,  // 수정된 댓글 번호
+                replyContents: updatedContent // 수정된 댓글 내용
             }),
             success: function(response) {
                 alert('댓글이 성공적으로 수정되었습니다.');
@@ -128,13 +113,14 @@ $(document).ready(function() {
     // 댓글 수정 취소 버튼 클릭 시
     $(document).on('click', '.cancel-reply-btn', function(e) {
         e.preventDefault();
-        const replyId = $(this).data('id');
+        const replyNum = $(this).data('num');
         const originalContent = $(this).data('content');
-        const replyElement = $(`#reply-${replyId}`);
+        const replyElement = $(this).closest('tr').find('td').eq(2);
         replyElement.html(originalContent); // 원래 내용으로 복구
     });
 });
 </script>
+
 </head>
 <body>
 	<h1 class="con">게시글 상세보기</h1>
@@ -160,33 +146,40 @@ $(document).ready(function() {
 		</table>
 		<table>
 			<form action="replyWrite" method="post" th:object="${replyCommand}">
-			<input type="hidden" name="boardNum" th:value="${boardCommand.boardNum}">
-			<tbody>
-				<tr class="article-title">
-					<th colspan="4">답글</th>
-				</tr>
-				<tr th:each="dto : ${list}">
-				<td>[[${dto.teacherNum}]]<br /><span>[[${dto.replyDate}]]</span></td>
-				<td colspan="3">[[${dto.replyContents}]]<br />
-				<span th:if="${session.auth.userNum} == ${dto.teacherNum}">
-					<a href="#" class="edit-reply-btn" data-id="[[${dto.replyNum}]]">수정하기</a>
-					<a th:href="|replyDelete?replyNum=${boardCommand.boardNum}&classNum=${boardCommand.classNum}|">삭제하기</a>
-				</span></td>
-				</tr>
-				<div th:if="${session.auth.grade == 'teacher'}">
-				<tr>
-					<td>작성자</td>
-					<td colspan="3"><input type="text" name="TeacherNum"
-						th:value="${session.auth.userNum}" readonly="readonly"></td>
-				</tr>
-				<tr>
-					<td>댓글</td>
-					<td colspan="3"><textarea rows="4" cols="100"
-							name="replyContents" title="댓글을 작성해주세요"></textarea></td>
-				</tr>
-				<tr><td colspan="4"><input type="submit" value="답글달기" style="align-items: right;"></td></tr>
-				</div>
-			</tbody>
+				<input type="hidden" name="boardNum"
+					th:value="${boardCommand.boardNum}">
+				<tbody>
+					<tr class="article-title">
+						<th colspan="4">답글</th>
+					</tr>
+					<tr th:each="dto : ${list}">
+						<td>[[${dto.teacherNum}]]<br />
+						<span>[[${dto.replyDate}]]</span></td>
+						<td colspan="3">[[${dto.replyContents}]]<br /> <span
+							th:if="${session.auth.userNum} == ${dto.teacherNum}">
+								<a href="#" onclick="">수정하기</a>
+
+								<a
+								th:href="|replyDelete?replyNum=${dto.replyNum}&boardNum=${dto.boardNum}|">삭제하기</a>
+						</span></td>
+					</tr>
+					<div th:if="${session.auth.grade == 'teacher'}">
+						<tr>
+							<td>작성자</td>
+							<td colspan="3"><input type="text" name="TeacherNum"
+								th:value="${session.auth.userNum}" readonly="readonly"></td>
+						</tr>
+						<tr>
+							<td>댓글</td>
+							<td colspan="3"><textarea rows="4" cols="100"
+									name="replyContents" title="댓글을 작성해주세요"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4"><input type="submit" value="답글달기"
+								style="align-items: right;"></td>
+						</tr>
+					</div>
+				</tbody>
 			</form>
 		</table>
 		<div class="text-align-center">
