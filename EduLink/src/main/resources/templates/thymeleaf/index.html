@@ -190,6 +190,8 @@ em {
 	display: flex;
 	gap: 15px; /* 링크 간 간격 */
 }
+
+
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -207,9 +209,6 @@ window.addEventListener("load", function() {
 	    });
 	  });
 	});
-
-
-
 
 
 
@@ -244,7 +243,7 @@ window.addEventListener("load", function() {
 		<div
 			class="w3-bar w3-white w3-wide w3-padding w3-card w3-flex-container">
 			<!-- 로고 및 홈 링크 -->
-			<a href="#home" class="w3-bar-item w3-button w3-logo"><b>EDULINK</b></a>
+			<a href="/" class="w3-bar-item w3-button w3-logo"><b>EDULINK</b></a>
 
 			<!-- 네비게이션 링크 -->
 			<div class="w3-bar-item w3-nav-links">
@@ -392,64 +391,15 @@ window.addEventListener("load", function() {
 			</h3>
 		</div>
 
-		<div class="w3-row-padding">
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">주식의 이해</div>
-					<img src="/w3images/house5.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">수학의 정석</div>
-					<img src="/w3images/house2.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">있는 그대로의
-						수능 국어</div>
-					<img src="/w3images/house3.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">점수로 직결되는
-						수능 실전 영어</div>
-					<img src="/w3images/house4.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-		</div>
-
-		<div class="w3-row-padding">
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Summer
-						House</div>
-					<img src="/w3images/house2.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Brick
-						House</div>
-					<img src="/w3images/house5.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Renovated</div>
-					<img src="/w3images/house4.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Barn
-						House</div>
-					<img src="/w3images/house3.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-		</div>
+		<div class="container">
+        <table>
+            <tbody>
+                <tr th:each="dto : ${list}">
+                    <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 		<!-- 선생님 -->
 		<div class="w3-container w3-padding-32" id="about">
