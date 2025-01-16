@@ -117,25 +117,7 @@ where purchase_num = #{purchaseNum}
       </if>
    </where>
 </select>
-<select id="orderList1" parameterType="map" resultType="EduLink.domain.OrderListDTO">
-        SELECT 
-            p.purchase_num AS purchaseDTO.purchaseNum,
-            p.student_num AS purchaseDTO.studentNum,
-            p.purchase_date AS purchaseDTO.purchaseDate,
-            pm.payment_num AS paymentDTO.paymentNum,
-            pm.payment_type AS paymentDTO.paymentType,
-            pm.payment_amount AS paymentDTO.paymentAmount,
-            c.class_num AS purchaseListClassDTOs[0].classNum,
-            c.class_name AS purchaseListClassDTOs[0].className
-        FROM purchase p
-        LEFT JOIN payment pm ON p.purchase_num = pm.purchase_num
-        LEFT JOIN purchase_list_class plc ON p.purchase_num = plc.purchase_num
-        LEFT JOIN classroom c ON plc.class_num = c.class_num
-        WHERE p.student_num = #{studentNum}
-        <if test="search != null">
-            AND (c.class_name LIKE CONCAT('%', #{search}, '%') OR c.class_contents LIKE CONCAT('%', #{search}, '%'))
-        </if>
-    </select>
+
 <delete id="paymentDelete" parameterType="string">
    delete from payment
    where purchase_num = #{purchaseNum}

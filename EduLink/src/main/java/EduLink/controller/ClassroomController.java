@@ -50,7 +50,7 @@ public class ClassroomController
 	OrderProcessListService orderProcessListService;
 	@GetMapping("classList")
 	public String List(@RequestParam(required = false) String teacherNum, HttpSession session,Model model) {
-		orderProcessListService.execute1(session,model);
+	
 		if (teacherNum != null && !teacherNum.isEmpty()) {
 			TeacherDTO teacher = classroomListService.executeByTeacherNum(model, teacherNum);
 			model.addAttribute("teacher", teacher);

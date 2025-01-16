@@ -10,7 +10,7 @@ CLASS_NUM as classNum
 ,CLASS_CONTENTS as classContents
 ,CLASS_START_DATE as classStartDate
 ,CLASS_END_DATE as classEndDate           
-,CLASS_WEEK as classWeek
+,(select count(*) from board group by board_category having board_category = 'class') as classWeek
 ,classroom_price as classroomPrice
 </sql>
 
@@ -40,7 +40,7 @@ order by class_num asc
 </select>
 
 <select id="classSelectAll" parameterType="string" resultMap="classroomListResultMap">
-select class_num, c.teacher_num, class_name, class_contents, class_start_date, class_end_date, class_week
+select class_num, c.teacher_num, class_name, class_contents, class_start_date, class_end_date, (select count(*) from board group by board_category having board_category = 'class') as class_week 
    			, classroom_price
    			, teacher_name, teacher_image, teacher_store_image
 from classroom c join teacher t
