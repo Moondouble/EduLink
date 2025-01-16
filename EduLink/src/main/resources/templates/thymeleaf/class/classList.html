@@ -25,6 +25,7 @@
             font-size: 2.4rem;
             color: #333;
             margin-bottom: 20px;
+            text-align: center;
         }
         table {
             width: 100%;
@@ -66,23 +67,18 @@
 </head>
 <body>
     <div class="container">
-<<<<<<< HEAD
-        <h1>[[${teacherName}]]강의 목록</h1>
-=======
-    	<div th:if="${teacher != null}">
-        	<h1 style="text-align: center; font-size: 30px;">[[${teacher.teacherName}]] 선생님의 강의 목록</h1>
+        <div th:if="${teacher != null}">
+            <h1>[[${teacher.teacherName}]] 선생님의 강의 목록</h1>
         </div>
         <div th:if="${teacher == null}">
-        	<h1 style="text-align: center; font-size: 30px;">전체 강의 목록</h1>
+            <h1>전체 강의 목록</h1>
         </div>
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
         <table>
             <thead>
                 <tr>
                     <th>강의번호</th>
                     <th>강의명</th>
                     <th>회차</th>
-                    <th>구매상태</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,27 +86,19 @@
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
-                    <td class="button-container">
-                    <button type="button" id="cartBtn">장바구니</button> 	
-                    <button type="button" id="buyItem">바로구매</button></td>	
                 </tr>
             </tbody>
         </table>
         <div class="button-container" th:if="${session.auth.grade =='teacher'}">
-        	<a href="../">홈</a>
-<<<<<<< HEAD
-            <a th:if="${session.auth.grade != 'student'}" href="classWrite">강의 개설</a>
-            
-=======
+            <a href="../">홈</a>
             <a href="classWrite/">강의 개설</a>
         </div>
-                <div class="button-container" th:if="${session.auth.grade =='student'}">
-        	<a href="../">홈</a>
+        <div class="button-container" th:if="${session.auth.grade =='student'}">
+            <a href="../">홈</a>
         </div>
-                <div class="button-container" th:if="${session.auth.grade =='employee'}">
-        	<a href="../">홈</a>
+        <div class="button-container" th:if="${session.auth.grade =='employee'}">
+            <a href="../">홈</a>
             <a href="classWrite/">강의 개설</a>
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
         </div>
     </div>
 </body>
