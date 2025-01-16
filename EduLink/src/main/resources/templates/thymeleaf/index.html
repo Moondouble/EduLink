@@ -189,8 +189,16 @@ em {
 .w3-nav-links {
 	display: flex;
 	gap: 15px; /* 링크 간 간격 */
+
 }
 
+.notice-image {
+    float: left; /* 이미지가 제목 왼쪽에 위치 */
+    width: 1950px; /* 이미지 너비 */
+    height: 800px; /* 이미지 높이 */
+    margin-right: 10px; /* 이미지와 텍스트 간격 */
+    object-fit: cover; /* 이미지를 영역에 맞게 조정 */
+}
 
 </style>
 <script
@@ -273,6 +281,12 @@ window.addEventListener("load", function() {
 	</header>
 	<br />
 	<br />
+	<!--  광고 이미지 -->
+		<img th:src="|/static/upload/bg.png|"
+                 alt="공지 이미지"
+                 class="notice-image">
+	
+	
 	<!-- Page content -->
 	<div class="w3-content w3-padding" style="max-width: 1564px">
 		<H1>카테고리</H1>
@@ -454,8 +468,10 @@ window.addEventListener("load", function() {
 				<a href="#" class="more">더보기</a>
 			</div>
 			<div class="tab_cont">
+			
 				<ul class="active">
 					<li th:each="dto : ${list1}"><em>
+					    
 						<a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${dto.noticeName}]]</a></em>
 					<span><a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${#dates.format(dto.noticeDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
@@ -464,10 +480,13 @@ window.addEventListener("load", function() {
 						<a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${dto.reviewName}]]</a></em>
 						<span><a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${#dates.format(dto.reviewDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
+				
+				
 			</div>
+			
 		</div>
 
-		<!--  광고 이미지 -->
+		
 
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">
