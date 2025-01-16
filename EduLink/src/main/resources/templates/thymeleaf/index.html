@@ -460,14 +460,9 @@ window.addEventListener("load", function() {
 					<span><a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${#dates.format(dto.noticeDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
 				<ul>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
+					<li th:each="dto : ${list2}"><em>
+						<a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${dto.reviewName}]]</a></em>
+						<span><a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${#dates.format(dto.reviewDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
 			</div>
 		</div>

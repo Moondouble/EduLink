@@ -10,6 +10,7 @@ import EduLink.domain.ReviewDTO;
 public interface ReviewMapper
 {
 	public List<ReviewDTO> reviewSelectAll(String classNum);
+	public List<ReviewDTO> reviewSelectAllWithoutClass();
 	public void reviewInsert(ReviewDTO dto);
 	public ReviewDTO reviewSelectOne(String classNum);
 	public void reviewUpdate(ReviewDTO dto);
