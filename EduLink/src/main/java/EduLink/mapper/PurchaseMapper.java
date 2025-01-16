@@ -16,6 +16,7 @@ public interface PurchaseMapper {
 	public Integer purchaseInsert(PurchaseDTO dto);
 	public int purchaseListInsert(PurchaseListDTO dto);
 	public PurchaseDTO purchaseSelect(String purchaseNum);
+	List<OrderListDTO> orderList1(@Param("studentNum") String studentNum, @Param("search") String search);
 	public int purchaseClassCount(String purchaseNum);
 	public String firstClass(String purchaseNum);
 	public int paymentInsert(PaymentDTO dto);
