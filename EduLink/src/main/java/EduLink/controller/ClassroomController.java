@@ -21,6 +21,7 @@ import EduLink.service.classroom.ClassroomDetailService;
 import EduLink.service.classroom.ClassroomListService;
 import EduLink.service.classroom.ClassroomUpdateService;
 import EduLink.service.classroom.ClassroomWriteService;
+import EduLink.service.purchase.OrderProcessListService;
 import EduLink.service.teacher.TeacherDetailService;
 import jakarta.servlet.http.HttpSession;
 
@@ -45,14 +46,17 @@ public class ClassroomController
 	TeacherDetailService teacherDetailService;
 	@Autowired
 	BoardListService boardListService;
-	
+	@Autowired
+	OrderProcessListService orderProcessListService;
 	@GetMapping("classList")
-	public String List(@RequestParam(required = false) String teacherNum, Model model) {
+	public String List(@RequestParam(required = false) String teacherNum, HttpSession session,Model model) {
+		orderProcessListService.execute1(session,model);
 		if (teacherNum != null && !teacherNum.isEmpty()) {
 			TeacherDTO teacher = classroomListService.executeByTeacherNum(model, teacherNum);
 			model.addAttribute("teacher", teacher);
 	    } else {
 	        classroomListService.execute(model);
+	        
 	    }
 		return "thymeleaf/class/classList";
 	}

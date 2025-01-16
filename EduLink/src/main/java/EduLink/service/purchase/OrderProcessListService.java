@@ -25,4 +25,16 @@ public class OrderProcessListService {
 		List<OrderListDTO> list = purchaseMapper.orderList(stuDto.getStudentNum(), null);
 		model.addAttribute("list", list);
 	}
+
+	    public void execute1(HttpSession session, Model model) {
+	        AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
+	        StudentDTO stuDto = memberMyMapper.studentInfo(auth.getUserNum());
+	        List<OrderListDTO> list = purchaseMapper.orderList(stuDto.getStudentNum(), null);
+	        
+	        // 구매한 강의 목록을 모델에 추가
+	        model.addAttribute("purchasedClasses", list);
+	        model.addAttribute("userNum", auth.getUserNum());
+	    }
+	
+
 }

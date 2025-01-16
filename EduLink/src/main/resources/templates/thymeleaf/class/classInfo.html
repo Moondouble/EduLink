@@ -129,8 +129,12 @@ h1 {
 .lecture-time {
 	font-size: 1.2rem;
 	color: #555;
+<<<<<<< HEAD
+	flex: 2; /* 시간 텍스트 균형 맞춤 */
+=======
 	flex: 1; /* 시간 텍스트 균형 맞춤 */
 	text-align: center;
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 }
 
 .links {
@@ -192,6 +196,23 @@ td {
 	overflow: hidden;
 	text-overflow: ellipsis; /* 말줄임 표시 */
 	max-width: 200px;
+}
+
+.button-container {
+	text-align: right;
+}
+
+.button-container a {
+	display: inline-block;
+	padding: 10px 15px;
+	color: #fff;
+	background-color: #007bff;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+.button-container a:hover {
+	background-color: #0056b3;
 }
 </style>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
@@ -287,8 +308,13 @@ $(function(){
 			<div id="tab2" class="tabs__content">
 				<ul class="lecture-list">
 					<li>
+<<<<<<< HEAD
+						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span>강의
+							내용</span>
+=======
 						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span
 						style="font-weight: bold;">강의 내용</span>
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 						<div class="links">
 							<span>강의 영상</span>
 						</div>
@@ -298,12 +324,23 @@ $(function(){
 						th:title="${cdto.boardContents}"
 						th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
 						<span th:unless="${cdto.boardContents != null}">내용 없음</span>
+<<<<<<< HEAD
+						<div class="links" th:if="${cdto.boardStoreVideo != null}">
+							<a
+								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
+								onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상
+								바로가기</a>
+						</div>
+						<div class="links" th:if="${cdto.boardStoreVideo == null}">
+							영상 없음</div></li>
+=======
 						<div class="links">
 							<a
 								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
 								onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상
 								바로가기</a>
 						</div></li>
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 					<li th:if="${#lists.size(clist) == 0}" style="color: red;"><span>강의
 							내용이 존재하지 않습니다</span></li>
 				</ul>
@@ -330,10 +367,14 @@ $(function(){
 					<li th:if="${#lists.size(qlist) == 0}" style="color: red;"><span>질문
 							내용이 존재하지 않습니다.</span></li>
 				</ul>
+
 			</div>
 		</div>
+		<div class="button-container">
+		<a href="../">홈</a> <a th:href="|../board/boardWrite?classNum=${classroomCommand.classNum}">글쓰기</a>
+				</div>
 	</div>
-	</div>
+
 
 	<script>
         document.addEventListener('DOMContentLoaded', function() {

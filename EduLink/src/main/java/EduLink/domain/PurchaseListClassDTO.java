@@ -10,4 +10,6 @@ public class PurchaseListClassDTO {
 	// 구매한 각 상품마다 하나의 상품정보 : 구매한 각 상품마다 상품 정보를 가져와야 합니다.
 	PurchaseListDTO purchaseListDTO;
 	ClassroomDTO classroomDTO;
+    private String classNum; // 강의 번호
+    private String className; // 강의명
 }

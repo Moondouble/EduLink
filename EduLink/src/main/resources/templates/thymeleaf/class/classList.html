@@ -78,6 +78,7 @@
                     <th>강의번호</th>
                     <th>강의명</th>
                     <th>회차</th>
+                    <th>구매상태</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,13 +86,31 @@
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
+                     <td class="button-container">
+                        <!-- 구매한 강의인지 확인 -->
+                        <span th:if="${purchasedClasses.contains(dto)}">구매완료</span>
+                        <span th:unless="${purchasedClasses.contains(dto)}">
+                            <button type="button" id="cartBtn">장바구니</button> 
+                            <button type="button" id="buyItem">바로구매</button>
+                        </span>
                 </tr>
             </tbody>
         </table>
-        <div class="button-container">
+        <div class="button-container" th:if="${session.auth.grade =='teacher'}">
         	<a href="../">홈</a>
+<<<<<<< HEAD
             <a th:if="${session.auth.grade != 'student'}" href="classWrite">강의 개설</a>
             
+=======
+            <a href="classWrite/">강의 개설</a>
+        </div>
+                <div class="button-container" th:if="${session.auth.grade =='student'}">
+        	<a href="../">홈</a>
+        </div>
+                <div class="button-container" th:if="${session.auth.grade =='employee'}">
+        	<a href="../">홈</a>
+            <a href="classWrite/">강의 개설</a>
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
         </div>
     </div>
 </body>
