@@ -23,7 +23,7 @@ public class OrderProcessListService {
 		AuthInfoDTO auth = (AuthInfoDTO)session.getAttribute("auth");
 		StudentDTO stuDto = memberMyMapper.studentInfo(auth.getUserNum());
 		List<OrderListDTO> list = purchaseMapper.orderList(stuDto.getStudentNum(), null);
-		model.addAttribute("list", list);
+		model.addAttribute("olist", list);
 	}
 
 	    public void execute1(HttpSession session, Model model) {

@@ -1,396 +1,373 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<title>ClassInfo.html</title>
-<style>
-body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	padding: 0;
-	background-color: #f9f9f9;
-}
+   <!DOCTYPE html>
+   <html lang="ko">
+   <head>
+   <meta charset="UTF-8">
+   <title>ClassInfo.html</title>
+   <style>
+   body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+   }
+   
+   .container {
+      max-width: 768px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+   }
+   
+   h1 {
+      font-size: 2.4rem;
+      color: #333;
+      margin-bottom: 20px;
+   }
+   
+   .details {
+      font-size: 1.6rem;
+      line-height: 2;
+   }
+   
+   .details dt {
+      font-weight: bold;
+      margin-top: 10px;
+   }
+   
+   .details dd {
+      margin: 0;
+      margin-bottom: 10px;
+   }
+   
+   .tabs {
+      margin-top: 20px;
+   }
+   
+   .tabs__menu {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+   }
+   
+   .tabs__menu-item {
+      flex: 1;
+      text-align: center;
+      padding: 10px 0;
+      cursor: pointer;
+      font-size: 1.5rem;
+      background-color: #f1f1f1;
+      border-right: 1px solid #ddd;
+   }
+   
+   .tabs__menu-item:last-child {
+      border-right: none;
+   }
+   
+   .tabs__menu-item.on {
+      background-color: black;
+      color: #fff;
+   }
+   
+   .tabs__content {
+      display: none;
+      font-size: 1.4rem;
+      color: #333;
+      line-height: 2;
+      white-space: pre-line;
+      margin-top: 20px;
+   }
+   
+   .tabs__content.on {
+      display: block;
+   }
+   
+   .lecture-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+   }
+   
+   .lecture-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px; /* 간결한 패딩 */
+      border-bottom: 1px solid #ddd; /* 심플한 하단 경계선 */
+      font-size: 1.4rem;
+   }
+   
+   .lecture-list li:last-child {
+      border-bottom: none; /* 마지막 항목 경계선 제거 */
+   }
+   
+   .lecture-title {
+      font-weight: bold;
+      color: #333;
+      flex: 2; /* 제목을 더 넓게 */
+   }
+   
+   .question-writer {
+      font-weight: bold;
+      color: #333;
+      flex: 2; /* 제목을 더 넓게 */
+   }
+   
+   .question-title {
+      color: #333;
+      flex: 2; /* 제목을 더 넓게 */
+      font-weight: bold;
+   }
+   
+   .question-contents {
+      font-size: 1.2rem;
+      color: #555;
+      flex: 2; /* 시간 텍스트 균형 맞춤 */
+   }
+   
+   .lecture-time {
+      font-size: 1.2rem;
+      color: #555;
+      flex: 1; /* 시간 텍스트 균형 맞춤 */
+      text-align: center;
 
-.container {
-	max-width: 768px;
-	margin: 20px auto;
-	padding: 20px;
-	background: #ffffff;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-	font-size: 2.4rem;
-	color: #333;
-	margin-bottom: 20px;
-}
-
-.details {
-	font-size: 1.6rem;
-	line-height: 2;
-}
-
-.details dt {
-	font-weight: bold;
-	margin-top: 10px;
-}
-
-.details dd {
-	margin: 0;
-	margin-bottom: 10px;
-}
-
-.tabs {
-	margin-top: 20px;
-}
-
-.tabs__menu {
-	display: flex;
-	border-bottom: 1px solid #ddd;
-}
-
-.tabs__menu-item {
-	flex: 1;
-	text-align: center;
-	padding: 10px 0;
-	cursor: pointer;
-	font-size: 1.5rem;
-	background-color: #f1f1f1;
-	border-right: 1px solid #ddd;
-}
-
-.tabs__menu-item:last-child {
-	border-right: none;
-}
-
-.tabs__menu-item.on {
-	background-color: black;
-	color: #fff;
-}
-
-.tabs__content {
-	display: none;
-	font-size: 1.4rem;
-	color: #333;
-	line-height: 2;
-	white-space: pre-line;
-	margin-top: 20px;
-}
-
-.tabs__content.on {
-	display: block;
-}
-
-.lecture-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-}
-
-.lecture-list li {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 10px 15px; /* 간결한 패딩 */
-	border-bottom: 1px solid #ddd; /* 심플한 하단 경계선 */
-	font-size: 1.4rem;
-}
-
-.lecture-list li:last-child {
-	border-bottom: none; /* 마지막 항목 경계선 제거 */
-}
-
-.lecture-title {
-	font-weight: bold;
-	color: #333;
-	flex: 2; /* 제목을 더 넓게 */
-}
-
-.question-writer {
-	font-weight: bold;
-	color: #333;
-	flex: 2; /* 제목을 더 넓게 */
-}
-
-.question-title {
-	color: #333;
-	flex: 2; /* 제목을 더 넓게 */
-	font-weight: bold;
-}
-
-.question-contents {
-	font-size: 1.2rem;
-	color: #555;
-	flex: 2; /* 시간 텍스트 균형 맞춤 */
-}
-
-.lecture-time {
-	font-size: 1.2rem;
-	color: #555;
-<<<<<<< HEAD
-	flex: 2; /* 시간 텍스트 균형 맞춤 */
-=======
-	flex: 1; /* 시간 텍스트 균형 맞춤 */
-	text-align: center;
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
-}
-
-.links {
-	display: flex;
-	gap: 5px; /* 버튼 간격 최소화 */
-	flex: 1; /* 버튼 정렬 공간 확보 */
-	justify-content: flex-end; /* 오른쪽 정렬 */
-	font-weight: bold;
-}
-
-.links a {
-	color: #007bff;
-	text-decoration: none;
-	font-size: 1.2rem;
-}
-
-.links a:hover {
-	text-decoration: underline;
-}
-
-/* 플레이 버튼 디자인 */
-.play-icon {
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	background-color: #f1f1f1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	transition: background-color 0.2s ease;
-}
-
-.play-icon:hover {
-	background-color: #e0e0e0;
-}
-
-/* table 디자인 개선 */
-table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
-}
-
-table th, table td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
-	font-size: 1.4rem;
-	word-break: break-word; /* 긴 텍스트를 줄바꿈 */
-}
-
-table th {
-	background-color: #f4f4f4;
-	font-weight: bold;
-}
-
-td {
-	overflow: hidden;
-	text-overflow: ellipsis; /* 말줄임 표시 */
-	max-width: 200px;
-}
-
-.button-container {
-	text-align: right;
-}
-
-.button-container a {
-	display: inline-block;
-	padding: 10px 15px;
-	color: #fff;
-	background-color: #007bff;
-	border-radius: 5px;
-	text-decoration: none;
-}
-
-.button-container a:hover {
-	background-color: #0056b3;
-}
-</style>
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
-<script type="text/javascript">
-$(function(){
-	$("#buyItem").click(function(){
-		location.href="../corner/buyItem?classNum=[[${classroomCommand.classNum}]]&qty=1";
-	});
-	
-	$("#cartBtn").click(function(){
-		//장바구니에 담으려면 누구의 것인지 알기 위해서는 먼저 로그인이되어 있어야 하므로 로그인이 안되어 있다면 로그인화면이 뜨게 합니다.
-		if([[session.auth == null]]){ // auth라는 로그인인증 seesion이 없다면
-			window.open("/login/loginPage","login","width=315, height=200,top = 100, left=100");
-		}else{
-			// ajax를 사용해서 비동기식으로 전달하겠습니다.
-			$.ajax({
-				type:"get",
-				url:"../corner/cartAdd", // 이제 cartAdd주소로 제품번호와 수량을 전달하도록합니다. 
-				dataType:"text",
-				// 데이터를 전달하기 위해서는 상품번호와 갯수가 있어야 합니다
-				data:{"classNum" : "[[${classroomCommand.classNum}]]", "qty": 1}, 
-				success:function(result){
-					if(result.trim() == "200"){
-						//return값이 200이면 정상적으로 저장된것이므로 장바구니로 갈지 계속 쇼핑할지 물어봅니다.
-						if(confirm("계속 쇼핑하려면 '취소'를 클릭하세요.")){
-							// 확인을 누르면 장바구니 페이지로 이동합니다.
-							location.href="../corner/cartList"; // 장바구니로 이동하겠습니다.
-						}else if(result.trim() == "999"){
-							alert("관리자는 사용할 수 없는 페이지입니다.");
-						}else if(result.trim() == "000"){
-							alert("로그인을 해야합니다.");
-						}
-					}
-				},
-				error:function(){
-					alert("관리자는 사용할 수 없는 페이지입니다.");
-				}
-			});
-		}
-	});
-});
-
-</script>
-</head>
-<body>
-	<div class="container">
-		<dl class="details" style="display: flex; align-items: center;">
-			<div style="flex: 1;">
-				<dt>
-					<span
-						style="font-weight: bold; font-size: 2rem; margin-left: 60px;">[[${teacherCommand.teacherName}]]의
-						<[[${classroomCommand.className}]]></span>
-				</dt>
-				<dt
-					style="font-weight: normal; margin-left: 80px; color: grey; font-size: 1.5rem;">
-					[[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]]
-					~ [[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]
-				</dt>
-
-			</div>
-			<div style="margin-left: 20px;">
-				<img th:src="|/static/upload/${teacherCommand.teacherStoreImage}|"
-					alt="${teacherCommand.teacherImage}"
-					style="width: 300px; height: auto; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);" />
-			</div>
-		</dl>
-		<div style="text-align: center; margin: 50px 0 0 0;">
-			<button type="button" id="cartBtn">장바구니</button>
-			<button type="button" id="buyItem">바로구매</button>
-			<a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
-			<a
-				th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>
-			<a
-				th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</a><br />
-			<a th:if="${session.auth.grade != 'student'}"
-				th:href="|classUpdate?classNum=${classroomCommand.classNum}|">  강의
-				정보 수정</a><a th:if="${session.auth.grade != 'student'}"
-				th:href="|classDelete?classNum=${classroomCommand.classNum}|">  강의
-				삭제</a><a href="classList">  강의목록</a>
-		</div>
-
-
-		<div class="tabs">
-			<div class="tabs__menu">
-				<div class="tabs__menu-item" data-tab="tab1">강좌 소개</div>
-				<div class="tabs__menu-item" data-tab="tab2">강의 목록</div>
-				<div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
-			</div>
-			<div id="tab1" class="tabs__content">
-				<span style="font-weight: bold; font-size: 2rem;">[강좌 소개]</span>
-				[[${classroomCommand.classContents}]]
-			</div>
-			<div id="tab2" class="tabs__content">
-				<ul class="lecture-list">
-					<li>
-<<<<<<< HEAD
-						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span>강의
-							내용</span>
-=======
-						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span
-						style="font-weight: bold;">강의 내용</span>
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
-						<div class="links">
-							<span>강의 영상</span>
-						</div>
-					</li>
-					<li th:each="cdto : ${clist}"><span class="lecture-title">[[${cdto.boardName}]]</span>
-						<span th:if="${cdto.boardContents != null}"
-						th:title="${cdto.boardContents}"
-						th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
-						<span th:unless="${cdto.boardContents != null}">내용 없음</span>
-<<<<<<< HEAD
-						<div class="links" th:if="${cdto.boardStoreVideo != null}">
-							<a
-								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
-								onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상
-								바로가기</a>
-						</div>
-						<div class="links" th:if="${cdto.boardStoreVideo == null}">
-							영상 없음</div></li>
-=======
-						<div class="links">
-							<a
-								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
-								onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상
-								바로가기</a>
-						</div></li>
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
-					<li th:if="${#lists.size(clist) == 0}" style="color: red;"><span>강의
-							내용이 존재하지 않습니다</span></li>
-				</ul>
-
-			</div>
-			<div id="tab3" class="tabs__content">
-				<!-- board table의 board_category="question"과 reply 테이블을 이용해서 QnA 기능 작성 -->
-				<ul class="lecture-list">
-					<li>
-						<!-- th:each 사용하기 --> <span class="question-writer">작성자</span> <span
-						class="question-title">제목</span> <span class="question-title">내용</span>
-					</li>
-					<li th:each="qdto : ${qlist}"><span class="question-writer"><a
-							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.studentNum}]]</a></span>
-						<span class="question-title"><a
-							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.boardName}]]</a></span>
-
-						<span class="question-contents"
-						th:if="${qdto.boardContents != null}"> <a
-							th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|"
-							th:title="${qdto.boardContents}"
-							th:text="${qdto.boardContents.length() > 10 ? #strings.substring(qdto.boardContents, 0, 10) + '...' : qdto.boardContents}"></a>
-					</span></li>
-					<li th:if="${#lists.size(qlist) == 0}" style="color: red;"><span>질문
-							내용이 존재하지 않습니다.</span></li>
-				</ul>
-
-			</div>
-		</div>
-		<div class="button-container">
-		<a href="../">홈</a> <a th:href="|../board/boardWrite?classNum=${classroomCommand.classNum}">글쓰기</a>
-				</div>
-	</div>
-
-
-	<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabsMenuItems = document.querySelectorAll('.tabs__menu-item');
-            const tabsContent = document.querySelectorAll('.tabs__content');
-
-            tabsMenuItems.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    tabsMenuItems.forEach(item => item.classList.remove('on'));
-                    tabsContent.forEach(content => content.classList.remove('on'));
-
-                    tab.classList.add('on');
-                    document.getElementById(tab.getAttribute('data-tab')).classList.add('on');
-                });
+   }
+   
+   .links {
+      display: flex;
+      gap: 5px; /* 버튼 간격 최소화 */
+      flex: 1; /* 버튼 정렬 공간 확보 */
+      justify-content: flex-end; /* 오른쪽 정렬 */
+      font-weight: bold;
+   }
+   
+   .links a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 1.2rem;
+   }
+   
+   .links a:hover {
+      text-decoration: underline;
+   }
+   
+   /* 플레이 버튼 디자인 */
+   .play-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+   }
+   
+   .play-icon:hover {
+      background-color: #e0e0e0;
+   }
+   
+   /* table 디자인 개선 */
+   table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+   }
+   
+   table th, table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+      font-size: 1.4rem;
+      word-break: break-word; /* 긴 텍스트를 줄바꿈 */
+   }
+   
+   table th {
+      background-color: #f4f4f4;
+      font-weight: bold;
+   }
+   
+   td {
+      overflow: hidden;
+      text-overflow: ellipsis; /* 말줄임 표시 */
+      max-width: 200px;
+   }
+   
+   .button-container {
+      text-align: right;
+   }
+   
+   .button-container a {
+      display: inline-block;
+      padding: 10px 15px;
+      color: #fff;
+      background-color: #007bff;
+      border-radius: 5px;
+      text-decoration: none;
+   }
+   
+   .button-container a:hover {
+      background-color: #0056b3;
+   }
+   </style>
+   <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.1.min.js"></script>
+   <script type="text/javascript">
+   $(function(){
+      $("#buyItem").click(function(){
+         location.href="../corner/buyItem?classNum=[[${classroomCommand.classNum}]]&qty=1";
+      });
+      
+      $("#cartBtn").click(function(){
+         //장바구니에 담으려면 누구의 것인지 알기 위해서는 먼저 로그인이되어 있어야 하므로 로그인이 안되어 있다면 로그인화면이 뜨게 합니다.
+         if([[session.auth == null]]){ // auth라는 로그인인증 seesion이 없다면
+            window.open("/login/loginPage","login","width=315, height=200,top = 100, left=100");
+         }else{
+            // ajax를 사용해서 비동기식으로 전달하겠습니다.
+            $.ajax({
+               type:"get",
+               url:"../corner/cartAdd", // 이제 cartAdd주소로 제품번호와 수량을 전달하도록합니다. 
+               dataType:"text",
+               // 데이터를 전달하기 위해서는 상품번호와 갯수가 있어야 합니다
+               data:{"classNum" : "[[${classroomCommand.classNum}]]", "qty": 1}, 
+               success:function(result){
+                  if(result.trim() == "200"){
+                     //return값이 200이면 정상적으로 저장된것이므로 장바구니로 갈지 계속 쇼핑할지 물어봅니다.
+                     if(confirm("계속 쇼핑하려면 '취소'를 클릭하세요.")){
+                        // 확인을 누르면 장바구니 페이지로 이동합니다.
+                        location.href="../corner/cartList"; // 장바구니로 이동하겠습니다.
+                     }else if(result.trim() == "999"){
+                        alert("관리자는 사용할 수 없는 페이지입니다.");
+                     }else if(result.trim() == "000"){
+                        alert("로그인을 해야합니다.");
+                     }
+                  }
+               },
+               error:function(){
+                  alert("관리자는 사용할 수 없는 페이지입니다.");
+               }
             });
-        });
-    </script>
-</body>
-</html>
+         }
+      });
+   });
+   
+   </script>
+   </head>
+   <body>
+      <div class="container">
+   <dl class="details" style="display: flex; align-items: center;">
+      <div style="flex: 1;">
+         <dt>
+            <span style="font-weight: bold; font-size: 2rem; margin-left: 60px;">[[${teacherCommand.teacherName}]]의 [[${classroomCommand.className}]]</span>
+         </dt>
+         <dt style="font-weight: normal; margin-left: 80px; color: grey; font-size: 1.5rem;">
+            [[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]] ~ [[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]
+         </dt>
+      </div>
+      <div style="margin-left: 20px;">
+         <img th:src="|/static/upload/${teacherCommand.teacherStoreImage}|"
+            alt="${teacherCommand.teacherImage}"
+            style="width: 300px; height: auto; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);" />
+      </div>
+   </dl>
+   <div style="text-align: center; margin: 50px 0 0 0;">
+      <button type="button" id="cartBtn">장바구니</button>
+      <button type="button" id="buyItem">바로구매</button><br />
+      <a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
+      <!--  <a th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>   -->
+      <a th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</a><br />
+      <a th:if="${session.auth.grade != 'student'}" th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의 정보 수정</a>
+      <a th:if="${session.auth.grade != 'student'}" th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의 삭제</a>
+      <a href="classList">강의목록</a>
+   </div>
+
+   <div class="tabs">
+      <div class="tabs__menu">
+         <div class="tabs__menu-item on" data-tab="tab1">강좌 소개</div>
+         <div class="tabs__menu-item" data-tab="tab2">강의 목록</div>
+         <div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
+      </div>
+      <div id="tab1" class="tabs__content on">
+         <span style="font-weight: bold; font-size: 2rem;">[강좌 소개]</span>
+         [[${classroomCommand.classContents}]]
+      </div>
+      <div id="tab2" class="tabs__content">
+         <ul class="lecture-list">
+            <li>
+               <span class="lecture-title">강의 제목</span> 
+               <span style="font-weight: bold;">강의 내용</span>
+               <div class="links">
+                  <span>강의 영상</span>
+               </div>
+            </li>
+            <li th:each="cdto : ${clist}">
+               <span class="lecture-title">[[${cdto.boardName}]]</span>
+               <span th:if="${cdto.boardContents != null}" th:title="${cdto.boardContents}"
+               th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
+               <span th:unless="${cdto.boardContents != null}">내용 없음</span>
+               <div class="links" th:if="${cdto.boardStoreVideo != null}">
+                  <a th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
+                     onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상 바로가기</a>
+               </div>
+               <div class="links" th:if="${cdto.boardStoreVideo == null}">
+                  영상 없음
+               </div>
+            </li>
+            <li th:if="${#lists.size(clist) == 0}" style="color: red;">
+               <span>강의 내용이 존재하지 않습니다</span>
+            </li>
+         </ul>
+      </div>
+      <div id="tab3" class="tabs__content">
+         <ul class="lecture-list">
+            <li>
+               <span class="question-writer">작성자</span> 
+               <span class="question-title">제목</span> 
+               <span class="question-title">내용</span>
+            </li>
+            <li th:each="qdto : ${qlist}">
+               <span class="question-writer">
+                  <a th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.studentNum}]]</a>
+               </span>
+               <span class="question-title">
+                  <a th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|">[[${qdto.boardName}]]</a>
+               </span>
+               <span class="question-contents" th:if="${qdto.boardContents != null}">
+                  <a th:href="|../board/boardDetail?boardNum=${qdto.boardNum}|"
+                     th:title="${qdto.boardContents}"
+                     th:text="${qdto.boardContents.length() > 10 ? #strings.substring(qdto.boardContents, 0, 10) + '...' : qdto.boardContents}">
+                  </a>
+               </span>
+            </li>
+            <li th:if="${#lists.size(qlist) == 0}" style="color: red;">
+               <span>질문 내용이 존재하지 않습니다.</span>
+            </li>
+         </ul>
+      </div>
+   </div>
+
+   <div class="button-container">
+      <a href="../">홈</a>
+      <a th:href="|../board/boardWrite?classNum=${classroomCommand.classNum}|">글쓰기</a>
+   </div>
+</div>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+      const tabsMenuItems = document.querySelectorAll('.tabs__menu-item');
+      const tabsContent = document.querySelectorAll('.tabs__content');
+
+      tabsMenuItems.forEach(tab => {
+         tab.addEventListener('click', function() {
+            tabsMenuItems.forEach(item => item.classList.remove('on'));
+            tabsContent.forEach(content => content.classList.remove('on'));
+
+            tab.classList.add('on');
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('on');
+         });
+      });
+   });
+</script>
+   </body>
+   </html>
