@@ -66,7 +66,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>[[${teacherName}]]강의 목록</h1>
+    	<div th:if="${teacher != null}">
+        	<h1>[[${teacher.teacherName}]]강의 목록</h1>
+        </div>
+        <div th:if="${teacher == null}">
+        	<h1>강의 목록</h1>
+        </div>
         <table>
             <thead>
                 <tr>

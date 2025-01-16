@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+noticeInfo<br />
+공지번호 : [[${noticeCommand.noticeNum}]] <br />
+작성자  : [[${noticeCommand.empNum}]] <br />
+공지제목 : [[${noticeCommand.noticeName}]] <br />
+공지내용 : [[${noticeCommand.noticeContents}]] <br />
+공지날짜 : [[${#dates.format(noticeCommand.noticeDate, 'yyyy-MM-dd')}]] <br />
+<div th:if="${session.auth != null}">
+	<div th:if="${session.auth.grade == 'employee'}">
+		<a th:href="|noticeUpdate?noticeNum=${noticeCommand.noticeNum}|">공지수정</a> |
+		<a th:href="|noticeDelete?noticeNum=${noticeCommand.noticeNum}|">공지삭제</a> |
+	</div>
+</div>
+<a href="noticeList">공지목록</a>
+</body>
+</html>

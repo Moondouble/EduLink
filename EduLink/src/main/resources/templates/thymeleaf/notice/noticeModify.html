@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+공지수정페이지입니다.<br />
+<form action="noticeModify" method="post" th:object="${noticeCommand}"><!-- dto -->
+공지번호 : <input type="text" name="noticeNum" th:field="*{noticeNum}" readonly="readonly"/><br />
+작성자 : <input type="text" name="empNum" th:field="*{empNum}" readonly="readonly"/><br />
+공지제목 : <input type="text" name="noticeName" th:field="*{noticeName}"/><br />
+공지내용 : <textarea name="noticeContents" th:field="*{noticeContents}" ></textarea><br />
+작성일 : <input type="date" name="noticeDate" th:value="${#dates.format(noticeCommand.noticeDate,'yyyy-MM-dd')}"/><br />
+<input type="submit" value="공지수정 완료" /> 
+<input type="button" value="공지목록" onclick="javascript:location.href='noticeList';">
+</body>
+</html>

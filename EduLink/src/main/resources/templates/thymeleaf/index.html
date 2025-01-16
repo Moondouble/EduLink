@@ -185,6 +185,7 @@ em {
 			<div th:if="${session.auth.grade == 'student'}">
 				<a href="/class/classList">강의목록</a><br />
 				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
 				<a href="/myPage/profile">마이페이지</a><br />
 				<a href="/board/stockChart">스톡</a><br />
 				<a href="/corner/cartList">장바구니목록</a><br />
@@ -194,6 +195,7 @@ em {
 			<div th:if="${session.auth.grade == 'teacher'}">
 				<a href="/class/classList">강의목록</a><br />
 				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
 				<a href="/myPage/profile">마이페이지</a><br />
 				<a href="/board/stockChart">스톡</a><br />
 				<a href="login/logout">로그아웃</a>
@@ -201,6 +203,7 @@ em {
 			<div th:if="${session.auth.grade == 'employee'}">
 				<a href="/class/classList">강의목록</a><br />
 				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
 				<a href="/myPage/profile">마이페이지</a><br />
 				<a href="/board/stockChart">스톡</a><br />
 				<a href="/employee/empList">관리자아이디리스트</a><br /> 
@@ -212,6 +215,7 @@ em {
 		<div th:if="${session.auth == null}">
 			<a href="/class/classList">강의목록</a><br />
 			<a href="/inquire/inquireList">문의</a><br />
+			<a href="/notice/noticeList">공지사항</a><br />
 			<a href="/login/loginPage">로그인</a><br />
 		</div>
 
@@ -348,14 +352,9 @@ em {
 			</div>
 			<div class="tab_cont">
 				<ul class="active">
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
+					<li th:each="dto : ${list1}"><em>
+						<a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${dto.noticeName}]]</a></em>
+					<span><a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${#dates.format(dto.noticeDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
 				<ul>
 					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a

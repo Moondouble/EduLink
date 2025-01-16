@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+공지사항등록 페이지입니다.<br />
+<form action="noticeRegist" method="post" th:object="${noticeCommand}">
+작성자   :  <input type="text" name="empNum" th:value="${noticeCommand.empNum}" readonly="readonly"><br />			
+공지번호 :  <input type="text" name="noticeNum" th:value="${noticeCommand.noticeNum}" readonly="readonly"/>자동부여<br />
+공지제목 :  <input type="text" name="noticeName" th:value="${noticeCommand.noticeName}" /><br />
+공지내용 :  <textarea name="noticeContents" th:value="${noticeCommand.noticeContents}"></textarea><br />
+공지날짜 :  <input type="date" name="noticeDate" id="noticeDate" th:value="${noticeCommand.noticeDate}" readonly="readonly"/><br />
+<script type="text/javascript">
+	document.getElementById('noticeDate').value = new Date().toISOString().split('T')[0];
+</script>
+<input type="submit" value="과제등록" />
+</form>
+</body>
+</html>

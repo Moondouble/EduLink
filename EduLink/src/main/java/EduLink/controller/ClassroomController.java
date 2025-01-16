@@ -12,6 +12,7 @@ import EduLink.command.BoardCommand;
 import EduLink.command.ClassroomCommand;
 import EduLink.domain.AuthInfoDTO;
 import EduLink.domain.ClassroomDTO;
+import EduLink.domain.TeacherDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.board.BoardListService;
 import EduLink.service.classroom.ClassroomDeleteService;
@@ -47,7 +48,8 @@ public class ClassroomController
 	@GetMapping("classList")
 	public String List(@RequestParam(required = false) String teacherNum, Model model) {
 		if (teacherNum != null && !teacherNum.isEmpty()) {
-	        classroomListService.executeByTeacherNum(model, teacherNum);
+			TeacherDTO teacher = classroomListService.executeByTeacherNum(model, teacherNum);
+			model.addAttribute("teacher", teacher);
 	    } else {
 	        classroomListService.execute(model);
 	    }
