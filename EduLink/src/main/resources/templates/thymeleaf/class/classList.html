@@ -1,117 +1,129 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>강의 목록</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans KR', Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 768px;
-            margin: 20px auto;
-            padding: 20px;
-            background: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            font-size: 2.4rem;
-            color: #333;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        table th, table td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: center;
-            font-size: 1.6rem;
-        }
-        table th {
-            background-color: #f4f4f4;
-            font-weight: bold;
-        }
-        a {
-            color: #333;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .button-container {
-            text-align: right;
-        }
-        .button-container a {
-            display: inline-block;
-            padding: 10px 15px;
-            color: #fff;
-            background-color: #333;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .button-container a:hover {
-            background-color: #333;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>강의 목록</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap"
+	rel="stylesheet">
+<style>
+body {
+	font-family: 'Noto Sans KR', Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f9f9f9;
+}
+
+.container {
+	max-width: 768px;
+	margin: 20px auto;
+	padding: 20px;
+	background: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	font-size: 2.4rem;
+	color: #333;
+	margin-bottom: 20px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+table th, table td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+	font-size: 1.6rem;
+	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+	vertical-align: middle; /* 수직 정렬 */
+}
+
+table th {
+	background-color: #f4f4f4;
+	font-weight: bold;
+}
+
+a {
+	color: #333;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+.button-container {
+	text-align: right;
+}
+
+.button-container a {
+	display: inline-block;
+	padding: 10px 15px;
+	color: #fff;
+	background-color: #333;
+	border-radius: 5px;
+	text-decoration: none;
+}
+
+.button-container a:hover {
+	background-color: #333;
+}
+</style>
 </head>
 <body>
-    <div class="container">
-    	<div th:if="${teacher != null}">
-        	<h1 style="text-align: center; font-size: 30px;">[[${teacher.teacherName}]] 선생님의 강의 목록</h1>
-        </div>
-        <div th:if="${teacher == null}">
-        	<h1 style="text-align: center; font-size: 30px;">전체 강의 목록</h1>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>강의번호</th>
-                    <th>강의명</th>
-                    <th>회차</th>
-                    <th>구매상태</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="dto : ${list}">
-                    <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
-                    <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
-                    <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
-                     <td class="button-container">
-                        <!-- 구매한 강의인지 확인 -->
-                        <span th:if="${purchasedClasses.contains(dto)}">구매완료</span>
-                        <span th:unless="${purchasedClasses.contains(dto)}">
-                            <button type="button" id="cartBtn">장바구니</button> 
-                            <button type="button" id="buyItem">바로구매</button>
-                        </span>
-                </tr>
-            </tbody>
-        </table>
-        <div class="button-container" th:if="${session.auth.grade =='teacher'}">
-        	<a href="../">홈</a>
-<<<<<<< HEAD
-            <a th:if="${session.auth.grade != 'student'}" href="classWrite">강의 개설</a>
-            
-=======
-            <a href="classWrite/">강의 개설</a>
-        </div>
-                <div class="button-container" th:if="${session.auth.grade =='student'}">
-        	<a href="../">홈</a>
-        </div>
-                <div class="button-container" th:if="${session.auth.grade =='employee'}">
-        	<a href="../">홈</a>
-            <a href="classWrite/">강의 개설</a>
->>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
-        </div>
-    </div>
+	<div class="container">
+		<div th:if="${teacher != null}">
+			<h1 style="text-align: center; font-size: 30px;">[[${teacher.teacherName}]]
+				선생님의 강의 목록</h1>
+		</div>
+		<div th:if="${teacher == null}">
+			<h1 style="text-align: center; font-size: 30px;">전체 강의 목록</h1>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>강의번호</th>
+					<th>강의명</th>
+					<th>회차</th>
+					<th>구매상태</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="dto : ${list}">
+					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
+					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
+					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
+					<td class="button-container">
+						<!-- 구매한 강의인지 확인 --> <span
+						th:if="${purchasedClasses.contains(dto)}">구매완료</span> <span
+						th:unless="${purchasedClasses.contains(dto)}">
+							<button type="button" id="cartBtn">장바구니</button>
+							<button type="button" id="buyItem">바로구매</button>
+					</span>
+				</tr>
+			</tbody>
+		</table>
+		<div class="button-container"
+			th:if="${session.auth.grade =='teacher'}">
+			<a href="../">홈</a> <a th:if="${session.auth.grade != 'student'}"
+				href="classWrite">강의 개설</a> <a href="classWrite/">강의 개설</a>
+		</div>
+		<div class="button-container"
+			th:if="${session.auth.grade =='student'}">
+			<a href="../">홈</a>
+		</div>
+		<div class="button-container"
+			th:if="${session.auth.grade =='employee'}">
+			<a href="../">홈</a> <a href="classWrite/">강의 개설</a>
+		</div>
+	</div>
 </body>
 </html>
