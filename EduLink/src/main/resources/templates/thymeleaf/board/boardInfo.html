@@ -61,6 +61,19 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 	text-decoration: underline;
 }
 </style>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+	function mody(idx, val) {
+		if ($("#mody" + idx).find("input:text").length > 0) {
+			$("#mody" + idx).text(val);
+
+		} else {
+			$("#mody" + idx)
+					.html(
+							"<input type='text' name='replyContents' value='"+ val +"'/> <input type='submit' value='수정'/>");
+		}
+	}
+</script>
 </head>
 <body>
 	<h1 class="con">게시글 상세보기</h1>
@@ -83,34 +96,51 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 					<td colspan="4">[[${boardCommand.boardContents}]]</td>
 				</tr>
 			</tbody>
+
 		</table>
-		<table th:if="${session.auth.grade == 'teacher'}">
-			<form action="replyWrite" method="post" th:object="${replyCommand}">
-			<input type="hidden" name="boardNum" th:value="${boardCommand.boardNum}">
+		<table>
 			<tbody>
 				<tr class="article-title">
 					<th colspan="4">답글</th>
 				</tr>
-				<tr th:each="dto : ${list}">
-				<td>[[${dto.teacherNum}]]<br /><span>[[${dto.replyDate}]]</span></td>
-				<td colspan="3">[[${dto.replyContents}]]<br />
-				<span th:if="${session.auth.userNum} == ${dto.teacherNum}">
-					<a href="#">수정하기</a><a href="#">삭제하기</a>
-				</span></td>
+				<tr th:each="dto , idx : ${list}">
+					<td>[[${dto.teacherNum}]]<br /> <span>[[${dto.replyDate}]]</span></td>
+					<td colspan="3">
+						<form action="replyUpdate" method="post">
+							<input type="hidden" name="boardNum" th:value="${dto.boardNum}" />
+							<input type="hidden" name="replyNum" th:value="${dto.replyNum}" />
+							<div th:id="mody+${idx.count}">[[${dto.replyContents}]]</div>
+						</form> <span th:if="${session.auth.userNum} == ${dto.teacherNum}">
+							<a
+							th:href="|javascript:mody('${idx.count}','${dto.replyContents}');|">수정하기</a>
+
+							<a
+							th:href="|replyDelete?replyNum=${dto.replyNum}&boardNum=${dto.boardNum}|">삭제하기</a>
+					</span>
+					</td>
 				</tr>
-				<tr>
-					<td>작성자</td>
-					<td colspan="3"><input type="text" name="TeacherNum"
-						th:value="${session.auth.userNum}" readonly="readonly"></td>
-				</tr>
-				<tr>
-					<td>댓글</td>
-					<td colspan="3"><textarea rows="4" cols="110"
-							name="replyContents" title="댓글을 작성해주세요"></textarea></td>
-				</tr>
-				<tr><td colspan="4"><input type="submit" value="답글달기" style="align-items: right;"></td></tr>
+				<div th:if="${session.auth.grade == 'teacher'}">
+					<form action="replyWrite" method="post" th:object="${replyCommand}">
+					<input type="hidden" name="boardNum" th:value="${boardCommand.boardNum}" />
+						<tr>
+							<td>작성자</td>
+							<td colspan="3"><input type="text" name="TeacherNum"
+								th:value="${session.auth.userNum}" readonly="readonly">
+							</td>
+						</tr>
+						<tr>
+							<td>댓글</td>
+							<td colspan="3"><textarea rows="4" cols="100"
+									name="replyContents"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4"><input type="submit" value="답글달기"
+								style="align-items: right;"></td>
+						</tr>
+					</form>
+				</div>
 			</tbody>
-			</form>
+
 		</table>
 		<div class="text-align-center">
 			<a th:href="|boardUpdate?boardNum=${boardCommand.boardNum}|">수정</a> |

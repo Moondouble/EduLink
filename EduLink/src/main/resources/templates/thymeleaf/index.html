@@ -117,9 +117,102 @@ em {
 	transition: all 0.5s;
 	padding-left: 20px; /* 오른쪽으로 이동 */
 }
+
+.kakao-event .event-main {
+	display: flex; /* 가로로 배치 */
+	justify-content: flex-start; /* 왼쪽 정렬 */
+	gap: 20px; /* 요소 간 간격 */
+}
+
+.kakao-event .event-main>div {
+	flex: 1; /* div들의 크기 균등 배치 */
+}
+
+.kakao-event .event-main iframe {
+	width: 100%; /* iframe 크기를 부모 div에 맞게 설정 */
+	height: 470px; /* 영상 높이를 400px로 설정 */
+}
+
+.kakao-event .event-main>div>div {
+	display: flex;
+	flex-direction: column; /* 텍스트는 세로로 정렬 */
+	align-items: center; /* 세로 가운데 정렬 */
+	justify-content: center;
+}
+
+.kakao-event .event-main>div>div>div {
+	margin-top: 10px;
+}
+
+.kakao-event .event-main section {
+	display: flex; /* 가로 배치 */
+	align-items: center; /* 세로로 가운데 정렬 */
+	gap: 15px; /* 이미지와 텍스트 간 간격 */
+	margin-bottom: 30px; /* 섹션 간 간격을 넓힘 */
+}
+
+.kakao-event .event-main section img {
+	width: 240px; /* 이미지 크기 설정 */
+	height: auto;
+}
+
+.kakao-event .event-main section>div {
+	display: flex;
+	flex-direction: column; /* 텍스트를 세로로 정렬 */
+}
+
+.kakao-event .event-main section p {
+	margin: 5px 0;
+}
+
+.kakao-event .event-main section small {
+	font-size: 14px;
+	color: #666;
+}
+
+/* 플렉스 컨테이너 */
+.w3-flex-container {
+	display: flex;
+	align-items: center; /* 세로 가운데 정렬 */
+	justify-content: flex-start; /* 왼쪽 정렬 */
+	gap: 20px; /* 로고와 네비게이션 링크 간 간격 */
+}
+
+/* 로고 */
+.w3-logo {
+	margin-right: -20px; /* 로고 오른쪽 간격 */
+	font-size: 24px; /* 로고 크기 */
+	font-weight: bold; /* 로고 강조 */
+}
+
+/* 네비게이션 링크 스타일 */
+.w3-nav-links {
+	display: flex;
+	gap: 15px; /* 링크 간 간격 */
+}
+
+
 </style>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+window.addEventListener("load", function() {
+	  const eventSections = document.querySelectorAll('.kakao-event .event-main section');
+
+	  eventSections.forEach(section => {
+	    section.addEventListener('mouseover', function() {
+	      this.querySelector('img').style.transform = "scale(1.1)";
+	    });
+
+	    section.addEventListener('mouseout', function() {
+	      this.querySelector('img').style.transform = "scale(1)";
+	    });
+	  });
+	});
+
+
+
+</script>
 <script>
 	$(function() {
 		var tab_Btn = $(".tab_btn > ul > li");
@@ -147,22 +240,24 @@ em {
 
 	<!-- Navbar (sit on top) -->
 	<div class="w3-top">
-		<div class="w3-bar w3-white w3-wide w3-padding w3-card">
+		<div
+			class="w3-bar w3-white w3-wide w3-padding w3-card w3-flex-container">
 			<!-- 로고 및 홈 링크 -->
-			<a href="#home" class="w3-bar-item w3-button"><b>EduLink</b> 에듀링크</a>
+			<a href="/" class="w3-bar-item w3-button w3-logo"><b>EDULINK</b></a>
 
-			<!-- 우측 네비게이션 링크 -->
-			<div class="w3-right w3-hide-small">
+			<!-- 네비게이션 링크 -->
+			<div class="w3-bar-item w3-nav-links">
 				<a th:if="${session.auth == null}" href="/login/loginPage"
 					class="w3-bar-item w3-button">로그인</a> <a
 					th:if="${session.auth != null}" href="login/logout"
-					class="w3-bar-item w3-button">로그아웃</a> <a href="/class/classList"
+					class="w3-bar-item w3-button">로그아웃</a> <a href="#class"
 					class="w3-bar-item w3-button">강좌</a> <a href="#about"
 					class="w3-bar-item w3-button">선생님</a> <a href="#contact"
 					class="w3-bar-item w3-button">문의</a>
 			</div>
 		</div>
 	</div>
+
 
 	<!-- Header -->
 	<header class="w3-display-container w3-content w3-wide"
@@ -201,6 +296,7 @@ em {
 				<a href="login/logout">로그아웃</a>
 			</div>
 			<div th:if="${session.auth.grade == 'employee'}">
+
 				<a href="/class/classList">강의목록</a><br />
 				<a href="/inquire/inquireList">문의</a><br />
 				<a href="/notice/noticeList">공지사항</a><br />
@@ -219,99 +315,104 @@ em {
 			<a href="/login/loginPage">로그인</a><br />
 		</div>
 
-
 		<!-- 에듀링크 캐스트 -->
 		<div class="w3-container w3-padding-32" id="projects">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">에듀링크
 				캐스트</h3>
-			<section
-				style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-				<!-- YouTube Video Embed -->
-				<iframe
-					src="https://www.youtube.com/embed/Csjgmc2HdKE?si=9Bd_VexLS_VOE5r1"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-
-				<!-- Local Videos -->
-				<iframe
-					src="https://www.youtube.com/embed/kal1rdLV29I?si=x-cL-4Ow_BkWofn1"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-				<iframe
-					src="https://www.youtube.com/embed/_CewHR0iCHY?si=J272XiHi_gLDRj9x"
-					style="flex: 1 1 30%; aspect-ratio: 16/9; max-width: 33%;"
-					frameborder="0"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen> </iframe>
-			</section>
 		</div>
 
+		<article class="kakao-event pc-widths pc-margins">
+
+
+			<div class="event-title">
+
+
+				<div>
+
+					<div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="event-main">
+				<div>
+					<iframe
+						src="https://www.youtube.com/embed/Csjgmc2HdKE?si=XGLRqvQ0pawPYI_i"></iframe>
+
+
+				</div>
+				<div>
+					<section>
+						<div>
+							<img src="/static/upload/image2.png">
+						</div>
+						<div>
+							<div>
+								<p>이벤트</p>
+							</div>
+							<div>
+								<p>열공하고 있는 수강생이라면 수강평을 남겨주세요!</p>
+								<small>2025.01.09 ~ 01.27</small>
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div>
+							<img src="/static/upload/image3.png">
+						</div>
+						<div>
+							<div>
+								<p>이벤트</p>
+							</div>
+							<div>
+								<p>새해맞이 세일 페스타</p>
+								<small>2025.01.10 ~ 01.31</small>
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div>
+							<img src="/static/upload/image1.png">
+						</div>
+						<div>
+							<div>
+								<p>이벤트</p>
+							</div>
+							<div>
+								<p>2026 강의 신규 오픈!</p>
+								<small>2025.01.09 ~ 01.27</small>
+							</div>
+						</div>
+					</section>
+				</div>
+			</div>
+
+
+		</article>
+
 		<!-- 과목 -->
-		<div class="w3-container w3-padding-32" id="projects">
+		<div class="w3-container w3-padding-32" id="class">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">과목
 			</h3>
 		</div>
 
-		<div class="w3-row-padding">
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">주식의 이해</div>
-					<img src="/w3images/house5.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">수학의 정석</div>
-					<img src="/w3images/house2.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">있는 그대로의 수능 국어</div>
-					<img src="/w3images/house3.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">점수로 직결되는 수능 실전 영어</div>
-					<img src="/w3images/house4.jpg" alt="House" style="width: 100%">
-				</div>
-			</div>
-		</div>
-
-		<div class="w3-row-padding">
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Summer
-						House</div>
-					<img src="/w3images/house2.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Brick
-						House</div>
-					<img src="/w3images/house5.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Renovated</div>
-					<img src="/w3images/house4.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-			<div class="w3-col l3 m6 w3-margin-bottom">
-				<div class="w3-display-container">
-					<div class="w3-display-topleft w3-black w3-padding">Barn
-						House</div>
-					<img src="/w3images/house3.jpg" alt="House" style="width: 99%">
-				</div>
-			</div>
-		</div>
+		<div class="container">
+        <table>
+            <tbody>
+                <tr th:each="dto : ${list}">
+                    <td><a th:href="|class/classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 		<!-- 선생님 -->
 		<div class="w3-container w3-padding-32" id="about">
@@ -321,7 +422,9 @@ em {
 		<div class="w3-row-padding"
 			style="display: flex; flex-wrap: wrap; gap: 20px;">
 			<!-- 테스트 -->
-			<div class="w3-col" style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);" th:each="dto : ${list}">
+			<div class="w3-col"
+				style="flex: 1 1 calc(25% - 20px); max-width: calc(25% - 20px);"
+				th:each="dto : ${list}">
 				<img th:src="|/static/upload/${dto.teacherDTO.teacherStoreImage}|"
 					alt="강사이미지" style="width: 100%; height: 300px; object-fit: cover;" />
 				<h3>[[${dto.teacherDTO.teacherName}]]</h3>
@@ -336,7 +439,7 @@ em {
 				</p>
 			</div>
 		</div>
-		
+
 		<!-- 공지사항 -->
 		<!-- Tab Menu Integration -->
 		<div class="w3-container w3-padding-32" id="about">
@@ -368,9 +471,9 @@ em {
 				</ul>
 			</div>
 		</div>
-		
+
 		<!--  광고 이미지 -->
-		
+
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">
 			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">상담문의</h3>
@@ -401,7 +504,7 @@ em {
 						href="/inquire/inquireList">자주찾는 질문</a>
 				</p>
 				<button class="w3-button w3-black w3-section" type="submit">
-					<i class="fa fa-paper-plane"></i> 문의 등록하기
+					<i class="fa fa-paper-plane"></i> 문의등록하기
 				</button>
 			</form>
 		</div>

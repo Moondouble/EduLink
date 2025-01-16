@@ -18,4 +18,5 @@ public void execute(String boardNum,Model model) {
 	List<ReplyDTO> list = replyMapper.replySelectboard(boardNum);
 	model.addAttribute("list", list);
 }
+
 }
