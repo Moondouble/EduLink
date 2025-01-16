@@ -57,33 +57,325 @@ $(function(){
     });
 });
 </script>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    header {
+        background: #fff;
+        color: #000;
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #ddd;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 10;
+        box-sizing: border-box;
+        height: 80px;
+    }
+
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        flex: 1;
+        text-decoration: none;
+    }
+
+    .nav-links {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex: 2;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: normal;
+        color: #888;
+        text-transform: uppercase;
+    }
+
+    .nav-links a:hover {
+        color: #007bff;
+    }
+
+    .auth-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        position: relative;
+        top: -5px;
+        flex: 1;
+        right: -50px;
+    }
+
+    .auth-links div:first-child {
+        display: flex;
+        gap: 30px;
+    }
+
+    .auth-links a {
+        text-decoration: none;
+        font-size: 10px;
+        font-weight: normal;
+        color: #666;
+        text-transform: uppercase;
+    }
+
+    .auth-links a:hover {
+        color: #007bff;
+    }
+
+    .icons {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .icons img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 120px;
+    }
+
+    .form-box {
+        background: #fff;
+        width: 400px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 30px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-box h1 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+    .form-group label {
+        font-size: 12px;
+        font-weight: bold;
+        color: #555;
+        margin-right: 10px;
+        width: 100px;
+    }
+
+    .form-group input,
+    .form-group select {
+        flex: 1;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        padding: 5px;
+        font-size: 14px;
+        background: none;
+        outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+        border-bottom: 1px solid #007bff;
+        box-shadow: none;
+    }
+
+    .form-group .btn-search {
+        margin-left: 10px;
+        background: #fff;
+        color: #333;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 20px;
+        cursor: pointer;
+        text-align: center;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .form-group .btn-search:hover {
+        background: #f4f4f4;
+        border-color: #ccc;
+        color: #000;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .form-actions button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+        width: 48%; /* 양쪽 버튼이 동일한 크기를 유지 */
+        text-align: center;
+        border: none;
+    }
+
+    .form-actions .cancel-btn {
+        background: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        transition: all 0.3s ease;
+    }
+
+    .form-actions .cancel-btn:hover {
+        background: #f4f4f4;
+        color: #000;
+    }
+
+    .form-actions .join-btn {
+        background: #001f3f;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .form-actions .join-btn:hover {
+        background: #003366;
+    }
+
+	button.disabled-btn {
+  		background-color: #cccccc;
+   		color: #666666;
+  	    cursor: not-allowed;
+}
+    
+    .error-message {
+    font-size: 10px; /* 글씨 크기 줄이기 */
+    color: red;
+    margin-top: 5px; /* 메시지와 입력 필드 사이 간격 추가 */
+    display: block;
+    text-align: left; /* 메시지를 왼쪽 정렬 */
+    }
+    
+    .status-message {
+    font-size: 10px; /* 글씨 크기 줄이기 */
+    color: green;
+    margin-top: 5px; /* 메시지와 입력 필드 사이 간격 추가 */
+    display: block;
+    text-align: left; /* 메시지를 왼쪽 정렬 */
+
+}   
+</style>
 </head>
 <body>
-<form action="teacherRegist" method="post" th:object="${teacherCommand}" enctype="multipart/form-data">
-교육자번호 :       <input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}" readonly="readonly"/>
-                <span style="color:red">자동 부여</span><br />
-교육자아이디 :      <input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}"/>     
-                <span id='idCheck'></span><br />
-교육자비밀번호 :    	<input type="password" name="teacherPw" th:value="${teacherCommand.teacherPw}"/>  
-                <span style="color:red" th:if="${#fields.hasErrors('teacherPw')}" th:errors="*{teacherPw}"></span><br />
-교육자비밀번호확인 : 	<input type="password" name="teacherPwCon"/>
-                <span style="color:red" th:if="${#fields.hasErrors('teacherPwCon')}" th:errors="*{teacherPwCon}"></span><br />
-교육자명 :         <input type="text" name="teacherName" th:value="${teacherCommand.teacherName}"/>         
-                <span style="color:red" th:if="${#fields.hasErrors('teacherName')}" th:errors="*{teacherName}"></span><br />
-교육자주소 : 		<input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherPost}" readonly="readonly"/>
-                <button type="button" onclick="execDaumPostcode();">우편번호검색</button>
-                <span style="color:red" th:if="${#fields.hasErrors('teacherAddr')}" th:errors="*{teacherAddr}"></span><br />
-상세주소 : 		<input type="text" name="teacherAddrDetail" th:value="${teacherCommand.teacherAddrDetail}"/><br />
-우편번호 : 		<input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" readonly="readonly" /><br />
-휴대폰 : 		    <input type="tel" name="teacherPhone1" th:value="${teacherCommand.teacherPhone1}"/>        
-                 <span style="color:red" th:if="${#fields.hasErrors('teacherPhone1')}" th:errors="*{teacherPhone1}"></span><br />
-일반전화 : 		<input type="tel" name="teacherPhone2" th:value="${teacherCommand.teacherPhone2}"/><br />
-주민등록번호 :      <input type="text" name="teacherJumin" th:value="${teacherCommand.teacherJumin}"/><br />
-교육자이메일 : 		<input type="email" name="teacherEmail" id="teacherEmail" th:value="${teacherCommand.teacherEmail}"/>            
-                <span id="emailCheck"></span>
-				<span style="color:red" th:if="${#fields.hasErrors('teacherEmail')}" th:errors="*{teacherEmail}"></span><br />
-프로필사진 : 			<input type="file" name="teacherImage" multiple="multiple" />
-<input type="submit" id=registerButton value="교육자등록" />
-</form>
+<div class="form-container">
+    <div class="form-box">
+
+        <h1>교육자 등록</h1>
+        <form action="teacherRegist" method="post" id="frm" th:object="${teacherCommand}" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="teacherNum">교육자번호</label>
+                <input type="text" name="teacherNum" th:value="${teacherCommand.teacherNum}" readonly="readonly" />
+                <span class="status-message">자동 부여</span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherId">교육자아이디</label>
+                <input type="text" name="teacherId" id="teacherId" th:value="${teacherCommand.teacherId}" />
+                <span id="idCheck" class="status-message"></span>
+                <span th:if="${#fields.hasErrors('teacherId')}" th:class="error-message" th:errors="*{teacherId}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherPw">교육자비밀번호</label>
+                <input type="password" name="teacherPw" id="teacherPw" th:value="${teacherCommand.teacherPw}" />
+                <span th:if="${#fields.hasErrors('teacherPw')}" th:class="error-message" th:errors="*{teacherPw}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherPwCon">비밀번호 확인</label>
+                <input type="password" name="teacherPwCon" id="teacherPwCon" />
+                <span th:if="${#fields.hasErrors('teacherPwCon')}" th:class="error-message" th:errors="*{teacherPwCon}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherName">교육자명</label>
+                <input type="text" name="teacherName" id="teacherName" th:value="${teacherCommand.teacherName}" />
+                <span th:if="${#fields.hasErrors('teacherName')}" th:class="error-message" th:errors="*{teacherName}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherAddr">교육자주소</label>
+                <input type="text" name="teacherAddr" id="sample4_roadAddress" th:value="${teacherCommand.teacherAddr}" readonly="readonly" />
+                <button class="btn-search" type="button" onclick="execDaumPostcode();">우편번호검색</button>
+                <span th:if="${#fields.hasErrors('teacherAddr')}" th:class="error-message" th:errors="*{teacherAddr}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherAddrDetail">상세주소</label>
+                <input type="text" name="teacherAddrDetail" id="teacherAddrDetail" th:value="${teacherCommand.teacherAddrDetail}" />
+            </div>
+
+            <div class="form-group">
+                <label for="sample4_postcode">우편번호</label>
+                <input type="text" name="teacherPost" id="sample4_postcode" th:value="${teacherCommand.teacherPost}" readonly="readonly" />
+            </div>
+
+            <div class="form-group">
+                <label for="teacherPhone1">휴대폰</label>
+                <input type="tel" name="teacherPhone1" id="teacherPhone1" th:value="${teacherCommand.teacherPhone1}" />
+                <span th:if="${#fields.hasErrors('teacherPhone1')}" th:class="error-message" th:errors="*{teacherPhone1}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherPhone2">일반전화</label>
+                <input type="tel" name="teacherPhone2" id="teacherPhone2" th:value="${teacherCommand.teacherPhone2}" />
+            </div>
+
+            <div class="form-group">
+                <label for="teacherJumin">주민등록번호</label>
+                <input type="text" name="teacherJumin" id="teacherJumin" th:value="${teacherCommand.teacherJumin}" />
+            </div>
+
+            <div class="form-group">
+                <label for="teacherEmail">교육자이메일</label>
+                <input type="email" name="teacherEmail" id="teacherEmail" th:value="${teacherCommand.teacherEmail}" />
+                <span id="emailCheck" class="status-message"></span>
+                <span th:if="${#fields.hasErrors('teacherEmail')}" th:class="error-message" th:errors="*{teacherEmail}"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="teacherImage">프로필사진</label>
+                <input type="file" name="teacherImage" id="teacherImage" multiple="multiple" />
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="location.href='/';">CANCEL</button>
+                <button type="submit" class="join-btn disabled-btn" id="registerButton" disabled>REGISTER</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
