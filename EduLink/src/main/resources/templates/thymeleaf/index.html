@@ -198,6 +198,7 @@ em {
     height: 800px; /* 이미지 높이 */
     margin-right: 10px; /* 이미지와 텍스트 간격 */
     object-fit: cover; /* 이미지를 영역에 맞게 조정 */
+    margin-bottom: 60px; /* 이미지와 아래 요소 사이 간격 */
 }
 
 </style>
@@ -287,9 +288,11 @@ window.addEventListener("load", function() {
                  class="notice-image">
 	
 	
-	<!-- Page content -->
+	<!-- 카테고리 -->
 	<div class="w3-content w3-padding" style="max-width: 1564px">
-		<H1>카테고리</H1>
+		<div class="w3-container w3-padding-32" id="projects">
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">카테고리</h3>
+	</div>
 		<div th:if="${session.auth != null}">
 			<div th:if="${session.auth.grade == 'student'}">
 				<a href="/class/classList">강의목록</a><br />
