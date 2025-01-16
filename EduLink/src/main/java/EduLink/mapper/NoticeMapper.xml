@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="EduLink.mapper.NoticeMapper">
+<sql id="noticeColumnsBase">
+    notice_num as noticeNum, emp_num as empNum, notice_name as noticeName, notice_contents as noticeContents
+    , notice_date as noticeDate
+</sql>
+
+<insert id="noticeInsert" parameterType="noticeDTO">
+    insert into notice ( notice_num, emp_num, notice_name, notice_contents, notice_date  )
+    values ( #{noticeNum}, #{empNum}, #{noticeName}, #{noticeContents}, #{noticeDate} )
+</insert>
+
+<select id="noticeSelectAll" resultType="noticeDTO">
+    select <include refid="noticeColumnsBase" />
+    from notice
+</select>
+
+<select id="noticeSelectOne" parameterType="string" resultType="noticeDTO">
+     select <include refid="noticeColumnsBase" />
+     from notice
+     where notice_num = #{noticeNum}
+</select>
+
+<update id="noticeUpdate" parameterType="noticeDTO">
+update notice
+set  notice_name = #{noticeName}
+	,emp_num = #{empNum}
+    ,notice_date = #{noticeDate}
+    ,notice_num = #{noticeNum}
+    ,notice_contents = #{noticeContents}
+where notice_num = #{noticeNum}
+</update>
+
+<delete id="noticeDelete" parameterType="string">
+delete from notice where notice_num = #{noticeNum}
+</delete>
+
+</mapper>

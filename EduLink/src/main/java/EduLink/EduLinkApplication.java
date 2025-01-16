@@ -11,6 +11,8 @@ import EduLink.command.InquireCommand;
 import EduLink.domain.AuthInfoDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.classroom.ClassroomListService;
+import EduLink.service.notice.NoticeListService;
+import EduLink.service.review.ReviewListService;
 import EduLink.service.teacher.TeacherDetailService;
 import EduLink.service.teacher.TeacherListService;
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,11 @@ public class EduLinkApplication {
     TeacherListService teacherListService;
     @Autowired
     ClassroomListService classroomListService;
+    @Autowired
+    NoticeListService noticeListService;
+    @Autowired
+    ReviewListService reviewListService;
+    
     @GetMapping("/")
     public String index(HttpSession session, Model model) {
     	String autoNum = autoNumService.execute("inquire_", "inquire_num", 9, "inquire");
@@ -42,7 +49,9 @@ public class EduLinkApplication {
 			auth.getGrade();
 			System.out.println("로그인 되었습니다: " + auth.getGrade());
 		}
-
+		
+		reviewListService.execute(model);
+		noticeListService.execute(model);
 		classroomListService.execute(model);
 		
         return "thymeleaf/index";

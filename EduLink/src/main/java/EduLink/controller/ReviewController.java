@@ -43,7 +43,7 @@ public class ReviewController
 	}
 	@GetMapping("reviewWrite")
 	public String reviewWrite(@RequestParam("classNum")String classNum,Model model, HttpSession session) {
-		String autoNum = autoNumService.execute("review_", "review_num", 7, "review");
+		String autoNum = autoNumService.execute("review_", "review_num", 8, "review");
 		ReviewCommand reviewCommand = new ReviewCommand();
 		reviewCommand.setReviewNum(autoNum);
 		reviewCommand.setClassNum(classNum);

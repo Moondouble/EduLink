@@ -189,8 +189,17 @@ em {
 .w3-nav-links {
 	display: flex;
 	gap: 15px; /* 링크 간 간격 */
+
 }
 
+.notice-image {
+    float: left; /* 이미지가 제목 왼쪽에 위치 */
+    width: 1950px; /* 이미지 너비 */
+    height: 800px; /* 이미지 높이 */
+    margin-right: 10px; /* 이미지와 텍스트 간격 */
+    object-fit: cover; /* 이미지를 영역에 맞게 조정 */
+    margin-bottom: 60px; /* 이미지와 아래 요소 사이 간격 */
+}
 
 </style>
 <script
@@ -273,33 +282,54 @@ window.addEventListener("load", function() {
 	</header>
 	<br />
 	<br />
-	<!-- Page content -->
+	<!--  광고 이미지 -->
+		<img th:src="|/static/upload/bg1.png|"
+                 alt="공지 이미지"
+                 class="notice-image">
+	
+	
+	<!-- 카테고리  -->
 	<div class="w3-content w3-padding" style="max-width: 1564px">
-		<H1>카테고리</H1>
+		<div class="w3-container w3-padding-32" id="projects">
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">카테고리</h3>
+	</div>
 		<div th:if="${session.auth != null}">
 			<div th:if="${session.auth.grade == 'student'}">
-				<a href="/class/classList">강의목록</a><br /> <a
-					href="/inquire/inquireList">문의</a><br /> <a href="/myPage/profile">마이페이지</a><br />
-				<a href="/board/stockChart">스톡</a><br /> <a href="/corner/cartList">장바구니목록</a><br />
-				<a href="/purchase/orderList">주문목록</a><br /> <a href="login/logout">로그아웃</a>
+				<a href="/class/classList">강의목록</a><br />
+				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
+				<a href="/myPage/profile">마이페이지</a><br />
+				<a href="/board/stockChart">스톡</a><br />
+				<a href="/corner/cartList">장바구니목록</a><br />
+				<a href="/purchase/orderList">주문목록</a><br /> 
+				<a href="login/logout">로그아웃</a>
 			</div>
 			<div th:if="${session.auth.grade == 'teacher'}">
-				<a href="/class/classList">강의목록</a><br /> <a
-					href="/inquire/inquireList">문의</a><br /> <a href="/myPage/profile">마이페이지</a><br />
-				<a href="/board/stockChart">스톡</a><br /> <a href="login/logout">로그아웃</a>
+				<a href="/class/classList">강의목록</a><br />
+				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
+				<a href="/myPage/profile">마이페이지</a><br />
+				<a href="/board/stockChart">스톡</a><br />
+				<a href="login/logout">로그아웃</a>
 			</div>
 			<div th:if="${session.auth.grade == 'employee'}">
-				<a href="/class/classList">강의목록</a><br /> <a
-					href="/inquire/inquireList">문의</a><br /> <a href="/myPage/profile">마이페이지</a><br />
-				<a href="/board/stockChart">스톡</a><br /> <a
-					href="/employee/empList">관리자아이디리스트</a><br /> <a
-					href="/teacher/teacherList">교육자목록</a><br /> <a
-					href="/student/studentList">학생 목록</a><br /> <a href="login/logout">로그아웃</a>
+
+				<a href="/class/classList">강의목록</a><br />
+				<a href="/inquire/inquireList">문의</a><br />
+				<a href="/notice/noticeList">공지사항</a><br />
+				<a href="/myPage/profile">마이페이지</a><br />
+				<a href="/board/stockChart">스톡</a><br />
+				<a href="/employee/empList">관리자아이디리스트</a><br /> 
+				<a href="/teacher/teacherList">교육자목록</a><br />
+				<a href="/student/studentList">학생 목록</a><br />
+				<a href="login/logout">로그아웃</a>
 			</div>
 		</div>
 		<div th:if="${session.auth == null}">
-			<a href="/class/classList">강의목록</a><br /> <a
-				href="/inquire/inquireList">문의</a><br /> <a href="/login/loginPage">로그인</a><br />
+			<a href="/class/classList">강의목록</a><br />
+			<a href="/inquire/inquireList">문의</a><br />
+			<a href="/notice/noticeList">공지사항</a><br />
+			<a href="/login/loginPage">로그인</a><br />
 		</div>
 
 		<!-- 에듀링크 캐스트 -->
@@ -387,7 +417,7 @@ window.addEventListener("load", function() {
 
 		<!-- 과목 -->
 		<div class="w3-container w3-padding-32" id="class">
-			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">과목
+			<h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">강좌
 			</h3>
 		</div>
 
@@ -441,30 +471,25 @@ window.addEventListener("load", function() {
 				<a href="#" class="more">더보기</a>
 			</div>
 			<div class="tab_cont">
+			
 				<ul class="active">
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">공지사항 테스트입니다. 공지사항 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
+					<li th:each="dto : ${list1}"><em>
+					    
+						<a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${dto.noticeName}]]</a></em>
+					<span><a th:href="|notice/noticeDetail?noticeNum=${dto.noticeNum}|">[[${#dates.format(dto.noticeDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
 				<ul>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
-					<li><em><a href="#">수강평 테스트입니다. 수강평 테스트입니다.</a></em> <span><a
-							href="#">[2020-08-31]</a></span></li>
+					<li th:each="dto : ${list2}"><em>
+						<a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${dto.reviewName}]]</a></em>
+						<span><a th:href="|review/reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">[[${#dates.format(dto.reviewDate, 'yyyy-MM-dd')}]]</a></span></li>
 				</ul>
+				
+				
 			</div>
+			
 		</div>
 
-		<!--  광고 이미지 -->
+		
 
 		<!-- Contact Section 다 날리죠? -->
 		<div class="w3-container w3-padding-32" id="contact">

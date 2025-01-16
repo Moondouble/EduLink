@@ -13,6 +13,7 @@ import EduLink.command.BoardCommand;
 import EduLink.command.ClassroomCommand;
 import EduLink.domain.AuthInfoDTO;
 import EduLink.domain.ClassroomDTO;
+import EduLink.domain.TeacherDTO;
 import EduLink.service.AutoNumService;
 import EduLink.service.board.BoardListService;
 import EduLink.service.classroom.ClassroomDeleteService;
@@ -51,8 +52,13 @@ public class ClassroomController
 	public String List(@RequestParam(required = false) String teacherNum, HttpSession session,Model model) {
 		orderProcessListService.execute1(session,model);
 		if (teacherNum != null && !teacherNum.isEmpty()) {
+<<<<<<< HEAD
 	        classroomListService.executeByTeacherNum(model, teacherNum);
 	        
+=======
+			TeacherDTO teacher = classroomListService.executeByTeacherNum(model, teacherNum);
+			model.addAttribute("teacher", teacher);
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 	    } else {
 	        classroomListService.execute(model);
 	        

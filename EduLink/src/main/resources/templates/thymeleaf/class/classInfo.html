@@ -56,7 +56,7 @@ h1 {
 	text-align: center;
 	padding: 10px 0;
 	cursor: pointer;
-	font-size: 1.6rem;
+	font-size: 1.5rem;
 	background-color: #f1f1f1;
 	border-right: 1px solid #ddd;
 }
@@ -66,7 +66,7 @@ h1 {
 }
 
 .tabs__menu-item.on {
-	background-color: #007bff;
+	background-color: black;
 	color: #fff;
 }
 
@@ -117,6 +117,7 @@ h1 {
 .question-title {
 	color: #333;
 	flex: 2; /* 제목을 더 넓게 */
+	font-weight: bold;
 }
 
 .question-contents {
@@ -128,7 +129,12 @@ h1 {
 .lecture-time {
 	font-size: 1.2rem;
 	color: #555;
+<<<<<<< HEAD
 	flex: 2; /* 시간 텍스트 균형 맞춤 */
+=======
+	flex: 1; /* 시간 텍스트 균형 맞춤 */
+	text-align: center;
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 }
 
 .links {
@@ -136,6 +142,7 @@ h1 {
 	gap: 5px; /* 버튼 간격 최소화 */
 	flex: 1; /* 버튼 정렬 공간 확보 */
 	justify-content: flex-end; /* 오른쪽 정렬 */
+	font-weight: bold;
 }
 
 .links a {
@@ -255,12 +262,16 @@ $(function(){
 		<dl class="details" style="display: flex; align-items: center;">
 			<div style="flex: 1;">
 				<dt>
-					<span style="font-weight: bold; font-size: 2rem;">[[${classroomCommand.className}]]</span>
+					<span
+						style="font-weight: bold; font-size: 2rem; margin-left: 60px;">[[${teacherCommand.teacherName}]]의
+						<[[${classroomCommand.className}]]></span>
 				</dt>
-				<dt style="font-weight: normal;">강의 기간 :
+				<dt
+					style="font-weight: normal; margin-left: 80px; color: grey; font-size: 1.5rem;">
 					[[${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}]]
 					~ [[${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}]]
 				</dt>
+
 			</div>
 			<div style="margin-left: 20px;">
 				<img th:src="|/static/upload/${teacherCommand.teacherStoreImage}|"
@@ -268,7 +279,7 @@ $(function(){
 					style="width: 300px; height: auto; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);" />
 			</div>
 		</dl>
-		<div>
+		<div style="text-align: center; margin: 50px 0 0 0;">
 			<button type="button" id="cartBtn">장바구니</button>
 			<button type="button" id="buyItem">바로구매</button>
 			<a th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</a>
@@ -276,26 +287,34 @@ $(function(){
 				th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>
 			<a
 				th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</a><br />
-			<a th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의
-				정보 수정</a> | <a
-				th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의
-				삭제</a> | <a href="classList">강의목록</a>
+			<a th:if="${session.auth.grade != 'student'}"
+				th:href="|classUpdate?classNum=${classroomCommand.classNum}|">  강의
+				정보 수정</a><a th:if="${session.auth.grade != 'student'}"
+				th:href="|classDelete?classNum=${classroomCommand.classNum}|">  강의
+				삭제</a><a href="classList">  강의목록</a>
 		</div>
 
 
 		<div class="tabs">
 			<div class="tabs__menu">
-				<div class="tabs__menu-item on" data-tab="tab1">강좌 소개</div>
+				<div class="tabs__menu-item" data-tab="tab1">강좌 소개</div>
 				<div class="tabs__menu-item" data-tab="tab2">강의 목록</div>
 				<div class="tabs__menu-item" data-tab="tab3">학습 Q&A</div>
 			</div>
-			<div id="tab1" class="tabs__content on">
-				[[${classroomCommand.classContents}]]</div>
+			<div id="tab1" class="tabs__content">
+				<span style="font-weight: bold; font-size: 2rem;">[강좌 소개]</span>
+				[[${classroomCommand.classContents}]]
+			</div>
 			<div id="tab2" class="tabs__content">
 				<ul class="lecture-list">
 					<li>
+<<<<<<< HEAD
 						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span>강의
 							내용</span>
+=======
+						<!-- th:each 사용하기 --> <span class="lecture-title">강의 제목</span> <span
+						style="font-weight: bold;">강의 내용</span>
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 						<div class="links">
 							<span>강의 영상</span>
 						</div>
@@ -305,6 +324,7 @@ $(function(){
 						th:title="${cdto.boardContents}"
 						th:text="${cdto.boardContents.length() > 20 ? #strings.substring(cdto.boardContents, 0, 20) + '...' : cdto.boardContents}"></span>
 						<span th:unless="${cdto.boardContents != null}">내용 없음</span>
+<<<<<<< HEAD
 						<div class="links" th:if="${cdto.boardStoreVideo != null}">
 							<a
 								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
@@ -313,6 +333,14 @@ $(function(){
 						</div>
 						<div class="links" th:if="${cdto.boardStoreVideo == null}">
 							영상 없음</div></li>
+=======
+						<div class="links">
+							<a
+								th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
+								onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">영상
+								바로가기</a>
+						</div></li>
+>>>>>>> branch 'main' of https://github.com/Moondouble/EduLink.git
 					<li th:if="${#lists.size(clist) == 0}" style="color: red;"><span>강의
 							내용이 존재하지 않습니다</span></li>
 				</ul>

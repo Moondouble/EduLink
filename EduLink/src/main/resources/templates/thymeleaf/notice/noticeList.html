@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+noticeList<br />
+<table border=1>
+	<thead>
+	    <tr>
+	        <th>번호</th>
+	        <th>제목</th>
+	        <th>작성일</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <tr th:each="dto : ${list1}">
+	        <td>[[${dto.noticeNum}]]</td>
+	        <td><a th:href="|noticeDetail?noticeNum=${dto.noticeNum}|" >[[${dto.noticeName}]]</a></td>
+	        <td>[[${#dates.format(dto.noticeDate, 'yyyy-MM-dd')}]]</td>
+	    </tr>
+	</tbody>
+</table>
+<div th:if="${session.auth != null}">
+	<div th:if="${session.auth.grade == 'employee'}">
+		<a href="noticeWrite">공지사항작성</a>
+	</div>
+</div>
+</body>
+</html>

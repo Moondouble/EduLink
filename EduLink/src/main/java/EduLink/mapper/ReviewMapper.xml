@@ -14,10 +14,15 @@
     review_date AS reviewDate
 </sql>
 
-<select id="reviewSelectAll" parameterType="String" resultType="ReviewDTO">
+<select id="reviewSelectAll" parameterType="String" resultType="reviewDTO">
     SELECT <include refid="ReviewColumnBase"></include>
     FROM review
     WHERE class_num = #{classNum}
+</select>
+
+<select id="reviewSelectAllWithoutClass" parameterType="String" resultType="reviewDTO">
+    SELECT <include refid="ReviewColumnBase" />
+    FROM review
 </select>
 
 <insert id="reviewInsert" parameterType="ReviewDTO">
@@ -36,7 +41,7 @@
     )
 </insert>
 
-<select id="reviewSelectOne" parameterType="map" resultType="ReviewDTO">
+<select id="reviewSelectOne" parameterType="map" resultType="reviewDTO">
     SELECT <include refid="ReviewColumnBase"></include>
     FROM review
     WHERE review_num = #{reviewNum}

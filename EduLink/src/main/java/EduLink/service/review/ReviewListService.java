@@ -10,12 +10,17 @@ import EduLink.domain.ReviewDTO;
 import EduLink.mapper.ReviewMapper;
 
 @Service
-public class ReviewListService
-{
+public class ReviewListService {
 	@Autowired
 	ReviewMapper reviewMapper;
-public void execute(String classNum, Model model) {
-	List<ReviewDTO> list = reviewMapper.reviewSelectAll(classNum);
-	model.addAttribute("list", list);
+
+	public void execute(String classNum, Model model) {
+		List<ReviewDTO> list = reviewMapper.reviewSelectAll(classNum);
+		model.addAttribute("list", list);
+	}
+	
+	public void execute(Model model) {
+		List<ReviewDTO> list = reviewMapper.reviewSelectAllWithoutClass();
+        model.addAttribute("list2", list);
+	}
 }
-} 

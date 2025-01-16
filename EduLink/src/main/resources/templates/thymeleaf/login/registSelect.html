@@ -4,10 +4,56 @@
 <meta charset="UTF-8">
 <title>registSelect.html</title>
 <style>
-.table_container
-{
-text-align: center;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
+
+.table_container {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px 40px;
+    text-align: center;
+    width: 300px;
+}
+
+.table_container tr {
+    margin-bottom: 20px;
+}
+
+.table_container td {
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="button"] {
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="button"]:hover {
+    background-color: black
+}
+
+input[type="button"]:focus {
+    outline: none;
+}
+
 </style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
@@ -20,14 +66,19 @@ $(function(){
         location.href = "/teacher/teacherWrite";
     });
 });
-
 </script>
 </head>
 <body>
 <table class="table_container">
-<tr><td>학생이시라면</td><td>교육자시라면</td></tr>
-<tr><td><input type="button" id="student_btn" value="학생으로 가입하기"></td>
-<td><input type="button" id="teacher_btn" value="교육자로 가입하기"></td></tr>
+<tr><td colspan="2"><strong>회원 유형을 선택하세요</strong></td></tr>
+<tr>
+    <td>학생이시라면</td>
+    <td>교육자시라면</td>
+</tr>
+<tr>
+    <td><input type="button" id="student_btn" value="학생으로 가입하기"></td>
+    <td><input type="button" id="teacher_btn" value="교육자로 가입하기"></td>
+</tr>
 </table>
 </body>
 </html>
