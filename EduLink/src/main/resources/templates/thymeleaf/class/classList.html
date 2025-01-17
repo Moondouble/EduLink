@@ -99,7 +99,7 @@ a {
 		</table>
 		<div class="button-container"
 			th:if="${session.auth.grade =='teacher'}">
-			<a href="../">홈</a> <a href="classWrite/">강의 개설</a>
+			<a href="../">홈</a> <a href="classWrite">강의 개설</a>
 		</div>
 		<div class="button-container"
 			th:if="${session.auth.grade =='student'}">
@@ -107,7 +107,7 @@ a {
 		</div>
 		<div class="button-container"
 			th:if="${session.auth.grade =='employee'}">
-			<a href="../">홈</a> <a href="classWrite/">강의 개설</a>
+			<a href="../">홈</a> <a href="classWrite">강의 개설</a>
 		</div>
 	</div>
 </body>
