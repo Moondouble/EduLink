@@ -89,8 +89,6 @@
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
                     <td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
                     <td>
-                        <span th:if="${purchasedClasses.contains(dto)}">구매완료</span>
-                        <span th:unless="${purchasedClasses.contains(dto)}">
                             <button type="button">장바구니</button>
                             <button type="button">바로구매</button>
                         </span>
