@@ -64,16 +64,21 @@
         </tr>
     </thead>
     <tbody>
-        <tr th:each="orderListDTO : ${list}">
+        <tr th:each="orderListDTO : ${olist}">
             <td>
-                [[${#dates.format(orderListDTO.purchaseDTO.purchaseDate, 'yyyy-MM-dd')}]]
-                (<th:block th:if="${orderListDTO.paymentDTO.applTime == null}">결제대기중</th:block>
+                [[${#dates.format(orderListDTO.purchaseDTO.purchaseDate, 'yyyy-MM-dd')}]](
+                <th:block th:if="${orderListDTO.paymentDTO.applTime == null}">
+                	결제대기중
+                </th:block>
                 <th:block th:if="${orderListDTO.paymentDTO.applTime != null}">
-                    <th:block th:if="${orderListDTO.paymentDTO.confirmNumber == null}">현금결제</th:block>
+                <th:block th:if="${orderListDTO.paymentDTO.confirmNumber == null}">
+                	현금결제
+                </th:block>
                     <th:block th:if="${orderListDTO.paymentDTO.confirmNumber != null}">
                         [[${orderListDTO.paymentDTO.confirmNumber}]]
                     </th:block>
-                </th:block>)
+                </th:block>
+            )
             </td>
             <td>
                 <th:block th:each="dto : ${orderListDTO.purchaseListClassDTOs}">
@@ -92,6 +97,5 @@
         </tr>
     </tbody>
 </table>
-
 </body>
 </html>

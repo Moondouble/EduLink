@@ -62,42 +62,14 @@ a {
 }
 
 .button-container a {
-    display: inline-block;
-    padding: 10px 15px;
-    color: #fff;
-    background-color: #00008b; /* 진한 파란색 */
-    text-decoration: none;
-    border: none; /* 테두리 제거 */
+	display: inline-block;
+	padding: 10px 15px;
+	color: #fff;
+	background-color: #00008b; /* 진한 파란색 */
+	text-decoration: none;
+	border: none; /* 테두리 제거 */
 }
 
-
-button.cart {
-    background-color: grey; /* 장바구니 버튼 회색 */
-    color: white; /* 텍스트 흰색 */
-    border: none; /* 테두리 제거 */
-    padding: 10px 15px; /* 버튼 안쪽 여백 */
-    font-size: 0.8rem; /* 글자 크기 */
-    cursor: pointer; /* 커서를 포인터로 변경 */
-    transition: text-decoration 0.2s; /* 밑줄 효과 전환 */
-}
-
-button.cart:hover {
-    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-}
-
-button.buy-now {
-    background-color: red; /* 바로구매 버튼 빨간색 */
-    color: white; /* 텍스트 흰색 */
-    border: none; /* 테두리 제거 */
-    padding: 10px 15px; /* 버튼 안쪽 여백 */
-    font-size: 0.8rem; /* 글자 크기 */
-    cursor: pointer; /* 커서를 포인터로 변경 */
-    transition: text-decoration 0.2s; /* 밑줄 효과 전환 */
-}
-
-button.buy-now:hover {
-    text-decoration: underline; /* 마우스 오버 시 밑줄 추가 */
-}
 </style>
 </head>
 <body>
@@ -114,7 +86,6 @@ button.buy-now:hover {
 					<th>강의번호</th>
 					<th>강의명</th>
 					<th>회차</th>
-					<th>구매상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -122,16 +93,13 @@ button.buy-now:hover {
 					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classNum}]]</a></td>
 					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.className}]]</a></td>
 					<td><a th:href="|classDetail?classNum=${dto.classNum}|">[[${dto.classWeek}]]</a></td>
-					<td>
-						<button type="button" class="cart">장바구니</button>
-						<button type="button" class="buy-now">바로구매</button>
-					</td>
+
 				</tr>
 			</tbody>
 		</table>
 		<div class="button-container"
 			th:if="${session.auth.grade =='teacher'}">
-			<a href="../">홈</a> <a href="classWrite/">강의 개설</a>
+			<a href="../">홈</a> <a href="classWrite">강의 개설</a>
 		</div>
 		<div class="button-container"
 			th:if="${session.auth.grade =='student'}">
@@ -139,7 +107,7 @@ button.buy-now:hover {
 		</div>
 		<div class="button-container"
 			th:if="${session.auth.grade =='employee'}">
-			<a href="../">홈</a> <a href="classWrite/">강의 개설</a>
+			<a href="../">홈</a> <a href="classWrite">강의 개설</a>
 		</div>
 	</div>
 </body>
