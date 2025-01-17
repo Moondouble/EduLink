@@ -4,14 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="EduLink.mapper.ClassroomMapper">
 <sql id="classroomColumnBase">
-CLASS_NUM as classNum
-,TEACHER_NUM as teacherNum
-,CLASS_NAME as className
-,CLASS_CONTENTS as classContents
-,CLASS_START_DATE as classStartDate
-,CLASS_END_DATE as classEndDate           
-,(select count(*) from board group by board_category having board_category = 'class') as classWeek
-,classroom_price as classroomPrice
+    CLASS_NUM as classNum,
+    TEACHER_NUM as teacherNum,
+    CLASS_NAME as className,
+    CLASS_CONTENTS as classContents,
+    CLASS_START_DATE as classStartDate,
+    CLASS_END_DATE as classEndDate,
+    classroom_price as classroomPrice
 </sql>
 
 <resultMap type="classroomDTO" id="classroomListResultMap">
@@ -21,10 +20,8 @@ CLASS_NUM as classNum
    <result column="class_contents" jdbcType="VARCHAR" property="classContents"/>
    <result column="class_start_date" jdbcType="DATE" property="classStartDate"/>
    <result column="class_end_date" jdbcType="DATE" property="classEndDate"/>
-   <result column="class_week" jdbcType="BIGINT" property="classWeek"/>
    <result column="classroom_price" jdbcType="BIGINT" property="classroomPrice"/>
-   <association property="teacherDTO" javaType="teacherDTO"><!-- resultMap이 없어 직접정의 -->
-      <!-- setter 사용 -->
+   <association property="teacherDTO" javaType="teacherDTO">
       <id column="teacher_num" jdbcType="VARCHAR" property="teacherNum"/>
       <result column="teacher_name" jdbcType="VARCHAR" property="teacherName"/>
       <result column="teacher_image" jdbcType="VARCHAR" property="teacherImage"/>
@@ -33,44 +30,46 @@ CLASS_NUM as classNum
 </resultMap>
 
 <select id="selectByTeacher" resultType="classroomDTO">
-select <include refid="classroomColumnBase" />
-from classroom 
-where teacher_num = #{teacherNum}
-order by class_num asc
+    select <include refid="classroomColumnBase" />
+    from classroom 
+    where teacher_num = #{teacherNum}
+    order by class_num asc
 </select>
 
 <select id="classSelectAll" parameterType="string" resultMap="classroomListResultMap">
-select class_num, c.teacher_num, class_name, class_contents, class_start_date, class_end_date, (select count(*) from board group by board_category having board_category = 'class') as class_week 
-   			, classroom_price
-   			, teacher_name, teacher_image, teacher_store_image
-from classroom c join teacher t
-on c.teacher_num = t.teacher_num
-order by class_num asc
+    select class_num, c.teacher_num, class_name, class_contents, class_start_date, class_end_date, 
+           classroom_price, teacher_name, teacher_image, teacher_store_image,
+           (select count(*) from board where board_category = 'class' and board.class_num = c.class_num) as class_week
+    from classroom c 
+    join teacher t on c.teacher_num = t.teacher_num
+    order by class_num asc
 </select>
+
 <select id="classSelectOne">
-select <include refid="classroomColumnBase"></include> from classroom
-where class_Num = #{classNum}
+    select <include refid="classroomColumnBase"></include> 
+    from classroom
+    where class_Num = #{classNum}
 </select>
 
 <insert id="classroomInsert" parameterType="classroomDTO">
-Insert into classroom 
-(CLASS_NUM ,TEACHER_NUM ,CLASS_NAME,CLASS_CONTENTS ,CLASS_START_DATE, CLASS_END_DATE, classroom_price)
-values (#{classNum},#{teacherNum},#{className},#{classContents},#{classStartDate},#{classEndDate}, #{classroomPrice})
+    Insert into classroom 
+    (CLASS_NUM ,TEACHER_NUM ,CLASS_NAME, CLASS_CONTENTS ,CLASS_START_DATE, CLASS_END_DATE, classroom_price)
+    values (#{classNum}, #{teacherNum}, #{className}, #{classContents}, #{classStartDate}, #{classEndDate}, #{classroomPrice})
 </insert>
 
 <update id="classUpdate" parameterType="classroomDTO">
-update classroom
-set TEACHER_NUM = #{teacherNum}
-	,CLASS_NAME = #{className}
-	,CLASS_CONTENTS = #{classContents}
-	,CLASS_START_DATE = #{classStartDate}
-	,CLASS_END_DATE = #{classEndDate}
-	,CLASS_WEEK = #{classWeek}
-	,classroom_price = #{classroomPrice}
-where class_num = #{classNum}
+    update classroom
+    set TEACHER_NUM = #{teacherNum},
+        CLASS_NAME = #{className},
+        CLASS_CONTENTS = #{classContents},
+        CLASS_START_DATE = #{classStartDate},
+        CLASS_END_DATE = #{classEndDate},
+        classroom_price = #{classroomPrice}
+    where class_num = #{classNum}
 </update>
 
 <delete id="classDelete" parameterType="string">
-delete from classroom where class_num = #{classNum}
+    delete from classroom where class_num = #{classNum}
 </delete>
+
 </mapper>

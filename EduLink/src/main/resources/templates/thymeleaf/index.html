@@ -193,10 +193,11 @@ em {
 }
 
 .notice-image {
-    float: left; /* 이미지가 제목 왼쪽에 위치 */
+    display: block; /* 블록 요소로 변경 */
+    margin-left: auto; /* 왼쪽 여백 자동 설정 */
+    margin-right: auto; /* 오른쪽 여백 자동 설정 */
     width: 1950px; /* 이미지 너비 */
     height: 800px; /* 이미지 높이 */
-    margin-right: 10px; /* 이미지와 텍스트 간격 */
     object-fit: cover; /* 이미지를 영역에 맞게 조정 */
     margin-bottom: 60px; /* 이미지와 아래 요소 사이 간격 */
 }
@@ -285,7 +286,7 @@ window.addEventListener("load", function() {
 	<!--  광고 이미지 -->
 		<img th:src="|/static/upload/bg1.png|"
                  alt="공지 이미지"
-                 class="notice-image">
+                 class="notice-image" style="margin:auto;">
 	
 	
 	<!-- 카테고리  -->

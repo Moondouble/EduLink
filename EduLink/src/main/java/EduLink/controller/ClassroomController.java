@@ -86,7 +86,7 @@ public class ClassroomController
 	}
 	
 	@GetMapping("classDetail")
-	public String detail(@RequestParam("classNum") String classNum,Model model) {
+	public String detail(@RequestParam("classNum") String classNum,Model model, HttpSession session) {
 		classroomDetailService.execute(classNum,model);
 		ClassroomDTO classroomCommand = (ClassroomDTO) model.getAttribute("classroomCommand");
 		String teacherNum = classroomCommand.getTeacherNum();
@@ -95,6 +95,7 @@ public class ClassroomController
 		//이 아래로 강의/질문 불러오기
 		boardListService.classSelect(classNum, model);
 		boardListService.question(classNum,model);
+		orderProcessListService.execute(session, model);
 		//여기까지
 		return "thymeleaf/class/classInfo";
 	}
