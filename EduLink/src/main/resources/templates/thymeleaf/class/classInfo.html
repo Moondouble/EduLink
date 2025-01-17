@@ -301,12 +301,12 @@ button.buy-now:hover {
 	<div style="text-align: center; margin: 50px 0 0 0;">
 		<button type="button" id="cartBtn" class="cart">장바구니</button>
 		<button type="button" id="buyItem" class="buy-now">바로구매</button><br />
-		<button type="button" th:href="|/board/boardList?classNum=${classroomCommand.classNum}|">게시판</button>
+		<button type="button" th:attr="onclick=|location.href='/board/boardList?classNum=${classroomCommand.classNum}'|">게시판</button>
 		<!--  <a th:href="|/homework/homeworkList?classNum=${classroomCommand.classNum}|">과제</a>   -->
-		<button type="button" th:href="|/review/reviewList?classNum=${classroomCommand.classNum}|">후기</button><br />
+		<button type="button" th:attr="onclick=|location.href='/review/reviewList?classNum=${classroomCommand.classNum}'|">후기</button><br />
 		<a th:if="${session.auth.grade != 'student'}" th:href="|classUpdate?classNum=${classroomCommand.classNum}|">강의 정보 수정</a>
 		<a th:if="${session.auth.grade != 'student'}" th:href="|classDelete?classNum=${classroomCommand.classNum}|">강의 삭제</a>
-		<button type="button" href="classList">강의목록</button>
+		<button type="button" th:attr="onclick=|location.href='/class/classList'|">강의목록</button>
 	</div>
 
 	<div class="tabs">
