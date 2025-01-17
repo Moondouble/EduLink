@@ -30,18 +30,20 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 10px;
+	
 }
 
 .article-detail>table th, .article-detail>table td {
 	border: 1px solid lightgray;
 	padding: 10px;
 	text-align: left;
+	font-size: 1.3rem;
+
 }
 
 .article-detail>table tr.article-title>td {
-	font-weight: bold;
-	font-size: 1.2rem;
-	text-align: center;
+	font-size: 1.3rem;
+	
 }
 
 .text-align-center {
@@ -52,7 +54,8 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 .text-align-center a {
 	margin: 0 10px;
 	text-decoration: none;
-	color: blue;
+	color: black;
+	font-size: 1.3rem;
 }
 
 .text-align-center a:hover {
@@ -62,7 +65,7 @@ body, ul, li, h1, h2, h3, h4, h5, h6 {
 </head>
 <body>
 <div class="con">
-	<h1 class="text-align-center">공지사항 상세보기</h1>
+	<h1 class="text-align-center">[[${noticeCommand.noticeName}]]</h1>
 	<section class="article-detail">
 		<table>
 			<tbody>
