@@ -31,12 +31,76 @@ function del(classNum){
 	location.href="cartDel?classNum="+classNum;	
 }
 </script>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+form {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    font-size: 1rem;
+    vertical-align: middle;
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+input[type="button"], input[type="submit"] {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    color: #fff;
+}
+
+input[type="button"] {
+    background-color: #00008b;
+}
+
+input[type="submit"] {
+    background-color: red;
+}
+
+
+#prodCnt, #sumPrice {
+    font-weight: bold;
+    color: #007bff;
+}
+
+</style>
 </head>
 <body>
-<form action="/purchase/classBuy" method="post" >
-<table width="800" align="center" >
-<tr><td><input type="checkbox" id="checkBoxs" checked="checked"/></td>
-	<td>제품명</td><td>합계금액</td>
+<form action="/purchase/classBuy" method="post">
+<table width="800" align="center">
+<tr>
+	<td><input type="checkbox" id="checkBoxs" checked="checked"/></td>
+	<td>제품명</td>
+	<td>합계금액</td>
 	<td><input type="button"  value="선택 상품 삭제" onclick="del1();"/></td>
 </tr>
 <tr th:each="dto: ${list}">	
@@ -47,12 +111,12 @@ function del(classNum){
 </tr>
 <tr>
 	<td colspan="7" align="right">
-		상품수 : <span id="prodCnt">[[${list.size}]]</span>개<br />
-		전체 금액 : <span id="sumPrice">[[${sumPrice}]]</span>원<br />
-		
+		상품수 : <span id="prodCnt">[[${list.size}]]</span>개<br /><p>
+		전체 금액 : <span id="sumPrice">[[${sumPrice}]]</span>원<br /><p>
 		<input type="submit" value="구매하기" />
 	</td>
 </tr>
 </table>
+</form>
 </body>
 </html>
