@@ -11,7 +11,7 @@ using (select class_num from classroom where class_num = #{classNum}) cn
 on (c.class_num = cn.class_num and c.student_num = #{studentNum})
 WHEN MATCHED THEN
 update set
-cart_qty = cart_qty + #{cartQty}
+cart_qty = 1
 WHEN not MATCHED THEN
 insert (cart_num, student_num, class_num, CART_DATE)
 values(cart_seq.NEXTVAL, #{studentNum},#{classNum},sysdate)
