@@ -48,7 +48,9 @@ public class InquireController {
 		
 		AuthInfoDTO auth = (AuthInfoDTO) session.getAttribute("auth");
 		String userNum = auth.getUserNum();
+		String userEmail = auth.getUserEmail();
 		inquireCommand.setWriter(userNum);
+		inquireCommand.setInquireEmail(userEmail);
 		
 		
 		return "thymeleaf/inquire/inquireForm";
