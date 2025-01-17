@@ -23,7 +23,7 @@
 		<button type="submit" onclick="return confirm('정말 삭제하시겠습니까?');">리뷰삭제</button>
 	</form>
 	|
-	<a href="reviewList">리뷰목록</a>
+	<a th:href="|reviewList?classNum=${reviewCommand.classNum}|">리뷰목록</a>
 </body>
 </html>
 

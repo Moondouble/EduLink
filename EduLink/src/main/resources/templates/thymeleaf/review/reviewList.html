@@ -27,8 +27,8 @@
     <h1>리뷰를 남겨주세요.</h1>
     <table border="1">
     <tr th:each="dto : ${list}">
-        <td><a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰 제목: <span th:text="${dto.reviewName}"></span></a></td>
-        <td><a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰 내용: <span th:text="${dto.reviewContents}"></span></a></td>
+        <td>리뷰 제목: <a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|"><span th:text="${dto.reviewName}"></span></a></td>
+        <td>리뷰 내용: <a th:href="|reviewDetail?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|"><span th:text="${dto.reviewContents}"></span></a></td>
        	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><a th:href="|reviewUpdate?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|">리뷰수정</a></td>
        	<td th:if="${session.auth.userNum} == ${dto.studentNum}"><form th:action="|reviewDelete?classNum=${dto.classNum}&reviewNum=${dto.reviewNum}|" method="post"
                           style="display: inline;">
