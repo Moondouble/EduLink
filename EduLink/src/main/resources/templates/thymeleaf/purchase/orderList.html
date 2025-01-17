@@ -2,46 +2,96 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>구매 목록</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+    table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        border-spacing: 0;
+        background: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    table th, table td {
+        text-align: center;
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+    table th {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        color: #555;
+    }
+    table tr:hover {
+        background-color: #f1f1f1;
+    }
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 24px;
+        color: #444;
+    }
+    .action-link a {
+        text-decoration: none;
+        color: #fff;
+        padding: 6px 12px;
+        border-radius: 4px;
+        background-color: #555;
+        transition: background-color 0.3s;
+    }
+    .action-link a:hover {
+        background-color: #373737;
+    }
+</style>
 </head>
 <body>
-구매목록<br />
-<table width="800" align = "center">
-	<tr><td>주문일(결제번호)</td> <td>상품명(이미지) / 주문번호</td>	
-		<td>주문상태</td>
-	</tr>
-	<tr th:each=" orderListDTO : ${olist}" >
-		<td>[[${#dates.format(orderListDTO.purchaseDTO.purchaseDate,'yyyy-MM-dd')}]](
-			<!-- 결제 시간이 없다는 건 아직 결제가 안되었다는 의미입니다. -->
-			<th:block th:if="${orderListDTO.paymentDTO.applTime == null}">
-				결제대기중
-			</th:block>
-			<!-- 결제 시간이 있다는 건 결제가 이루어졌다는 의미입니다. -->
-			<th:block th:if="${orderListDTO.paymentDTO.applTime != null}">
-				<!-- 현금결제인 경우 승인번호가 없을 수 있습니다. -->
-				<th:block th:if="${orderListDTO.paymentDTO.confirmNumber == null}">
-					<!-- 결제시간은 있는데 승인번호가 없다는 건 --> 현금결제 
-				</th:block>
-				<th:block th:if="${orderListDTO.paymentDTO.confirmNumber != null}">
-				[[${orderListDTO.paymentDTO.confirmNumber}]]<!-- 승인번호 -->
-				</th:block>
-			</th:block>
-			)</td> 
-		<!-- 결제정보 하나에 상품은 여러개 일 수 있어 collection으로 받아 욌습니다. -->
-		<td>
-			<th:block th:each="dto : ${orderListDTO.purchaseListClassDTOs}" >
-				[[${dto.classroomDTO.className}]]
-			</th:block>
-		/ [[${orderListDTO.purchaseDTO.purchaseNum}]]</td>	
-		<td>
-			<th:block th:if="${orderListDTO.paymentDTO.applTime != null}">
-			<a th:href="|paymentDel?purchaseNum=${orderListDTO.purchaseDTO.purchaseNum}|">결제취소</a>
-			</th:block>
-			<th:block th:if="${orderListDTO.paymentDTO.applTime == null}">
-			<a th:href="|paymentOk?purchaseNum=${orderListDTO.purchaseDTO.purchaseNum}|">결제하기</a>
-			</th:block>
-		</td>
-	</tr>
+
+<h1>구매 목록</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>주문일(결제번호)</th>
+            <th>상품명(이미지) / 주문번호</th>
+            <th>주문상태</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="orderListDTO : ${list}">
+            <td>
+                [[${#dates.format(orderListDTO.purchaseDTO.purchaseDate, 'yyyy-MM-dd')}]]
+                (<th:block th:if="${orderListDTO.paymentDTO.applTime == null}">결제대기중</th:block>
+                <th:block th:if="${orderListDTO.paymentDTO.applTime != null}">
+                    <th:block th:if="${orderListDTO.paymentDTO.confirmNumber == null}">현금결제</th:block>
+                    <th:block th:if="${orderListDTO.paymentDTO.confirmNumber != null}">
+                        [[${orderListDTO.paymentDTO.confirmNumber}]]
+                    </th:block>
+                </th:block>)
+            </td>
+            <td>
+                <th:block th:each="dto : ${orderListDTO.purchaseListClassDTOs}">
+                    [[${dto.classroomDTO.className}]]
+                </th:block>
+                / [[${orderListDTO.purchaseDTO.purchaseNum}]]
+            </td>
+            <td class="action-link">
+                <th:block th:if="${orderListDTO.paymentDTO.applTime != null}">
+                    <a th:href="|paymentDel?purchaseNum=${orderListDTO.purchaseDTO.purchaseNum}|">결제취소</a>
+                </th:block>
+                <th:block th:if="${orderListDTO.paymentDTO.applTime == null}">
+                    <a th:href="|paymentOk?purchaseNum=${orderListDTO.purchaseDTO.purchaseNum}|">결제하기</a>
+                </th:block>
+            </td>
+        </tr>
+    </tbody>
 </table>
+
 </body>
 </html>
