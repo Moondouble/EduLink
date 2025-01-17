@@ -308,11 +308,20 @@
                     </span>
                     <span th:unless="${cdto.boardContents != null}">내용 없음</span>
                     <div class="links">
-                        <a th:if="${session.auth.grade == 'teacher' or session.auth.grade == 'employee'}"
-                           th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
-                           onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">
-                           영상 바로가기     
-                        </a>
+                    	<div th:each=" orderListDTO : ${olist}">
+	                        <a th:if="${(session.auth.grade == 'teacher' or session.auth.grade == 'employee') or orderListDTO.purchaseDTO.purchaseStatus == '결제완료' }"
+	                           th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
+	                           onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">
+	                           영상 바로가기     
+	                        </a>
+                        </div>
+                    	<span th:if="${isTeacherOrEmployee}">
+	                        <a 
+	                           th:href="|/video/${cdto.classNum}/${cdto.boardNum}?boardStoreVideo=${cdto.boardStoreVideo}|"
+	                           onclick="window.open(this.href, '_blank', 'width=1280, height=720'); return false;">
+	                           영상 바로가기     
+	                        </a>
+                        </span>
 
                     </div>
                 </li>
