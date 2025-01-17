@@ -3,20 +3,102 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+html {
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+body, ul, li, h1, h2, h3, h4, h5, h6 {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.con {
+	margin: 0 auto;
+	max-width: 950px;
+}
+
+.article-detail {
+	border: 2px solid lightgray;
+	padding: 20px;
+	box-sizing: border-box;
+	margin-top: 20px;
+}
+
+.article-detail>table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+}
+
+.article-detail>table th, .article-detail>table td {
+	border: 1px solid lightgray;
+	padding: 10px;
+	text-align: left;
+}
+
+.article-detail>table tr.article-title>td {
+	font-weight: bold;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.text-align-center {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.text-align-center a {
+	margin: 0 10px;
+	text-decoration: none;
+	color: blue;
+}
+
+.text-align-center a:hover {
+	text-decoration: underline;
+}
+</style>
 </head>
 <body>
-noticeInfo<br />
-공지번호 : [[${noticeCommand.noticeNum}]] <br />
-작성자  : [[${noticeCommand.empNum}]] <br />
-공지제목 : [[${noticeCommand.noticeName}]] <br />
-공지내용 : [[${noticeCommand.noticeContents}]] <br />
-공지날짜 : [[${#dates.format(noticeCommand.noticeDate, 'yyyy-MM-dd')}]] <br />
-<div th:if="${session.auth != null}">
-	<div th:if="${session.auth.grade == 'employee'}">
-		<a th:href="|noticeUpdate?noticeNum=${noticeCommand.noticeNum}|">공지수정</a> |
-		<a th:href="|noticeDelete?noticeNum=${noticeCommand.noticeNum}|">공지삭제</a> |
-	</div>
+<div class="con">
+	<h1 class="text-align-center">공지사항 상세보기</h1>
+	<section class="article-detail">
+		<table>
+			<tbody>
+				<tr class="article-title">
+					<th>공지번호</th>
+					<td colspan="3">[[${noticeCommand.noticeNum}]]</td>
+				</tr>
+				<tr>
+					<th>작성자</th>
+					<td colspan="3">[[${noticeCommand.empNum}]]</td>
+				</tr>
+				<tr>
+					<th>공지제목</th>
+					<td colspan="3">[[${noticeCommand.noticeName}]]</td>
+				</tr>
+				<tr>
+					<th>공지내용</th>
+					<td colspan="3">[[${noticeCommand.noticeContents}]]</td>
+				</tr>
+				<tr>
+					<th>공지날짜</th>
+					<td colspan="3">[[${#dates.format(noticeCommand.noticeDate, 'yyyy-MM-dd')}]]</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="text-align-center" th:if="${session.auth != null}">
+			<div th:if="${session.auth.grade == 'employee'}">
+				<a th:href="|noticeUpdate?noticeNum=${noticeCommand.noticeNum}|">공지수정</a>
+				|
+				<a th:href="|noticeDelete?noticeNum=${noticeCommand.noticeNum}|">공지삭제</a>
+			</div>
+		</div>
+		<div class="text-align-center">
+			<a href="noticeList">공지목록</a>
+		</div>
+	</section>
 </div>
-<a href="noticeList">공지목록</a>
 </body>
 </html>
