@@ -2,19 +2,90 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>classForm.html</title>
+<title>강의개설</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<!-- daisyui 불러오기 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@0.14.4/dist/full.css">
+
+<!-- 폰트어썸 불러오기 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 </head>
 <body>
-강의개설 페이지입니다.<br />
-<form action="classRegist" method="post" th:object="${classroomCommand}">
-강의번호 :        	<input type="text" name="classNum" th:value="${classroomCommand.classNum}" readonly="readonly"/>자동부여<br />
-강사번호 :      	<input type="text" name="teacherNum" id="teacherNum" th:value="${classroomCommand.teacherNum}"/><br />                     
-강의명 :         	<input type="text" name="className" th:value="${classroomCommand.className}"/><br />            
-강의내용 : 		<textarea name="classContents" th:value="${classroomCommand.classContents}"></textarea><br />      
-강의시작일 : 		<input type="date" name="classStartDate"  th:value="${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}"/><br />
-강의종료일 : 		<input type="date" name="classEndDate"  th:value="${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}"/><br />
-강의가격 : 		<input type="number" name="classroomPrice" th:value="${classroomCommand.classroomPrice}" /><br />          
-<input type="submit" value="강의개설" />
-</form>
+<div class="section-board-make">
+  <div class="container mx-auto">
+    <div class="card bordered shadow-lg item-bt-1-not-last-child">
+      <div class="card-title">
+        <a href="javascript:history.back();" class="cursor-pointer">
+          <i class="fas fa-chevron-left"></i>
+        </a>
+        <span>강의개설</span>
+      </div>
+      <div class="px-4 py-8">
+        <form class="grid form-type-1" action="classRegist" method="post" th:object="${classroomCommand}">
+			<div class="form-control">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의번호</span>
+            </label>
+            <input type="text" name="classNum" th:value="${classroomCommand.classNum}" placeholder="자동부여" class="input input-bordered">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강사번호</span>
+            </label>
+            <input type="text" name="teacherNum" id=teacherNum th:value="${classroomCommand.teacherNum}" class="input input-bordered">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의제목</span>
+            </label>
+            <input type="text" name="className" th:value="${classroomCommand.className}" class="input input-bordered">
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의내용</span>
+            </label>
+            <textarea rows="5" cols="60" name="classContents" th:value="${classroomCommand.classContents}" class="textarea textarea-bordered"></textarea>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의시작일</span>
+            </label>
+            <input type="date" name="classStartDate"  th:value="${#dates.format(classroomCommand.classStartDate, 'yyyy-MM-dd')}" class="input input-bordered"/>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의종료일</span>
+            </label>
+            <input type="date" name="classEndDate"  th:value="${#dates.format(classroomCommand.classEndDate, 'yyyy-MM-dd')}" class="input input-bordered"/>
+          </div>
+          <div class="form-control">
+            <label class="label">
+              <span class="label-text">강의가격</span>
+            </label>
+            <input type="number" name="classroomPrice" th:value="${classroomCommand.classroomPrice}" class="input input-bordered"/>
+          </div>
+          <div class="mt-4 btn-wrap gap-1">
+            <button type="submit" class="btn btn-primary btn-sm mb-1">
+              <span><i class="fas fa-save"></i></span>
+              &nbsp;
+              <span>생성</span>
+            </button>
+            <a href="/" class="btn btn-secondary btn-sm mb-1">
+              <span><i class="fas fa-list"></i></span>
+              &nbsp;
+              <span>리스트로 돌아가기</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
